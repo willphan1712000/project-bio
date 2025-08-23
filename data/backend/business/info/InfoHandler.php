@@ -72,11 +72,8 @@ abstract class InfoHandler implements InfoElement
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new UserDisplay($this->name, $this->format($value));
-        $info->setInfo($this->name, [
-            'value' => $display->getValue(),
-            'label' => $display->getLabel(),
-            'html' => $display->getHTML(),
-        ]);
+
+        $this->checkServerRendering($info, $display);
         return true;
     }
 
@@ -95,6 +92,22 @@ abstract class InfoHandler implements InfoElement
     public function format(?string $info): ?string
     {
         return $info;
+    }
+
+    /**
+     * This function check if the chosen server rendering is true or not. If true, the info will be used for server rendering, and will be used for client rendering (api call) otherwise
+     */
+    protected function checkServerRendering(Info $info, UserDisplay $display)
+    {
+        if ($info->getInfo('is_server_render')) {
+            $info->setInfo($this->name, $display);
+        } else {
+            $info->setInfo($this->name, [
+                'value' => $display->getValue(),
+                'label' => $display->getLabel(),
+                'html' => $display->getHTML(''),
+            ]);
+        }
     }
 
     protected abstract function getValueFromDatabase(string $getWhat, string $username): ?string;

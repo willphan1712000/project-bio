@@ -59,11 +59,7 @@ class HotLine extends Phone
         ]));
         $display->setOperation(OperationPhoneDisplay::getInstance());
 
-        $info->setInfo($this->name, [
-            'value' => $display->getValue(),
-            'label' => $display->getLabel(),
-            'html' => $display->getHTML(),
-        ]);
+        $this->checkServerRendering($info, $display);
         return true;
     }
 

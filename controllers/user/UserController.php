@@ -23,7 +23,9 @@ class UserController extends Controller
     protected $g;
     protected $deleteToken;
 
-    // Function that checks if the account is being deactived or not
+    /**
+     * Function that checks if the account is being deactived or not
+     */
     private function deactivateRedirect()
     {
         if ($this->deleteToken !== NULL) {
@@ -32,7 +34,9 @@ class UserController extends Controller
         }
     }
 
-    // if template id is 0, redirect to default template. Otherwise, proceed the next
+    /**
+     * if template id is 0, redirect to default template. Otherwise, proceed the next
+     */
     private function themeRedirect()
     {
         if ($this->themeid === 0) {
@@ -56,7 +60,7 @@ class UserController extends Controller
         $this->socialIconArr = SystemConfig::socialIconArr(); // get icon array
         $this->url = UserManagement::URLGenerator($this->username, "share"); // get url based on username
 
-        $infoProcess = (new userGET($this->username))->execute();
+        $infoProcess = (new userGET($this->username, true))->execute();
         $this->info = $infoProcess['success'] ? $infoProcess['data'] : null; // get info map
 
         $cssBackend = (new GET($this->username, $this->themeid))->execute();

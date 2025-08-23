@@ -1,4 +1,4 @@
-import { User, UserInfo, UserPhone, UserSocial } from "./User"
+import { UserInfo, UserPhone, UserSocial } from "./User"
 
 /**
  * This is Template type fetched from template server

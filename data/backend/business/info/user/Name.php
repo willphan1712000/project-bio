@@ -19,11 +19,8 @@ class Name extends User
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new NormalDisplay($this->name, $this->format($value));
-        $info->setInfo($this->name, [
-            'value' => $display->getValue(),
-            'label' => $display->getLabel(),
-            'html' => $display->getHTML(),
-        ]);
+
+        $this->checkServerRendering($info, $display);
         return true;
     }
 

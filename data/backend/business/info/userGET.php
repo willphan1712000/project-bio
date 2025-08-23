@@ -8,10 +8,12 @@ use business\info\Info;
 class userGET implements IAPI
 {
     private string $username;
+    private bool $is_server_render;
 
-    public function __construct(string $username)
+    public function __construct(string $username, bool $is_server_render = false)
     {
         $this->username = $username;
+        $this->is_server_render = $is_server_render;
     }
 
     private function get()
@@ -19,6 +21,7 @@ class userGET implements IAPI
         try {
             $info = new Info([]);
             $info->setInfo('username', $this->username);
+            $info->setInfo('is_server_render', $this->is_server_render);
 
             // $userSocialHandler = new Booking(new Facebook(new HotSale(new Instagram(new Linkedin(new Messenger(new OrderOnline(new Pinterest(new Threads(new Tiktok(new Website(new X(new Youtube(new Zalo(null))))))))))))));
             // // Handle user phone number

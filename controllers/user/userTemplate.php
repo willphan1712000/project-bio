@@ -10,23 +10,23 @@ use controllers\template\TemplateFactory;
 $user = new UserController();
 $user->execute();
 
-$infoArray = $user->get("info");
-
-// $socialIconArr = $user->get("socialIconArr");
 $username = $user->get("username");
-$themeid = $user->get("themeid");
-$g = $user->get("g");
-$image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
-$css = $user->get("css");
 
-// c::dd($css);
+// $infoArray = $user->get("info");
+// $socialIconArr = $user->get("socialIconArr");
+// $themeid = $user->get("themeid");
+// $g = $user->get("g");
+// $image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
+// $css = $user->get("css");
 
-// This is information that gets passed down to the corresponsing template
-$props = [
-    'imgPath' => $image,
-    'info' => $infoArray,
-    'css' => $css
-];
+// // c::dd($css);
+
+// // This is information that gets passed down to the corresponsing template
+// $props = [
+//     'imgPath' => $image,
+//     'info' => $infoArray,
+//     'css' => $css
+// ];
 
 ?>
 <!DOCTYPE html>

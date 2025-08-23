@@ -9,12 +9,18 @@ export type UserInfo = | "Name" | "Image" | "Organization" | "Description" | "Em
 
 export type User = | "username" | "password" | "email" | "token" | "deleteToken" | "createdAt"
 
+type EachInfo = {
+    value: string,
+    label: string,
+    html: string
+}
+
 type User_Info_Required = {
-    [K in UserPhone]: string
+    [K in UserPhone]: EachInfo
 } & {
-    [K in UserSocial]: string
+    [K in UserSocial]: EachInfo
 } & {
-    [K in UserInfo]: string
+    [K in UserInfo]: EachInfo
 }
 
 export type User_Info = Partial<User_Info_Required>
