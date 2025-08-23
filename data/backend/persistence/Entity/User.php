@@ -165,4 +165,9 @@ class User extends EntityFunction
     //     $this->StyleDefault = $styleDefault;
     //     return $this;
     // }
+
+    public function getDefaultTemplate()
+    {
+        return $this->defaultTemplate;
+    }
 }

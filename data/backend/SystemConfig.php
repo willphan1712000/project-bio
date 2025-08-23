@@ -72,7 +72,8 @@ class SystemConfig
                 'url' => ProductionConfig::config()['template_server'],
                 'endpoint' => [
                     'template' => '/api/template',
-                    'pricing' => '/api/pricing'
+                    'pricing' => '/api/pricing',
+                    'info' => '/api/info'
                 ],
                 'headers' => [
                     "Authorization: {$_ENV['SYSTEM_SECRET_KEY']}",

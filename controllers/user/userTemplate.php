@@ -41,12 +41,12 @@ $props = [
 </head>
 
 <body>
-    <div id="notSupported">
+    <!-- <div id="notSupported">
         <p>Bio does not support wide screen!</p>
-    </div>
+    </div> -->
     <div id="container">
         <?php
-        TemplateFactory::getInstance()->getTemplate($themeid)->html($props);
+        // TemplateFactory::getInstance()->getTemplate($themeid)->html($props);
         ?>
     </div>
     <div id="userFooter">

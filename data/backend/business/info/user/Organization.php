@@ -32,10 +32,4 @@ class Organization extends User
         }
         return false;
     }
-
-    public function format($info): ?string
-    {
-        $o = JobTitle::getInstance();
-        return $o->execute($info);
-    }
 }

@@ -50,6 +50,28 @@ class TemplateController
     }
 
     /**
+     * This function handles getting a specific template - this might handle efficient loading
+     */
+    public function getId($id)
+    {
+        $this->otherServer->get(
+            self::$Template_Server_URL . self::$endpoint . "/" . $id,
+            function ($res) {
+                $this->response->setStatusCode(200)->json([
+                    "success" => true,
+                    "data" => json_decode($res, true),
+                ]);
+            },
+            function () {
+                $this->response->setStatusCode(400)->json([
+                    "success" => false,
+                    "error" => "There is an error getting information."
+                ]);
+            }
+        );
+    }
+
+    /**
      * This function handles returning the template server url
      */
     public function getTemplateServerURL()

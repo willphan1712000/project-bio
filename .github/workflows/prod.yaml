@@ -53,3 +53,4 @@ jobs:
             cd /home/bio/test.allinclicksbio.com
             ./vendor/bin/doctrine-migrations diff
             ./vendor/bin/doctrine-migrations migrate
+        continue-on-error: true

@@ -1422,6 +1422,10 @@ video {
   width: 41px;
 }
 
+.w-\[450px\] {
+  width: 450px;
+}
+
 .w-\[45px\] {
   width: 45px;
 }
@@ -1788,6 +1792,10 @@ video {
 
 .rounded-\[40px\] {
   border-radius: 40px;
+}
+
+.rounded-\[44px\] {
+  border-radius: 44px;
 }
 
 .rounded-\[50\%\] {

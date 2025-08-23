@@ -1,12 +1,8 @@
 import apiClient, { Response } from "../../../client/api/apiClient";
+import { User } from "../../../client/types/User";
 
 export type UserType = {
-    username: string,
-    password: string,
-    email: string,
-    token?: string,
-    deleteToken?: string,
-    createdAt: string
+    [K in User]: string
 }
 
 async function getUsers() {

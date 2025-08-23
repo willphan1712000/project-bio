@@ -21,7 +21,7 @@ class UserManagement implements IUserManagement
     /**
      * This function handles checking whether or not the user is signed in
      */
-    public static function isSignedIn(&$SESSION, string $username, string $token = null): bool
+    public static function isSignedIn(&$SESSION, string $username, ?string $token = null): bool
     {
         $authStrategy = new Auth($username, $token);
         return $authStrategy->auth();

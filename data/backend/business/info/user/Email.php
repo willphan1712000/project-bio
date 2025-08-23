@@ -22,7 +22,11 @@ class Email extends User
         $display = new UserDisplay($this->name, $this->format($value));
         $display->setOperation(OperationEmail::getInstance());
 
-        $info->setInfo($this->name, $display);
+        $info->setInfo($this->name, [
+            'value' => $display->getValue(),
+            'label' => $display->getLabel(),
+            'html' => $display->getHTML(),
+        ]);
         return true;
     }
 
