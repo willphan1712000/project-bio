@@ -106,6 +106,7 @@ abstract class InfoHandler implements InfoElement
                 'value' => $display->getValue(),
                 'label' => $display->getLabel(),
                 'html' => $display->getHTML(''),
+                'htmlWValue' => $display->getHTML()
             ]);
         }
     }

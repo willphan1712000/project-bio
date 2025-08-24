@@ -12,7 +12,8 @@ export type User = | "username" | "password" | "email" | "token" | "deleteToken"
 type EachInfo = {
     value: string,
     label: string,
-    html: string
+    html: string,
+    htmlWValue: string
 }
 
 type User_Info_Required = {

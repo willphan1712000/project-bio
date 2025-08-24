@@ -1,4 +1,15 @@
+/**
+ * Dimension: inch
+ */
 export default Object.freeze({
-    template_ratio: 2.125 / 3.375,
-    template_zoom_ratio: 210
+    card_standard: {
+        width: 2.125,
+        height: 3.375,
+        ratio: 2.125 / 3.375,
+        corner_radius: 0.125
+    },
+    template: {
+        zoom_ratio: 210,
+        text_zoom_ratio: 0.5
+    }
 })

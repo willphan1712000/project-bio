@@ -25,6 +25,7 @@ export type Template_Info = {
         x: number,
         y: number,
         h: number,
-        w: number
+        w: number,
+        color: string
     }
 }

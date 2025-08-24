@@ -7,7 +7,7 @@ type Template_User = {
     template: Template,
     template_info: Template_Info,
     template_server_url: string,
-    user_info: User_Info
+    user_info: User_Info,
 }
 
 /**
