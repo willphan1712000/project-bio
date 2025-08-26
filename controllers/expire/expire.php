@@ -19,7 +19,7 @@ $g = SystemConfig::globalVariables();
 
 <body>
     <div id="container">
-        <div class="logo"><?= (new Logo())->render(); ?></div>
+        <div class="logo w-[200px]"><?= (new Logo())->render(); ?></div>
         <div id="code404"><img src="<?= $g['img']['expire'] ?>" alt=""> <a href="/">Go back</a></div><?php
                                                                                                         (new Copyright([
                                                                                                             'position' => 'absolute'

@@ -8,6 +8,12 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 
+enum METHOD: string
+{
+    case SUBSCRIPTION = "SUBSCRIPTION";
+    case ONETIME = "ONETIME";
+}
+
 #[Entity]
 #[Table('Purchase')]
 class Purchase extends EntityFunction
@@ -16,8 +22,10 @@ class Purchase extends EntityFunction
     protected int $purchase_id;
     #[Column(name: 'username')]
     protected string $username;
-    #[Column(name: 'subtotal', type: 'decimal', precision: 10, scale: 2)]
-    protected float $subtotal;
+    #[Column(name: 'template_id')]
+    protected int $template_id;
+    #[Column(name: 'method', enumType: METHOD::class)]
+    protected METHOD $method;
     #[Column(name: 'total', type: 'decimal', precision: 10, scale: 2)]
     protected float $total;
     #[Column(name: 'purchasedAt')]

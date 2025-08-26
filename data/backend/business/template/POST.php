@@ -25,8 +25,8 @@ class POST implements IAPI
             $entityManager = EntityManager::getEntityManager();
 
             $template = new Template();
-            $template->setUsername($this->username);
-            $template->setTemplateId($this->template_id);
+            $template->set("username", $this->username);
+            $template->set("template_id", $this->template_id);
 
             /** @var User $user */
             $user = $entityManager->find(User::class, $this->username);
@@ -34,17 +34,7 @@ class POST implements IAPI
                 throw new \Exception("user does not exist");
             }
 
-            $user->setTemplate($template);
-
-            /** @var StyleDefault*/
-            $styleDefault = $entityManager->find(StyleDefault::class, $this->template_id);
-            if ($styleDefault === NULL) {
-                throw new \Exception("template does not exist");
-            }
-
-            $styleDefault->setTemplate($template);
-
-            $entityManager->persist($user);
+            $entityManager->persist($template);
             $entityManager->flush();
 
             return [

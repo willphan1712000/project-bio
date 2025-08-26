@@ -12,7 +12,7 @@
     "tsc": "rm -rf ./controllers/client/src/dist/ && tsc --watch",
     "diff": "./vendor/bin/doctrine-migrations diff",
     "migrate": "./vendor/bin/doctrine-migrations migrate",
-    "test": "php vendor/bin/phpunit tests --color --display-deprecations"
+    "test": "php vendor/bin/phpunit tests --color --display-deprecations --display-warnings"
   },
   "type": "module",
   "keywords": [],

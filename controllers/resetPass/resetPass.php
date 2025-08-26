@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <div class="logo"><?= (new Logo())->render(); ?></div>
+    <div class="logo w-[200px]"><?= (new Logo())->render(); ?></div>
     <div class="signupParent">
         <div class="signupChild <?= $inactive; ?>">
             <h1 class="text-[30px]">Reset Password</h1><span class="signupChild__error"><?= $error; ?></span>

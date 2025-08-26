@@ -4,7 +4,7 @@ use business\user\DELETE;
 use business\user\POST as UserPOST;
 use PHPUnit\Framework\TestCase;
 
-class PostTest extends TestCase
+class UserPostTest extends TestCase
 {
     private $user;
     private $username = 'nhaphan123200';
@@ -22,7 +22,6 @@ class PostTest extends TestCase
 
     protected function tearDown(): void
     {
-        echo "Tearing down...";
         $user = new DELETE($this->username);
         $user->execute();
     }

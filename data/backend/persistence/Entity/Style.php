@@ -14,8 +14,8 @@ class Style extends EntityFunction
 {
     #[Id, Column(name: 'id'), GeneratedValue]
     protected int $id;
-    #[Column(name: 'purchase_id')]
-    protected int $purchase_id;
+    #[Column(name: 'element')]
+    protected string $element;
     #[Column(name: 'username')]
     protected string $username;
     #[Column(name: 'template_id')]

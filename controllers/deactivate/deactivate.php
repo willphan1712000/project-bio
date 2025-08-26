@@ -18,7 +18,7 @@ $img = SystemConfig::globalVariables()['img']['deactivate'];
 </head>
 
 <body>
-    <div class="logo mt-[20px]"><?= (new Logo())->render(); ?></div>
+    <div class="logo mt-[20px] w-[200px]"><?= (new Logo())->render(); ?></div>
 
     <div id="container" class="flex flex-col justify-center items-center">
         <div class="p-[30px]">
