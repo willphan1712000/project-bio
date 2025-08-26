@@ -10,7 +10,7 @@ interface AuthInterface
     public function auth(): bool;
 
     /**
-     * This function handles generating auth information
+     * This function handles verifying credentials and generating auth information
      */
     public function generateAuth(): bool | string;
 }

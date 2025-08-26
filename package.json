@@ -9,7 +9,10 @@
     "wpw": "webpack --watch",
     "twb": "tailwindcss -i controllers/client/src/styles.css -o controllers/client/css/tailwind.css",
     "tww": "tailwindcss -i controllers/client/src/styles.css -o controllers/client/css/tailwind.css --watch",
-    "tsc": "rm -rf ./controllers/client/src/dist/ && tsc --watch"
+    "tsc": "rm -rf ./controllers/client/src/dist/ && tsc --watch",
+    "diff": "./vendor/bin/doctrine-migrations diff",
+    "migrate": "./vendor/bin/doctrine-migrations migrate",
+    "test": "php vendor/bin/phpunit tests --color --display-deprecations"
   },
   "type": "module",
   "keywords": [],

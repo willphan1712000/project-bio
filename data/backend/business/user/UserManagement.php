@@ -10,7 +10,7 @@ use persistence\Entity\User;
 interface IUserManagement
 {
     public static function isSignedIn(&$SESSION, string $username, string $hi): bool;
-    public static function auth(&$SESSION, string $username): bool;
+    public static function auth(&$SESSION, string $username, string $password): bool;
     public static function URLGenerator(string $username, string $c): string|null;
     public static function isUserExist($username): bool;
     public static function isEmailMatchUsername(string $username, string $email): bool;
@@ -30,9 +30,9 @@ class UserManagement implements IUserManagement
     /**
      * This function handles granting user session or token to access resources
      */
-    public static function auth(&$SESSION, string $username): bool
+    public static function auth(&$SESSION, string $username, string $password): bool
     {
-        $authStrategy = new Auth($username);
+        $authStrategy = new Auth($username, $password);
         return $authStrategy->generateAuth();
     }
 
@@ -58,7 +58,7 @@ class UserManagement implements IUserManagement
             $result = Database::GET(User::class, null, ['username' => $username]);
 
             if ($result) {
-                if ($result->getUsername() === $username) {
+                if ($result->get("username") === $username) {
                     return true;
                 }
             }
