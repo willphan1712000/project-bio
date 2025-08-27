@@ -1,7 +1,7 @@
 import React, { useImperativeHandle, useRef } from 'react'
 import Text from './Text';
 import clientConfig from '../../clientConfig';
-import useWindowWidth, { mobile } from '../../hooks/useWindowWidth';
+import useWindowWidth, { mobile } from '../../../client/hooks/useWindowWidth';
 
 export type CardRef = {
   card: HTMLDivElement | null

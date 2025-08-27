@@ -8,7 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import useWindowWidth, { mobile } from '../../hooks/useWindowWidth';
+import useWindowWidth, { mobile } from '../../../client/hooks/useWindowWidth';
 import Card from './Card';
 import { ClientProducts } from '../api/ecard';
 
