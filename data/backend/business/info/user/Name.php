@@ -18,7 +18,9 @@ class Name extends User
     public function doUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
-        $info->setInfo($this->name, new NormalDisplay($this->name, $this->format($value)));
+        $display = new NormalDisplay($this->name, $this->format($value));
+
+        $this->checkServerRendering($info, $display);
         return true;
     }
 

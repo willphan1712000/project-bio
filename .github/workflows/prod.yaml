@@ -51,5 +51,6 @@ jobs:
           key: ${{ secrets.HOSTING_SSH_KEY }}
           script: |
             cd /home/bio/test.allinclicksbio.com
-            ./vendor/bin/doctrine-migrations diff
-            ./vendor/bin/doctrine-migrations migrate
+            npm run diff
+            npm run migrate
+        continue-on-error: true

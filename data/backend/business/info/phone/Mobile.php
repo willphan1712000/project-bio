@@ -57,7 +57,7 @@ class Mobile extends Phone
         ]));
         $display->setOperation(OperationPhoneDisplay::getInstance());
 
-        $info->setInfo($this->name, $display);
+        $this->checkServerRendering($info, $display);
         return true;
     }
 }

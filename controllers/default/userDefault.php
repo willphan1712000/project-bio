@@ -9,14 +9,13 @@ use component\Copyright;
 $user = new UserController();
 $user->execute();
 
-$infoArray = $user->get("info");
-
-$socialIconArr = $user->get("socialIconArr");
 $username = $user->get("username");
+$infoArray = $user->get("info");
+$socialIconArr = $user->get("socialIconArr");
 $g = $user->get("g");
-$image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
+$image = $infoArray['image']->getHTML();
 $orders = ['Email', 'Address', 'Mobile', 'Work', 'Viber', 'Whatsapp', 'HotLine', 'Menu', 'Booking', 'Website', 'OrderOnline', 'HotSale'];
-$exclude1 = ['username', 'name', 'image', 'position', 'organization', 'description', 'MobileFlag', 'MobileCode', 'WorkFlag', 'WorkCode', 'HotLineFlag', 'HotLineCode', 'ViberFlag', 'ViberCode', 'WhatsappFlag', 'WhatsappCode'];
+$exclude1 = ['username', 'is_server_render', 'name', 'image', 'position', 'organization', 'description', 'MobileFlag', 'MobileCode', 'WorkFlag', 'WorkCode', 'HotLineFlag', 'HotLineCode', 'ViberFlag', 'ViberCode', 'WhatsappFlag', 'WhatsappCode'];
 $exclude = array_merge($orders, $exclude1);
 ?>
 <!DOCTYPE html>
@@ -43,7 +42,7 @@ $exclude = array_merge($orders, $exclude1);
             <div class="info">
                 <div class="info__img">
                     <div class="info__img--location">
-                        <img src=<?= $image; ?> alt="bio_user_avatar" draggable="false" style="width: 100%; height: 100%;">
+                        <?= $image; ?>
                     </div>
                 </div>
                 <div class="info__about">

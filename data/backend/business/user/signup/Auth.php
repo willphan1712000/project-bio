@@ -15,6 +15,6 @@ class Auth extends SignupHandler
     public function doHandle(Input $input): bool
     {
         SESSION_START();
-        return UserManagement::auth($_SESSION, $input->getUsername());
+        return UserManagement::auth($_SESSION, $input->getUsername(), $input->getPassword());
     }
 }

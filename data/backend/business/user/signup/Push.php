@@ -4,7 +4,6 @@ namespace business\user\signup;
 
 use business\user\signup\SignupHandler;
 use business\user\signup\Input;
-use persistence\Entity\StyleDefault;
 use persistence\Entity\User;
 use persistence\Entity\UserInfo;
 use persistence\Entity\UserPhone;
@@ -30,23 +29,21 @@ class Push extends SignupHandler
         $userInfo = new UserInfo();
         $userPhone = new UserPhone();
         $userSocial = new UserSocial();
-        $styleDefault = $entityManager->find(StyleDefault::class, 0);
 
-        $user->setUsername($username);
-        $user->setPassword($password);
-        $user->setEmail($email);
+        $user->set("username", $username);
+        $user->set("password", password_hash($password, PASSWORD_BCRYPT));
+        $user->set("email", $email);
         $user->set('defaultTemplate', 0);
 
-        $userInfo->setUsername($username);
-        $userPhone->setUsername($username);
-        $userSocial->setUsername($username);
-
-        $user->setUserInfo($userInfo);
-        $user->setUserPhone($userPhone);
-        $user->setUserSocial($userSocial);
-        $styleDefault->setUser($user);
+        $userInfo->set("username", $username);
+        $userPhone->set("username", $username);
+        $userSocial->set("username", $username);
 
         $entityManager->persist($user);
+        $entityManager->persist($userInfo);
+        $entityManager->persist($userPhone);
+        $entityManager->persist($userSocial);
+
         $entityManager->flush();
 
         return true;

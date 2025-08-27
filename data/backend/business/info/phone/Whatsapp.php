@@ -59,7 +59,7 @@ class Whatsapp extends Phone
         ]));
         $display->setOperation(OperationWhatsapp::getInstance());
 
-        $info->setInfo($this->name, $display);
+        $this->checkServerRendering($info, $display);
         return true;
     }
 }

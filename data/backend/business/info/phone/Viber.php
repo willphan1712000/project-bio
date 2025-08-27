@@ -60,7 +60,7 @@ class Viber extends Phone
         ]));
         $display->setOperation(OperationViber::getInstance());
 
-        $info->setInfo($this->name, $display);
+        $this->checkServerRendering($info, $display);
         return true;
     }
 }

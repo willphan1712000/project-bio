@@ -50,8 +50,6 @@ class POST implements IAPI
             if ($user === NULL) {
                 throw new \Exception("user does not exist");
             }
-            $user->setPurchase($purchase);
-            $user->set("defaultTemplate", $this->templates[0]); // set the first purchased template as the default template for user
 
             // iteratively add each purchased template
             foreach ($this->templates as $template) {

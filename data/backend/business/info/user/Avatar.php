@@ -2,7 +2,7 @@
 
 namespace business\info\user;
 
-use business\info\display\NormalDisplay;
+use business\info\display\AvatarDisplay;
 use business\info\Info;
 use business\info\InfoHandler;
 use config\SystemConfig;
@@ -59,7 +59,9 @@ class Avatar extends User
     public function doUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
-        $info->setInfo($this->name, new NormalDisplay($this->name, $this->format($value)));
+        $display = new AvatarDisplay($this->name, $this->format($value === NULL ? NULL : $info->getInfo("username") . "/" . $value));
+
+        $this->checkServerRendering($info, $display);
         return true;
     }
 }

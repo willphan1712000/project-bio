@@ -1,22 +1,10 @@
 import apiClient, { Response } from "../../../client/api/apiClient";
+import { Template } from "../../../client/types/Template";
 
 interface Files {
     thumbnail: File,
     template: File,
     annotation: File
-}
-
-type Template = {
-    id: number,
-    thumbnail: string,
-    thumbnail_url: string,
-    template: string,
-    template_url: string,
-    type: string,
-    createdAt: string,
-    unit_price: number,
-    recurring_price: number,
-    isActive: boolean
 }
 
 async function uploadTemplate(files: Files): Promise<Response<Response<any>>> {

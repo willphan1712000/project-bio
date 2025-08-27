@@ -3,9 +3,7 @@
 namespace controllers\signin;
 
 use config\SystemConfig;
-use persistence\Database;
 use controllers\Controller;
-use persistence\Entity\User;
 use business\user\UserManagement;
 
 class SigninController extends Controller
@@ -37,8 +35,7 @@ class SigninController extends Controller
         // check if user exists
         if (UserManagement::isUserExist($this->username)) {
             // check if password is correct
-            if ($this->password === Database::GET(User::class, "password", ['username' => $this->username])) {
-                UserManagement::auth($_SESSION, $this->username);
+            if (UserManagement::auth($_SESSION, $this->username, $this->password)) {
                 if ($this->template === 'true') {
                     header("Location: /@template?username=" . $this->username);
                 } else {
@@ -47,9 +44,12 @@ class SigninController extends Controller
             } else {
                 $this->error = "The password is not correct";
             }
-        } else if ($this->username === $this->g['aicAccount']['username'] && $this->password === $this->g['aicAccount']['password']) {
-            header("Location: /@aic");
-            UserManagement::auth($_SESSION, $this->username);
+        } else if ($this->username === $this->g['aicAccount']['username']) {
+            if (UserManagement::auth($_SESSION, $this->username, $this->password)) {
+                header("Location: /@aic");
+            } else {
+                $this->error = "The password is not correct";
+            }
         } else {
             $this->error = "The username does not exist";
         }

@@ -4,7 +4,7 @@ namespace persistence;
 
 interface IDatabase
 {
-    public static function GET($table, string $column = null, array $unique = null, string $limit = null);
+    public static function GET($table, ?string $column = null, ?array $unique = null, ?string $limit = null);
     public static function PUT(string $table, $column, $value, $unique): bool;
     public static function POST(string $table, array $columns): bool;
     public static function DELETE(string $table, array $unique): bool;
@@ -14,7 +14,7 @@ interface IDatabase
 class Database implements IDatabase
 {
     // Query function for fast data retrieval
-    public static function GET($table, string $column = null, array $unique = null, string $limit = null)
+    public static function GET($table, ?string $column = null, ?array $unique = null, ?string $limit = null)
     {
         $entityManager = EntityManager::getEntityManager(); // get entity manager instance
 

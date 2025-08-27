@@ -22,7 +22,7 @@ class Youtube extends Social
         $display = new UserDisplay($this->name, $this->format($value));
         $display->setOperation(OperationYoutube::getInstance());
 
-        $info->setInfo($this->name, $display);
+        $this->checkServerRendering($info, $display);
         return true;
     }
 }

@@ -66,7 +66,9 @@ class TemplateManagement implements ITemplateManagement
         }
     }
 
-    // This function will check if user shares a template. If template was purchased, it would be themeid. Otherwise, it would redirect user to the main user page
+    /**
+     * This function will check if user shares a template. If template was purchased, it would be themeid. Otherwise, it would redirect user to the main user page
+     */
     public static function shareTemplate($username, $tem = NULL): int
     {
         $chosen = Database::GET(User::class, 'defaultTemplate', ['username' => $username]);

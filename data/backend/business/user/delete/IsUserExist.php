@@ -13,9 +13,9 @@ class IsUserExist extends DeleteHandler
 
     public function doHandle(string $username): bool
     {
-        if (UserManagement::isUserExist($username)) {
-            return true;
+        if (!UserManagement::isUserExist($username)) {
+            throw new \Exception("User does not exist");
         }
-        throw new \Exception("user does not exist");
+        return true;
     }
 }

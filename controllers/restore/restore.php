@@ -36,7 +36,7 @@ if (isset($_POST['delete'])) {
 </head>
 
 <body>
-    <div class="logo"><?= (new Logo())->render(); ?></div>
+    <div class="logo w-[200px]"><?= (new Logo())->render(); ?></div>
     <div class="signupParent">
         <div class="relative pt-4 signupChild <?= $inactive; ?>">
             <h1 class="absolute top-[-20px] p-2 bg-white rounded-2xl shadow-[0px_8px_24px_rgba(149,157,165,0.2)]">Restore Account</h1>

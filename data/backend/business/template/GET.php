@@ -24,13 +24,16 @@ class GET implements IAPI
             /** @var User|NULL */
             $user = $entityManager->find(User::class, $this->username);
 
+            /** @var Template|NULL */
+            $templates = $entityManager->getRepository(Template::class)->findBy(['username' => $this->username]);
+
             if ($user === NULL) {
                 throw new \Exception("user does not exist");
             }
 
             $out = [];
 
-            foreach ($user->getTemplate() as $template) {
+            foreach ($templates as $template) {
                 array_push($out, $template->get('template_id'));
             }
 
