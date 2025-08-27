@@ -43,7 +43,7 @@ class CreateQR extends SignupHandler
         $logo = new Logo(
             path: __DIR__ . '../../../../../../controllers/client/img/logo.png',
             resizeToWidth: 200,
-            punchoutBackground: true
+            punchoutBackground: false
         );
 
         $result = $write->write($qrCode, $logo);
