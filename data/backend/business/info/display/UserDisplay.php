@@ -5,7 +5,12 @@ namespace business\info\display;
 use business\info\operation\MakeSpace;
 use business\info\operation\Operation;
 use business\info\operation\LongString;
-use config\SystemConfig;
+
+enum DISPLAY_TYPE: string
+{
+    case ADMIN = "ADMIN";
+    case USER = "USER";
+}
 
 class UserDisplay implements Display
 {
@@ -33,10 +38,9 @@ class UserDisplay implements Display
         return $o->execute($this->name);
     }
 
-    public function getHTML(?string $children = null): string
+    public function getHTML(?string $children = null, DISPLAY_TYPE $display = DISPLAY_TYPE::USER): string
     {
-        $searchParams = SystemConfig::URLExtraction(1);
-        if ($searchParams !== 'admin') {
+        if ($display === DISPLAY_TYPE::USER) {
             $children = $children ?? $this->value;
             $display = $this->value === null ? "none" : "flex";
             $value = ($this->o === null) ? $this->value : $this->o->execute($this->value);

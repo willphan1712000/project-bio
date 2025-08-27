@@ -2,6 +2,7 @@
 
 namespace business\info;
 
+use business\info\display\DISPLAY_TYPE;
 use business\info\display\UserDisplay;
 use config\SystemConfig;
 
@@ -106,7 +107,8 @@ abstract class InfoHandler implements InfoElement
                 'value' => $display->getValue(),
                 'label' => $display->getLabel(),
                 'html' => $display->getHTML(''),
-                'htmlWValue' => $display->getHTML()
+                'htmlWValue' => $display->getHTML(),
+                'htmlAdmin' => $display->getHTML(null, DISPLAY_TYPE::ADMIN)
             ]);
         }
     }

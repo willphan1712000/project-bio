@@ -13,6 +13,7 @@ vendor/
 
 #testing
 test/*
+tests
 
 # local env files
 .env*.local
