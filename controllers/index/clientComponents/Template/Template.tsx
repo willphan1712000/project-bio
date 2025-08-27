@@ -4,7 +4,7 @@ import Card from "./Card"
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from "./Image";
-import useWindowWidth, { mobile } from "../../hooks/useWindowWidth";
+import useWindowWidth, { mobile } from "../../../client/hooks/useWindowWidth";
 
 gsap.registerPlugin(ScrollTrigger)
 
