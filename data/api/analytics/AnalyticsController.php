@@ -1,30 +1,22 @@
 <?php
 
-namespace business\analytics;
+namespace api\analytics;
 
-use business\analytics\AnalyticsFunction;
 use api\Request;
 use api\Response;
-use config\SystemConfig;
-use config\TalkToOtherServer;
+use business\analytics\Analytics;
 
-class AnalyticsController extends AnalyticsFunction
+class AnalyticsController
 {
     protected Request $request;
     protected Response $response;
-    protected TalkToOtherServer $otherServer;
-    protected static string $Template_Server_URL;
-    protected static string $template_server_endpoint;
-    protected static string $Payment_Server_URL;
-    protected static string $payment_server_endpoint;
+    protected Analytics $analytics;
 
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->otherServer = TalkToOtherServer::getInstance();
-        self::$Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
-        self::$template_server_endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['template'];
+        $this->analytics = new Analytics();
     }
 
     /**
@@ -32,9 +24,9 @@ class AnalyticsController extends AnalyticsFunction
      */
     public function get()
     {
-        $number_of_templates = 20000;
+        $number_of_templates = $this->analytics->getTotalTemplate();
         $nubmer_of_subscription = 0;
-        $number_of_users = parent::getTotalUsers();
+        $number_of_users = $this->analytics->getTotalUsers();
 
         $this->response->setStatusCode(200)->json([
             "success" => true,
@@ -50,7 +42,7 @@ class AnalyticsController extends AnalyticsFunction
     {
         $this->response->setStatusCode(200)->json([
             "success" => true,
-            "data" => parent::getSocial()
+            "data" => $this->analytics->getSocial()
         ]);
     }
 }

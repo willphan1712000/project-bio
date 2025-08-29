@@ -38,8 +38,8 @@ class APIRouter
             $api_router->post('/api/pricing', 'business\pricing\PricingController@post');
             $api_router->put('/api/pricing/{id}', 'business\pricing\PricingController@put');
 
-            $api_router->get('/api/analytics', 'business\analytics\AnalyticsController@get');
-            $api_router->get('/api/analytics/social', 'business\analytics\AnalyticsController@getUserSocial');
+            $api_router->get('/api/analytics', 'api\analytics\AnalyticsController@get');
+            $api_router->get('/api/analytics/social', 'api\analytics\AnalyticsController@getUserSocial');
 
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
             $api_router->post('/api/auth/check', 'api\auth\AuthController@postValidate');
