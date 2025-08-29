@@ -13,9 +13,9 @@ class RESET extends GET implements IAPI
     {
         try {
             $template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
-            $style = Database::GET(StyleDefault::class, null, ['template_id' => $template]);
+            $template_info =
 
-            $out = [];
+                $out = [];
             foreach (StyleDefault::getProperty() as $prop) {
                 if (in_array($prop, ['background', 'font', 'fontSize', 'fontColor'])) {
                     $out[$prop] = $style->get($prop);

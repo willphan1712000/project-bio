@@ -25,40 +25,16 @@ class TalkToOtherServer
     /**
      * This function handles getting or talking to other servers to get data from them
      * @param string $url endponint from other server
-     * @param callable $ifSuccessFunc function such that if the request is successful
-     * @param callable $ifFailFunc function such that if the request is failed
+     * @param array $headers possible headers attached to a request. If not specified, it will use the default headers defined in SystemConfig
      */
-    public function get(string $url, ?callable $ifSuccessFunc = null, ?callable $ifFailFunc = null, array $headers = [])
+    public function get(string $url, array $headers = [])
     {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        if (!empty($headers)) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        } else {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers());
-        }
-
-        $res = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            if ($ifFailFunc !== null) {
-                $ifFailFunc();
-            }
-        } else {
-            if ($ifSuccessFunc !== null) {
-                $ifSuccessFunc($res);
-            }
-        }
-
-        curl_close($ch);
-
-        return $res;
+        return $this->call($url, "GET", $headers);
     }
 
     public function getId() {}
 
-    public function post(string $url, $data, callable $ifSuccessFunc, callable $ifFailFunc, array $headers = [])
+    public function post(string $url, $data, array $headers = [])
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -73,19 +49,37 @@ class TalkToOtherServer
 
         $res = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $ifFailFunc();
-        } else {
-            $ifSuccessFunc($res);
-        }
+        $isFailed = curl_errno($ch);
 
         curl_close($ch);
+
+        if (!$isFailed) {
+            return [
+                'success' => true,
+                'data' => json_decode($res, true)
+            ];
+        }
+
+        return [
+            'success' => false,
+            'error' => 'There is an error communicating to the other server.'
+        ];
     }
 
-    public function put(string $url, callable $ifSuccessFunc, callable $ifFailFunc, array $headers = [])
+    public function put(string $url, array $headers = [])
+    {
+        return $this->call($url, "PUT", $headers);
+    }
+
+    public function delete(string $url, array $headers = [])
+    {
+        return $this->call($url, "DELETE", $headers);
+    }
+
+    private function call($url, $method, $headers)
     {
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         if (!empty($headers)) {
@@ -96,35 +90,20 @@ class TalkToOtherServer
 
         $res = curl_exec($ch);
 
-        if (curl_errno($ch)) {
-            $ifFailFunc();
-        } else {
-            $ifSuccessFunc($res);
-        }
+        $isFailed = curl_errno($ch);
 
         curl_close($ch);
-    }
 
-    public function delete(string $url, callable $ifSuccessFunc, callable $ifFailFunc, array $headers = []): void
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        if (!empty($headers)) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        } else {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers());
+        if (!$isFailed) {
+            return [
+                'success' => true,
+                'data' => json_decode($res, true)
+            ];
         }
 
-        $res = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            $ifFailFunc();
-        } else {
-            $ifSuccessFunc($res);
-        }
-
-        curl_close($ch);
+        return [
+            'success' => false,
+            'error' => 'There is an error communicating to ther other server!'
+        ];
     }
 }

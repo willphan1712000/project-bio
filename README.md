@@ -18,7 +18,7 @@
 
 ## is to integrate advanced technology to the bio web application to make it more capable of making our customers feel satisfied and safe to use our application
 
-# CODE NOTES
+# Code Notes
 
 - The database we implement does not use any foreign key constraints for scalability and modification reasons. Read this article for more information https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints
 
@@ -26,6 +26,8 @@
 
 > [!NOTE]
 > We also create an abstraction layer for Entity Manager (or a wrapper over Entity Manager) called Database that helps do CRUD operations easier
+
+- This project also uses an abstraction layer over calling api endpoint to other servers to get resources (microservice architecture) called TalkToOtherServer.php
 
 - Model Migration
 

@@ -1,42 +1,22 @@
-import apiTemplate from '../api/template';
-import useAppQuery from '../../../client/hooks/useAppQuery';
-import useAppEffect from '../../../client/hooks/useAppEffect';
-import config from '../../../client/config';
-import AppImage from '../../../client/clientComponents/AppImage';
-import useWindowWidth, { mobile } from '../../../client/hooks/useWindowWidth';
+import apiTemplate from './api/template';
+import useAppQuery from '../hooks/useAppQuery';
+import useAppEffect from '../hooks/useAppEffect';
+import AppImage from '../clientComponents/AppImage';
+import template_dim from './hooks/template_dim';
 
-const Template = () => {
-    const width = useWindowWidth();
-    const { error, data, isLoading } = useAppQuery('template_user', apiTemplate.getTemplate);
-    useAppEffect(error)
-    if (isLoading) return <div>Loading...</div>;
+interface Props {
+  isAdmin?: boolean
+}
 
-    const template = data?.template_server_url + data?.template.template_url!;
-
-    const template_zoom_ratio = config.template.zoom_ratio;
-    const template_text_room_ratio = config.template.text_zoom_ratio;
-    const card_ratio = config.card_standard.ratio
-    const template_padding = 20;
-
-    let template_with;
-    let template_height;
-    let template_corner;
-    let ratio;
-    
-    const textFields = ['Name', 'Image', 'Description', 'Organization', 'Position'];
-    
-    if(width < mobile) {
-      ratio = (width - 2 * template_padding) / (config.card_standard.width)
-      template_with = width - 2 * template_padding;
-      template_height = template_with / card_ratio;
-      template_corner = config.card_standard.corner_radius * ratio;
-    } else {
-      ratio = template_zoom_ratio
-      template_with = config.card_standard.width * ratio;
-      template_height = config.card_standard.height * ratio;
-      template_corner = config.card_standard.corner_radius * ratio;
-    }
-
+const Template = ({ isAdmin = false }: Props) => {
+  const { ratio, template_corner, template_height, template_with, template_padding } = template_dim()
+  const { error, data, isLoading } = useAppQuery('template_user', apiTemplate.getTemplate);
+  useAppEffect(error)
+  if (isLoading) return <div>Loading...</div>;
+  
+  const template = data?.template_server_url + data?.template.template_url!;
+  const textFields = ['Name', 'Image', 'Description', 'Organization', 'Position'];
+  
     if(data?.template.isActive) {
       return (
         <div className={`flex p-[${template_padding}px] w-fit`}>
@@ -66,8 +46,6 @@ const Template = () => {
               const template_info = data.template_info[field_ori as keyof typeof data.template_info]
               if(!template_info.w) return
 
-              const color = template_info.color ?? 'white'
-
               return (
                 <div
                   key={field}
@@ -80,11 +58,12 @@ const Template = () => {
                     left: `${ratio * template_info.x}px`,
                     borderRadius: `${field === 'image' ? '50%' : '0px'}`,
                     overflow: `${field === 'image' ? 'hidden' : 'auto'}`,
-                    color: `${color}`,
-                    fontSize: `${textFields.includes(field_ori) ? ratio * template_text_room_ratio * template_info.h : 0}px`,
+                    color: `${template_info.color ?? 'white'}`,
+                    fontSize: `${textFields.includes(field_ori) ? template_info.fontSize : 0}px`,
+                    fontFamily: `${template_info.font}`,
                     lineHeight: `1`
                   }}
-                  dangerouslySetInnerHTML={{ __html: info.html }}
+                  dangerouslySetInnerHTML={{ __html: isAdmin ? info.htmlAdmin : (template_info.isIcon ? info.html : info.htmlWValue) }}
                 />
               )
             })}

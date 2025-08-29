@@ -6,6 +6,7 @@ use business\IAPI;
 use persistence\Database;
 use persistence\Entity\Style;
 use persistence\Entity\User;
+use persistence\EntityManager;
 
 class GET implements IAPI
 {
@@ -24,16 +25,22 @@ class GET implements IAPI
             if ($this->template === null) {
                 $this->template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
             }
-            $style = Database::GET(Style::class, null, [
+
+            $entityManager = EntityManager::getEntityManager();
+
+            $styles = $entityManager->getRepository(Style::class)->findBy([
                 'username' => $this->username,
                 'template_id' => $this->template
             ]);
 
             $out = [];
-            foreach (Style::getProperty() as $prop) {
-                if (!in_array($prop, ['Purchase', 'StyleDefault', 'User'])) {
-                    $out[$prop] = $style->get($prop);
-                }
+            foreach ($styles as $style) {
+                array_push($out, [
+                    "element" => $style->get("element"),
+                    "font" => $style->get("font"),
+                    "fontSize" => $style->get("fontSize"),
+                    "fontColor" => $style->get("fontColor")
+                ]);
             }
 
             return [

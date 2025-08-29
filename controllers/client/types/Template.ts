@@ -26,6 +26,9 @@ export type Template_Info = {
         y: number,
         h: number,
         w: number,
-        color: string
+        color: string,
+        fontSize: number,
+        font: string,
+        isIcon: boolean
     }
 }

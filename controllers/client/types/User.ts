@@ -13,7 +13,8 @@ type EachInfo = {
     value: string,
     label: string,
     html: string,
-    htmlWValue: string
+    htmlWValue: string,
+    htmlAdmin: string
 }
 
 type User_Info_Required = {

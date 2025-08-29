@@ -26,61 +26,43 @@ class PricingController
 
     public function get()
     {
-        $this->otherServer->get(
-            self::$Template_Server_URL . self::$endpoint,
-            function ($res) {
-                $this->response->setStatusCode(200)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true)
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "data" => "Can not connect to the other server."
-                ]);
-            }
+        $res = $this->otherServer->get(
+            self::$Template_Server_URL . self::$endpoint
         );
+
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 
     public function post()
     {
         $data = file_get_contents('php://input');
 
-        $this->otherServer->post(
+        $res = $this->otherServer->post(
             self::$Template_Server_URL . self::$endpoint,
-            $data,
-            function ($res) {
-                $this->response->setStatusCode(201)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true)
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "data" => "Can not connect to the other server."
-                ]);
-            }
+            $data
         );
+
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 
     public function put($id)
     {
-        $this->otherServer->put(
-            self::$Template_Server_URL . self::$endpoint . "/" . $id,
-            function ($res) {
-                $this->response->setStatusCode(201)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true)
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "data" => "Can not connect to the other server."
-                ]);
-            }
+        $res = $this->otherServer->put(
+            self::$Template_Server_URL . self::$endpoint . "/" . $id
         );
+
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 }

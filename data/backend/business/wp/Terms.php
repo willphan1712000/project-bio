@@ -23,6 +23,10 @@ class Terms
             $this->endpoint,
         );
 
-        return json_decode($res, true)['content']['rendered'];
+        if (!$res['success']) {
+            return $res['error'];
+        }
+
+        return json_decode($res['data'], true)['content']['rendered'];
     }
 }

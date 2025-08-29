@@ -9,28 +9,27 @@ use controllers\template\TemplateFactory;
 
 $admin = new AdminController(); // get admin object
 $admin->execute();
-
-/** @var Display[] */
-$infoArray = $admin->get("info");
-
 $username = $admin->get("username"); // get username
-$themeid = $admin->get("themeid"); // Get themeid
-$css = $admin->get("css"); // Get CSS for corresponding template
-$g = $admin->get("g");
-$image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
+
+// /** @var Display[] */
+// $infoArray = $admin->get("info");
+
+// $themeid = $admin->get("themeid"); // Get themeid
+// $css = $admin->get("css"); // Get CSS for corresponding template
+// $g = $admin->get("g");
+// $image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
 
 
-$imgPath = $image;
-$imgName = '';
+// $imgPath = $image;
+// $imgName = '';
 
 // This is information that gets passed down to the corresponsing template
-// This is information that gets passed down to the corresponsing template
-$props = [
-    'username' => $username,
-    'imgPath' => $image,
-    'info' => $infoArray,
-    'css' => $css
-];
+// $props = [
+//     'username' => $username,
+//     'imgPath' => $image,
+//     'info' => $infoArray,
+//     'css' => $css
+// ];
 
 if (isset($_POST['signout'])) {
     unset($_SESSION[$username]);
@@ -50,10 +49,6 @@ if (isset($_POST['signout'])) {
 
 <body>
     <div id="admin">
-        <div id="notSupported">
-            <p>Bio does not support wide screen!</p>
-        </div>
-
         <div id="uploadImagePopup"></div>
 
         <div id="save" class="max-w-[90%] z-10 cursor-pointer bg-white fixed top-[0.5rem] right-[0.5rem] rounded-[85px]" style="box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -64,18 +59,19 @@ if (isset($_POST['signout'])) {
                 <div class="swiper-wrapper">
                     <div id="container" class="front swiper-slide">
                         <div class="face-card-label">Front</div>
+                        <div id="container_template"></div>
                         <?php
-                        TemplateFactory::getInstance()->getTemplate($themeid)->html($props);
+                        // TemplateFactory::getInstance()->getTemplate($themeid)->html($props);
                         ?>
                     </div>
                     <div class="back swiper-slide">
                         <div class="face-card-label">Back</div>
-                        <?=
-                        (new Back([
-                            'container' => '.back',
-                            'username' => $username,
-                            'info' => $props['info']
-                        ]))->render();
+                        <?php
+                        // echo (new Back([
+                        //     'container' => '.back',
+                        //     'username' => $username,
+                        //     'info' => $props['info']
+                        // ]))->render();
                         ?>
                     </div>
                 </div>
@@ -92,15 +88,6 @@ if (isset($_POST['signout'])) {
             'position' => 'relative'
         ]))->render(); ?>
     </div>
-    <script>
-        const type = "admin";
-        const props = {
-            username: "<?= $username; ?>",
-            css: <?= json_encode($css); ?>,
-            imgPath: "<?= $imgPath; ?>",
-            imgName: "<?= $imgName; ?>",
-        }
-    </script>
 </body>
 
 </html>

@@ -1,32 +1,14 @@
 <?php
 
-use config\SystemConfig as c;
 use controllers\user\UserController;
 use component\Copyright;
 use component\UserFooter;
-use controllers\template\TemplateFactory;
 
 // get User object
 $user = new UserController();
 $user->execute();
 
 $username = $user->get("username");
-
-// $infoArray = $user->get("info");
-// $socialIconArr = $user->get("socialIconArr");
-// $themeid = $user->get("themeid");
-// $g = $user->get("g");
-// $image = $infoArray['image']->getHTML() === null || $infoArray['image']->getHTML() === '' ? $g['img']['unknown'] : "/user/" . $username . "/" . $infoArray['image']->getHTML();
-// $css = $user->get("css");
-
-// // c::dd($css);
-
-// // This is information that gets passed down to the corresponsing template
-// $props = [
-//     'imgPath' => $image,
-//     'info' => $infoArray,
-//     'css' => $css
-// ];
 
 ?>
 <!DOCTYPE html>
@@ -41,14 +23,7 @@ $username = $user->get("username");
 </head>
 
 <body>
-    <!-- <div id="notSupported">
-        <p>Bio does not support wide screen!</p>
-    </div> -->
-    <div id="container">
-        <?php
-        // TemplateFactory::getInstance()->getTemplate($themeid)->html($props);
-        ?>
-    </div>
+    <div id="container"></div>
     <div id="userFooter">
         <?php
         (new UserFooter())->render("#userFooter");

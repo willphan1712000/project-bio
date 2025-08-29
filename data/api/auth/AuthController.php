@@ -1,9 +1,10 @@
 <?php
 
-namespace business\auth;
+namespace api\auth;
 
 use api\Request;
 use api\Response;
+use business\auth\Auth;
 use config\SystemConfig;
 
 /**

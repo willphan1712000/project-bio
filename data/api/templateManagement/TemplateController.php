@@ -1,11 +1,11 @@
 <?php
 
-namespace business\templateManagement;
+namespace api\templateManagement;
 
 use api\Request;
 use api\Response;
+use business\templateManagement\Template;
 use config\SystemConfig;
-use config\TalkToOtherServer;
 
 /**
  * This class handles talking to template server to manage templates
@@ -14,17 +14,17 @@ class TemplateController
 {
     protected Request $request;
     protected Response $response;
-    protected TalkToOtherServer $otherServer;
     protected static string $Template_Server_URL;
     protected static string $endpoint;
+    protected Template $template;
 
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->otherServer = TalkToOtherServer::getInstance();
         self::$Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
         self::$endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['template'];
+        $this->template = new Template();
     }
 
     /**
@@ -32,21 +32,12 @@ class TemplateController
      */
     public function get()
     {
-        $this->otherServer->get(
-            self::$Template_Server_URL . self::$endpoint,
-            function ($res) {
-                $this->response->setStatusCode(200)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true),
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "error" => "There is an error getting information."
-                ]);
-            }
-        );
+        $res = $this->template->get();
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 
     /**
@@ -54,21 +45,12 @@ class TemplateController
      */
     public function getId($id)
     {
-        $this->otherServer->get(
-            self::$Template_Server_URL . self::$endpoint . "/" . $id,
-            function ($res) {
-                $this->response->setStatusCode(200)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true),
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "error" => "There is an error getting information."
-                ]);
-            }
-        );
+        $res = $this->template->get($id);
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 
     /**
@@ -76,10 +58,8 @@ class TemplateController
      */
     public function getTemplateServerURL()
     {
-        $this->response->setStatusCode(200)->json([
-            "success" => true,
-            "data" => self::$Template_Server_URL
-        ]);
+        $res = $this->template->getTemplateServerURL();
+        $this->response->setStatusCode(200)->json($res);
     }
 
     /**
@@ -148,21 +128,12 @@ class TemplateController
      */
     public function put($id)
     {
-        $this->otherServer->put(
-            self::$Template_Server_URL . self::$endpoint . "/" . $id,
-            function ($res) {
-                $this->response->setStatusCode(200)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true)
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "error" => "There is an error getting information."
-                ]);
-            }
-        );
+        $res = $this->template->put($id);
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 
     /**
@@ -171,20 +142,11 @@ class TemplateController
      */
     public function delete($id)
     {
-        $this->otherServer->delete(
-            self::$Template_Server_URL . self::$endpoint . "/" . $id,
-            function ($res) {
-                $this->response->setStatusCode(200)->json([
-                    "success" => true,
-                    "data" => json_decode($res, true)
-                ]);
-            },
-            function () {
-                $this->response->setStatusCode(400)->json([
-                    "success" => false,
-                    "error" => "There is an error getting information."
-                ]);
-            }
-        );
+        $res = $this->template->delete($id);
+        if (!$res['success']) {
+            return $this->response->setStatusCode(400)->json($res);
+        }
+
+        return $this->response->setStatusCode(200)->json($res);
     }
 }
