@@ -2,35 +2,30 @@
 
 namespace api\analytics;
 
+use api\APIAuth;
 use api\Request;
 use api\Response;
-use business\analytics\Analytics;
+use business\auth\Authz;
 
-class AnalyticsController
+class GET extends APIAuth
 {
-    protected Request $request;
-    protected Response $response;
-    protected Analytics $analytics;
-
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->analytics = new Analytics();
     }
 
-    /**
-     * This function will get every needed analytics information
-     */
-    public function get()
+    public function handleRequest(...$args)
     {
         $number_of_templates = $this->analytics->getTotalTemplate();
         $nubmer_of_subscription = 0;
         $number_of_users = $this->analytics->getTotalUsers();
 
-        $this->response->setStatusCode(200)->json([
-            "success" => true,
-            "data" => [
+        return "Hello";
+
+        return $this->response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => [
                 "numberOfTemplates" => $number_of_templates,
                 "numberOfSubscriptions" => $nubmer_of_subscription,
                 "numberOfUsers" => $number_of_users
@@ -38,11 +33,8 @@ class AnalyticsController
         ]);
     }
 
-    public function getUserSocial()
+    protected function checkPermission(?string $username = null)
     {
-        $this->response->setStatusCode(200)->json([
-            "success" => true,
-            "data" => $this->analytics->getSocial()
-        ]);
+        return Authz::checkPermision($username, "get:analytics");
     }
 }

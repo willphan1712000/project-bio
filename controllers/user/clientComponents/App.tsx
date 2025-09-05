@@ -1,4 +1,3 @@
-import React from 'react'
 import Template from '../../client/userTemplate/Template'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 

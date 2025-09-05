@@ -8,7 +8,7 @@ import { routeTree } from './routes/routeTree.gen'
 
 const router = createRouter({ 
     routeTree,
-    basepath: '/@aic'
+    basepath: '/@admin'
  })
  declare module "@tanstack/react-router" {
     interface Register {

@@ -20,6 +20,8 @@
 
 # Code Notes
 
+## Server
+
 - The database we implement does not use any foreign key constraints for scalability and modification reasons. Read this article for more information https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints
 
 - This project uses DOCTRINE ORM to do CRUD operations through Entity Manager
@@ -28,6 +30,8 @@
 > We also create an abstraction layer for Entity Manager (or a wrapper over Entity Manager) called Database that helps do CRUD operations easier
 
 - This project also uses an abstraction layer over calling api endpoint to other servers to get resources (microservice architecture) called TalkToOtherServer.php
+
+- When calling api endpoints, each api controller inherits APIAbstract or APISecret to protect the api routes itself
 
 - Model Migration
 

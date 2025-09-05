@@ -2,23 +2,18 @@
 
 namespace api\templateManagement;
 
-use api\Request;
-use api\Response;
+use api\APIAuth;
 use business\templateManagement\TemplateInfo;
 
 /**
  * This class handles talking to template server to manage template information
  */
-class TemplateInfoController
+abstract class TemplateInfoController extends APIAuth
 {
-    protected Request $request;
-    protected Response $response;
     protected TemplateInfo $templateInfo;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->response = $response;
         $this->templateInfo = new TemplateInfo();
     }
 

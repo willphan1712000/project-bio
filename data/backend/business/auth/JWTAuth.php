@@ -24,22 +24,30 @@ class JWTAuth implements AuthInterface
         $this->token = $token;
     }
 
-    public function auth(): bool
+    public function auth(): array
     {
-        if (!isset($this->username) || $this->username === null) throw new Exception("Username is not given");
-
-        if ($this->token === null) return false;
+        if ($this->token === null) return [
+            'success' => false
+        ];
 
         try {
             $decode = JWT::decode($this->token, new Key($_ENV['JWT_SECRET'], 'HS256'));
-            if ($decode->username === $this->username) {
-                return true;
+            $username = $decode->username;
+            if (isset($decode->username)) {
+                return [
+                    'success' => true,
+                    'username' => $username
+                ];
             }
         } catch (\Exception $e) {
             // Invalid signature
-            return false;
+            return [
+                'success' => false
+            ];
         }
-        return false;
+        return [
+            'success' => false
+        ];
     }
 
     public function generateAuth(): bool|string

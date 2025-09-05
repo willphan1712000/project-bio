@@ -17,22 +17,33 @@ class AdminController extends UserController
 
     function __construct() {}
 
+    protected function getUsername()
+    {
+        return $_SESSION['username'];
+    }
+
     protected function getPreData()
     {
-        $this->username = SystemConfig::URLExtraction(2); // get username
+        $this->username = $this->getUsername();
         $this->themeid = TemplateManagement::shareTemplate($this->username, (int) SystemConfig::URLExtraction(queryStr: "tem")); // get template id
-        $this->isSignedIn = UserManagement::isSignedIn($_SESSION, $this->username); // get sign in session
+        $this->isSignedIn = UserManagement::isSignedIn($_SESSION); // get sign in session
         $this->g = SystemConfig::globalVariables(); // get global variables
     }
 
     private function themeRedirect()
     {
-        $this->username = SystemConfig::URLExtraction(2); // get username
+        $this->username = $this->getUsername();
+        if ($this->username === 'Allinclicks') {
+            require __DIR__ . '/../../dist/aic.php';
+            die();
+        }
+
         $this->themeid = TemplateManagement::shareTemplate($this->username, (int) SystemConfig::URLExtraction(queryStr: "tem")); // get template id
         if ($this->themeid === 0) {
             require __DIR__ . '/../../dist/adminDefault.php';
             die();
         }
+
         require __DIR__ . '/../../dist/adminTemplate.php';
         die();
     }

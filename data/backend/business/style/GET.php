@@ -35,12 +35,11 @@ class GET implements IAPI
 
             $out = [];
             foreach ($styles as $style) {
-                array_push($out, [
-                    "element" => $style->get("element"),
+                $out[$style->get("element")] = [
                     "font" => $style->get("font"),
                     "fontSize" => $style->get("fontSize"),
                     "fontColor" => $style->get("fontColor")
-                ]);
+                ];
             }
 
             return [

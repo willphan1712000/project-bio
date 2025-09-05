@@ -1,6 +1,6 @@
 <?php
 
-use controllers\admin\AdminController;
+namespace controllers\admin;
 
 $admin = new AdminController(); // get admin object
 $admin->redirect();

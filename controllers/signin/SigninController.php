@@ -39,14 +39,8 @@ class SigninController extends Controller
                 if ($this->template === 'true') {
                     header("Location: /@template?username=" . $this->username);
                 } else {
-                    header("Location: /" . $this->username . "/admin");
+                    header("Location: /@admin");
                 }
-            } else {
-                $this->error = "The password is not correct";
-            }
-        } else if ($this->username === $this->g['aicAccount']['username']) {
-            if (UserManagement::auth($_SESSION, $this->username, $this->password)) {
-                header("Location: /@aic");
             } else {
                 $this->error = "The password is not correct";
             }

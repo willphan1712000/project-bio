@@ -14,6 +14,9 @@ class APIRouter
         $this->response = $response;
     }
 
+    /**
+     * This function will capture all api calls from the client and resolve it and send response back to the client
+     */
     public static function api_work()
     {
         if (str_starts_with($_SERVER['REQUEST_URI'], '/api/')) {
@@ -23,12 +26,12 @@ class APIRouter
 
             $api_router->get('/api/branches', 'business\beautyBooking\BranchesController@get');
 
-            $api_router->get('/api/template/manage', 'api\templateManagement\TemplateController@get');
-            $api_router->get('/api/template/manage/{id}', 'api\templateManagement\TemplateController@getId');
-            $api_router->get('/api/template/manage/url', 'api\templateManagement\TemplateController@getTemplateServerURL');
-            $api_router->post('/api/template/manage', 'api\templateManagement\TemplateController@post');
-            $api_router->put('/api/template/manage/{id}', 'api\templateManagement\TemplateController@put');
-            $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\TemplateController@delete');
+            $api_router->get('/api/template/manage', 'api\templateManagement\template\GETALL@execute');
+            $api_router->get('/api/template/manage/{id}', 'api\templateManagement\template\GET@execute');
+            $api_router->get('/api/template/manage/url', 'api\templateManagement\template\GETURL@execute');
+            $api_router->post('/api/template/manage', 'api\templateManagement\template\POST@execute');
+            $api_router->put('/api/template/manage/{id}', 'api\templateManagement\template\PUT@execute');
+            $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\template\DELETE@execute');
 
             $api_router->get('/api/template/info/{id}', 'api\templateManagement\TemplateInfoController@get');
 
@@ -38,8 +41,8 @@ class APIRouter
             $api_router->post('/api/pricing', 'business\pricing\PricingController@post');
             $api_router->put('/api/pricing/{id}', 'business\pricing\PricingController@put');
 
-            $api_router->get('/api/analytics', 'api\analytics\AnalyticsController@get');
-            $api_router->get('/api/analytics/social', 'api\analytics\AnalyticsController@getUserSocial');
+            $api_router->get('/api/analytics', 'api\analytics\GET@execute');
+            $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
 
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
             $api_router->post('/api/auth/check', 'api\auth\AuthController@postValidate');

@@ -8,6 +8,20 @@ use config\SystemConfig;
 use persistence\Database;
 use persistence\Entity\User;
 
+interface AuthInterface
+{
+    /**
+     * This function handles checking if the user is signed in or not
+     */
+    public function auth(): array;
+
+    /**
+     * This function handles verifying credentials and generating auth information
+     */
+    public function generateAuth(): bool | string;
+}
+
+
 enum STRATEGY
 {
     case SESSION;
@@ -20,10 +34,10 @@ enum STRATEGY
 class Auth implements AuthInterface
 {
     protected AuthInterface $auth;
-    protected $username;
-    protected $password;
+    protected ?string $username;
+    protected ?string $password;
 
-    public function __construct($username, $password, ...$arg)
+    public function __construct(?string $username, ?string $password, ...$arg)
     {
         $strategy = SystemConfig::globalVariables()["auth"]["auth_strategy"];
         $this->username = $username;
@@ -41,7 +55,7 @@ class Auth implements AuthInterface
         }
     }
 
-    public function auth(): bool
+    public function auth(): array
     {
         return $this->auth->auth();
     }

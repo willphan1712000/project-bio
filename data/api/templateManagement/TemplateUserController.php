@@ -5,6 +5,7 @@ namespace api\templateManagement;
 use api\Request;
 use api\Response;
 use business\info\userGET;
+use business\style\GET;
 use business\template\TemplateManagement;
 use business\templateManagement\Template;
 use business\templateManagement\TemplateInfo;
@@ -43,6 +44,13 @@ class TemplateUserController
             return $this->response->setStatusCode(400)->json($info);
         }
 
+        // Get style info
+        $styleObj = new GET($username);
+        $style = $styleObj->execute();
+        if (!$style['success']) {
+            return $this->response->setStatusCode(400)->json($style);
+        }
+
         // Get default template from user
         $id = TemplateManagement::shareTemplate($username, $template_id);
 
@@ -67,7 +75,8 @@ class TemplateUserController
                 "template" => $template['data']['data'],
                 "template_info" => $template_info['data']['data'],
                 "template_server_url" => $url['data'],
-                "user_info" => $info['data']
+                "user_info" => $info['data'],
+                "user_style" => $style['data']
             ]
         ]);
     }

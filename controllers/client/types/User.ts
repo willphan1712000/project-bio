@@ -9,6 +9,8 @@ export type UserInfo = | "Name" | "Image" | "Organization" | "Description" | "Em
 
 export type User = | "username" | "password" | "email" | "token" | "deleteToken" | "createdAt"
 
+export type User_Text = | "name" | "organizatio" | "position" | "description"
+
 type EachInfo = {
     value: string,
     label: string,
@@ -26,3 +28,11 @@ type User_Info_Required = {
 }
 
 export type User_Info = Partial<User_Info_Required>
+
+export type User_Style = {
+    [K in User_Text]: {
+        font: string,
+        fontSize: number,
+        fontColor: string
+    }
+}

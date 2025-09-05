@@ -39,14 +39,7 @@ class CreateQR extends SignupHandler
             backgroundColor: new Color(255, 255, 255)
         );
 
-        // Create generic logo
-        $logo = new Logo(
-            path: __DIR__ . '../../../../../../controllers/client/img/logo.png',
-            resizeToWidth: 200,
-            punchoutBackground: false
-        );
-
-        $result = $write->write($qrCode, $logo);
+        $result = $write->write($qrCode);
 
         // Directly output the QR code
         header('Content-Type: ' . $result->getMimeType());

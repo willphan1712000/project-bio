@@ -1,16 +1,14 @@
 <?php
-// 
-namespace business\user;
 
-use business\IAPI;
+namespace business\resources;
+
 use config\SystemConfig;
 
-class GETResource implements IAPI
+class Info
 {
+    public function __construct() {}
 
-    function __construct() {}
-
-    private function getResource()
+    public function getUserInfoResources()
     {
         try {
             return [
@@ -19,7 +17,6 @@ class GETResource implements IAPI
                     'regexMap' => SystemConfig::regexMap(),
                     'labelMap' => SystemConfig::labelMap(),
                     'defaultImg' => SystemConfig::globalVariables()['img']['unknown'],
-                    'deleteWarning' => SystemConfig::globalVariables()['deleteWarningMsg'],
                     'iconMap' => SystemConfig::socialIconArr()
                 ]
             ];
@@ -31,8 +28,20 @@ class GETResource implements IAPI
         }
     }
 
-    public function execute()
+    public function getDeleteWarning()
     {
-        return $this->getResource();
+        try {
+            return [
+                'success' => true,
+                'data' => [
+                    'deleteWarning' => SystemConfig::globalVariables()['deleteWarningMsg'],
+                ]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
     }
 }

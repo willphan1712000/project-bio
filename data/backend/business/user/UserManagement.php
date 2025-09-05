@@ -9,7 +9,7 @@ use persistence\Entity\User;
 
 interface IUserManagement
 {
-    public static function isSignedIn(&$SESSION, string $username, string $hi): bool;
+    public static function isSignedIn(&$SESSION, ?string $username, ?string $token): bool;
     public static function auth(&$SESSION, string $username, string $password): bool;
     public static function URLGenerator(string $username, string $c): string|null;
     public static function isUserExist($username): bool;
@@ -21,10 +21,10 @@ class UserManagement implements IUserManagement
     /**
      * This function handles checking whether or not the user is signed in
      */
-    public static function isSignedIn(&$SESSION, string $username, ?string $token = null): bool
+    public static function isSignedIn(&$SESSION, ?string $username = null, ?string $token = null): bool
     {
-        $authStrategy = new Auth($username, $token);
-        return $authStrategy->auth();
+        $authStrategy = new Auth($username, null, $token);
+        return $authStrategy->auth()['success'];
     }
 
     /**
@@ -55,6 +55,10 @@ class UserManagement implements IUserManagement
     public static function isUserExist($username): bool
     {
         try {
+            if ($username === SystemConfig::globalVariables()['aicAccount']['username']) {
+                return true;
+            }
+
             $result = Database::GET(User::class, null, ['username' => $username]);
 
             if ($result) {

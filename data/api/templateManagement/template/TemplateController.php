@@ -1,27 +1,22 @@
 <?php
 
-namespace api\templateManagement;
+namespace api\templateManagement\template;
 
-use api\Request;
-use api\Response;
+use api\APIAuth;
 use business\templateManagement\Template;
 use config\SystemConfig;
 
 /**
  * This class handles talking to template server to manage templates
  */
-class TemplateController
+abstract class TemplateController extends APIAuth
 {
-    protected Request $request;
-    protected Response $response;
     protected static string $Template_Server_URL;
     protected static string $endpoint;
     protected Template $template;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct()
     {
-        $this->request = $request;
-        $this->response = $response;
         self::$Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
         self::$endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['template'];
         $this->template = new Template();

@@ -23,14 +23,12 @@ class PUT implements IAPI
     protected function updateStyle()
     {
         try {
-            foreach ($this->props as $element) {
-                foreach ($element as $key => $value) {
-                    if ($key === 'element') continue;
-
-                    Database::PUT(Style::class, $key, $value, [
+            foreach ($this->props as $element => $values) {
+                foreach ($values as $value_key => $value) {
+                    Database::PUT(Style::class, $value_key, $value, [
                         'username' => $this->username,
                         'template_id' => $this->template,
-                        'element' => $element['element']
+                        'element' => $element
                     ]);
                 }
             }
