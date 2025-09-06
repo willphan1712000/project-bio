@@ -33,13 +33,13 @@ class APIRouter
             $api_router->put('/api/template/manage/{id}', 'api\templateManagement\template\PUT@execute');
             $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\template\DELETE@execute');
 
-            $api_router->get('/api/template/info/{id}', 'api\templateManagement\TemplateInfoController@get');
+            $api_router->get('/api/template/info/{id}', 'api\templateManagement\info\GET@execute');
 
             $api_router->post('/api/template', 'api\templateManagement\TemplateUserController@post');
 
-            $api_router->get('/api/pricing', 'business\pricing\PricingController@get');
-            $api_router->post('/api/pricing', 'business\pricing\PricingController@post');
-            $api_router->put('/api/pricing/{id}', 'business\pricing\PricingController@put');
+            $api_router->get('/api/pricing', 'api\pricing\GET@execute');
+            $api_router->post('/api/pricing', 'api\pricing\POST@execute');
+            $api_router->put('/api/pricing/{id}', 'api\pricing\PUT@execute');
 
             $api_router->get('/api/analytics', 'api\analytics\GET@execute');
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');

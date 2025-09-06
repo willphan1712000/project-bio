@@ -2,11 +2,15 @@
 
 namespace api\templateManagement\template;
 
-class DELETE extends TemplateController
+use api\APIAuth;
+use business\templateManagement\Template;
+
+class DELETE extends APIAuth
 {
     public function handleRequest(...$args)
     {
-        return $this->delete(...$args);
+        $template = new Template();
+        return $template->delete(...$args);
     }
 
     protected function checkPermission(?string $username = null) {}

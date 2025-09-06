@@ -3,34 +3,24 @@
 namespace api\analytics;
 
 use api\APIAuth;
-use api\Request;
-use api\Response;
+use business\analytics\Analytics;
 use business\auth\Authz;
 
 class GET extends APIAuth
 {
-    public function __construct(Request $request, Response $response)
-    {
-        $this->request = $request;
-        $this->response = $response;
-    }
-
     public function handleRequest(...$args)
     {
-        $number_of_templates = $this->analytics->getTotalTemplate();
+        $analytics = new Analytics();
+
+        $number_of_templates = $analytics->getTotalTemplate();
         $nubmer_of_subscription = 0;
-        $number_of_users = $this->analytics->getTotalUsers();
+        $number_of_users = $analytics->getTotalUsers();
 
-        return "Hello";
-
-        return $this->response->setStatusCode(200)->json([
-            'success' => true,
-            'data' => [
-                "numberOfTemplates" => $number_of_templates,
-                "numberOfSubscriptions" => $nubmer_of_subscription,
-                "numberOfUsers" => $number_of_users
-            ]
-        ]);
+        return [
+            "numberOfTemplates" => $number_of_templates,
+            "numberOfSubscriptions" => $nubmer_of_subscription,
+            "numberOfUsers" => $number_of_users
+        ];
     }
 
     protected function checkPermission(?string $username = null)

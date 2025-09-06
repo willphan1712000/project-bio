@@ -8,7 +8,7 @@ class Authz
         'Allinclicks',
         'user'
     ];
-    protected static array $user_permisions = ['get:user', 'post:user', 'put:user', 'deletehold:user'];
+    protected static array $user_permissions = ['get:user', 'post:user', 'put:user', 'deletehold:user'];
 
     private function __construct() {}
 
@@ -21,7 +21,7 @@ class Authz
 
         if ($username === 'Allinclicks') return true;
 
-        if (in_array($permission, self::$user_permisions)) return true;
+        if (in_array($permission, self::$user_permissions)) return true;
 
         return false;
     }

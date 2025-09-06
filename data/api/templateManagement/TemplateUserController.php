@@ -72,9 +72,9 @@ class TemplateUserController
         $this->response->setStatusCode(200)->json([
             "success" => true,
             "data" => [
-                "template" => $template['data']['data'],
-                "template_info" => $template_info['data']['data'],
-                "template_server_url" => $url['data'],
+                "template" => $template['data'],
+                "template_info" => $template_info['data'],
+                "template_server_url" => $url,
                 "user_info" => $info['data'],
                 "user_style" => $style['data']
             ]

@@ -2,28 +2,24 @@
 
 namespace business\templateManagement;
 
+use config\ExternalServices\TemplateServer;
 use config\SystemConfig;
-use config\TalkToOtherServer;
 
 class TemplateInfo
 {
-    protected TalkToOtherServer $otherServer;
-    protected static string $Template_Server_URL;
-    protected static string $endpoint;
+    protected TemplateServer $otherServer;
+    protected string $Template_Server_URL;
+    protected string $endpoint;
 
     public function __construct()
     {
-        $this->otherServer = TalkToOtherServer::getInstance();
-        self::$Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
-        self::$endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['info'];
+        $this->otherServer = TemplateServer::getInstance();
+        $this->Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
+        $this->endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['info'];
     }
 
     public function get($id)
     {
-        $res = $this->otherServer->get(
-            self::$Template_Server_URL . self::$endpoint . "/" . $id
-        );
-
-        return $res;
+        return $this->otherServer->get($this->endpoint . "/" . $id);
     }
 }

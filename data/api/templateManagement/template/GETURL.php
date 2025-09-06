@@ -2,17 +2,20 @@
 
 namespace api\templateManagement\template;
 
+use api\APIAuth;
 use business\auth\Authz;
+use business\templateManagement\Template;
 
-class GETURL extends TemplateController
+class GETURL extends APIAuth
 {
     public function handleRequest(...$args)
     {
-        return $this->getTemplateServerURL();
+        $template = new Template();
+        return $template->getTemplateServerURL();
     }
 
     protected function checkPermission(?string $username = null)
     {
-        return Authz::checkPermision($username);
+        return Authz::checkPermision($username, "get:templateserverurl");
     }
 }

@@ -72,23 +72,18 @@ class SystemConfig
                 'url' => ProductionConfig::config()['template_server'],
                 'endpoint' => [
                     'template' => '/api/template',
+                    'template_count' => '/api/template/count',
                     'pricing' => '/api/pricing',
                     'info' => '/api/info'
                 ],
-                'headers' => [
-                    "Authorization: {$_ENV['SYSTEM_SECRET_KEY']}",
-                    "Content-Type: application/json"
-                ]
+                'api_key' => $_ENV['SYSTEM_SECRET_KEY']
             ],
             'payment_server' => [
                 'url' => ProductionConfig::config()['payment_server'],
                 'endpoint' => [
                     ''
                 ],
-                'headers' => [
-                    "Authorization: {$_ENV['SYSTEM_SECRET_KEY']}",
-                    "Content-Type: application/json"
-                ]
+                'api_key' => $_ENV['SYSTEM_SECRET_KEY']
             ],
             "auth" => [
                 "token_property" => "CRM-ctoken", // This name is the property name whenever accessing token from headers of a request,

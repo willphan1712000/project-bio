@@ -2,23 +2,21 @@
 
 namespace business\analytics;
 
+use config\ExternalServices\TemplateServer;
 use config\SystemConfig;
-use config\TalkToOtherServer;
+
 use persistence\Database;
 use persistence\Entity\UserSocial;
 
 class Analytics
 {
-    protected TalkToOtherServer $otherServer;
-    protected static string $Template_Server_URL;
-    protected static string $template_server_endpoint;
-    protected static string $Payment_Server_URL;
-    protected static string $payment_server_endpoint;
+    protected TemplateServer $otherServer;
+    protected string $template_server_endpoint;
+    protected string $payment_server_endpoint;
     public function __construct()
     {
-        $this->otherServer = TalkToOtherServer::getInstance();
-        self::$Template_Server_URL = SystemConfig::globalVariables()['template_server']['url'];
-        self::$template_server_endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['template'];
+        $this->otherServer = TemplateServer::getInstance();
+        $this->template_server_endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['template_count'];
     }
     /**
      * This function will return total number of Users.
@@ -56,14 +54,12 @@ class Analytics
      */
     public function getTotalTemplate()
     {
-        $res = $this->otherServer->get(
-            self::$Template_Server_URL . self::$template_server_endpoint . "/count"
-        );
+        $res = $this->otherServer->get($this->template_server_endpoint);
 
-        if (!$res['success'] || !$res['data']['success']) {
-            return -1;
+        if (!$res['success']) {
+            throw new \Exception($res['error']);
         }
 
-        return $res['data']['data'];
+        return $res['data'];
     }
 }

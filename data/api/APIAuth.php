@@ -3,16 +3,14 @@
 namespace api;
 
 use business\auth\Auth;
-use business\IAPI;
 use config\SystemConfig;
 
 abstract class APIAuth implements API
 {
-    protected ?Request $request;
-    protected ?Response $response;
-    protected IAPI $controller;
+    protected Request $request;
+    protected Response $response;
 
-    public function __construct(?Request $request = null, ?Response $response = null, IAPI $controller)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
@@ -31,12 +29,22 @@ abstract class APIAuth implements API
         $status = $auth['success'];
         $username = $auth['username'] ?? NULL;
         // if (!$status || !$this->checkPermission($username)) {
-        //     return $this->response->setStatusCode(400)->json([
+        //     return $this->response->setStatusCode(401)->json([
         //         "success" => false,
         //         "error" => "User not signed in or does not have right permission, deny access to resources"
         //     ]);
         // }
 
-        return $this->handleRequest(...$args);
+        try {
+            $this->response->setStatusCode(200)->json([
+                'success' => true,
+                'data' => $this->handleRequest(...$args)
+            ]);
+        } catch (\Exception $e) {
+            $this->response->setStatusCode(400)->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 }
