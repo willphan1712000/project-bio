@@ -19,7 +19,7 @@ class AdminController extends UserController
 
     protected function getUsername()
     {
-        return $_SESSION['username'];
+        return UserManagement::getUsername();
     }
 
     protected function getPreData()

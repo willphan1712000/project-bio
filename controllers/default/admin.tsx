@@ -9,15 +9,11 @@ $(document).ready(function() {
 })
 
 async function adminPage() {
-    // Get username
-    const user = username()
-
     // Get information from database
-    const list = await fetchData(user)
-    list!.username = user // add username property to data list
+    const list = await fetchData()
 
     // Get needed resource
-    const resource = await getResource(user)
+    const resource = await getResource()
 
     $$("#info__wrapper", <InfoArea data={list} extraData={{defaultImgPath: resource.defaultImg, regexMap: resource.regexMap, labelMap: resource.labelMap, iconMap: resource.iconMap}}/>).reactMounting() // Mount React components
 

@@ -8,7 +8,7 @@ class Authz
         'Allinclicks',
         'user'
     ];
-    protected static array $user_permissions = ['get:user', 'post:user', 'put:user', 'deletehold:user'];
+    protected static array $user_permissions = ['get:user', 'post:user', 'put:user', 'deletehold:user', 'get:resources'];
 
     private function __construct() {}
 

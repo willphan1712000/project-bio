@@ -5,7 +5,7 @@ interface Data {
     [key: string]: string
 }
 
-export async function fetchData(username: string): Promise<Data> {
+export async function fetchData(username: string = ''): Promise<Data> {
     const data = await $$$("/data/api/info/GET.php", {
         username
     }).api().post() as Response
@@ -23,8 +23,8 @@ export async function fetchData(username: string): Promise<Data> {
     return dataList
 }
 
-export async function getResource(username: string): Promise<Resource> {
-    const resource = await $$$("/data/api/user/GETResource.php", {
+export async function getResource(username: string = ''): Promise<Resource> {
+    const resource = await $$$("/api/resources", {
         username
     }).api().post() as Response
 

@@ -40,7 +40,7 @@ const Avatar = ({popup, avatarMounter}: Props) => {
 
     const [state, dispatch] = useReducer(reducer, {
         isUpload: false,
-        mainSrc: `${data.image === null ? '/controllers/client/img/unknown.png': `/user/${username()}/${data.image}`}`,
+        mainSrc: `${data.image === null ? '/controllers/client/img/unknown.png': `/user/${data.username}/${data.image}`}`,
         previewSrc: undefined,
         isDelete: data.image !== null,
         popup,

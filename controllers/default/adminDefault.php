@@ -11,7 +11,7 @@ $g = $admin->get("g");
 $username = $admin->get("username");
 
 if (isset($_POST['signout'])) {
-    unset($_SESSION[$username]);
+    unset($_SESSION['username']);
     header("Location: /" . $username);
 }
 ?>
