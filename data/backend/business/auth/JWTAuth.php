@@ -18,7 +18,7 @@ class JWTAuth implements AuthInterface
     protected ?string $username;
     protected ?string $token;
 
-    public function __construct(?string $username, ?string $token = null)
+    public function __construct(?string $username = null, ?string $token = null)
     {
         $this->username = $username;
         $this->token = $token;

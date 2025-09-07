@@ -100,7 +100,7 @@ export default class SignUpUI {
             $(this.success.before).addClass(this.success.beforeClass);
             $(this.success.after).addClass(this.success.afterClass);
             setTimeout(() => {
-                window.location.href = '/' + this.usernameBox.getUsername() + '/admin' // redirect user to admin page
+                window.location.href = '/@admin' // redirect user to admin page
             }, 2000)
         }
     }

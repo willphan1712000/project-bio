@@ -5,6 +5,9 @@ namespace business\info;
 use business\IAPI;
 use business\info\Info;
 
+/**
+ * This class is for getting user information for user site which is publicly available to everyone
+ */
 class userGET implements IAPI
 {
     private string $username;

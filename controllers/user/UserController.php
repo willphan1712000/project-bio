@@ -23,6 +23,11 @@ class UserController extends Controller
     protected $g;
     protected $deleteToken;
 
+    public function username()
+    {
+        return SystemConfig::URLExtraction(); // get username
+    }
+
     /**
      * Function that checks if the account is being deactived or not
      */

@@ -35,7 +35,7 @@ class APIRouter
 
             $api_router->get('/api/template/info/{id}', 'api\templateManagement\info\GET@execute');
 
-            $api_router->post('/api/template', 'api\templateManagement\TemplateUserController@post');
+            $api_router->post('/api/template', 'api\templateManagement\user\GET@execute');
 
             $api_router->get('/api/pricing', 'api\pricing\GET@execute');
             $api_router->post('/api/pricing', 'api\pricing\POST@execute');

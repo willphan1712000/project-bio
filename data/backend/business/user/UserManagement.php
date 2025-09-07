@@ -11,6 +11,7 @@ interface IUserManagement
 {
     public static function isSignedIn(&$SESSION, ?string $username, ?string $token): bool;
     public static function auth(&$SESSION, string $username, string $password): bool;
+    public static function getUsername(?string $token): string;
     public static function URLGenerator(string $username, string $c): string|null;
     public static function isUserExist($username): bool;
     public static function isEmailMatchUsername(string $username, string $email): bool;
@@ -47,6 +48,19 @@ class UserManagement implements IUserManagement
             return "https://" . SystemConfig::globalVariables()["domain"] . "/" . $username . "?share=true";
         }
         return NULL;
+    }
+
+    /**
+     * - This function handles getting username
+     */
+    public static function getUsername(?string $token = null): string
+    {
+        $auth = new Auth(token: $token);
+        $authex = $auth->auth();
+        if (!$authex['success']) {
+            return "";
+        }
+        return $authex['username'];
     }
 
     /**

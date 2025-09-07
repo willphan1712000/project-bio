@@ -23,8 +23,11 @@ abstract class APIAbstract implements API
 
     public function execute()
     {
+        $token = $this->headers[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL;
         // Verify user has already signed in before giving access to resources
-        if (UserManagement::isSignedIn($_SESSION, $this->body->username, $this->headers[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL)) {
+        if (UserManagement::isSignedIn($_SESSION, $this->body->username, $token)) {
+            $username = UserManagement::getUsername($token);
+            $this->body->username = $username;
             return $this->handleRequest($this->body); // Return authorized resource
         } else {
             return [

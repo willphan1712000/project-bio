@@ -2,31 +2,31 @@
 
 namespace business\wp;
 
+use config\APIClient;
 use config\SystemConfig;
-use config\TalkToOtherServer;
 
 class Terms
 {
     protected const Page_ID = 2241;
     protected string $endpoint;
-    protected TalkToOtherServer $talkToOther;
+    protected APIClient $talkToOther;
 
     public function __construct()
     {
-        $this->endpoint = SystemConfig::globalVariables()['company_domain'] . "/wp-json/wp/v2/pages/" . self::Page_ID;
-        $this->talkToOther = TalkToOtherServer::getInstance();
+        $this->endpoint = "/wp-json/wp/v2/pages/" . self::Page_ID;
+        $this->talkToOther = new APIClient(
+            SystemConfig::globalVariables()['company_domain']
+        );
     }
 
     public function get()
     {
-        $res = $this->talkToOther->get(
-            $this->endpoint,
-        );
+        try {
+            $res = $this->talkToOther->get($this->endpoint);
 
-        if (!$res['success']) {
-            return $res['error'];
+            return $res['content']['rendered'];
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-
-        return json_decode($res['data'], true)['content']['rendered'];
     }
 }

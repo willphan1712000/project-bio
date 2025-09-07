@@ -11,7 +11,7 @@ use persistence\Entity\User;
 interface AuthInterface
 {
     /**
-     * This function handles checking if the user is signed in or not
+     * This function return array for checking user is signed in or not and username
      */
     public function auth(): array;
 
@@ -36,19 +36,21 @@ class Auth implements AuthInterface
     protected AuthInterface $auth;
     protected ?string $username;
     protected ?string $password;
+    protected ?string $token;
 
-    public function __construct(?string $username, ?string $password, ...$arg)
+    public function __construct(?string $username = null, ?string $password = null, ?string $token = null)
     {
         $strategy = SystemConfig::globalVariables()["auth"]["auth_strategy"];
         $this->username = $username;
         $this->password = $password;
+        $this->token = $token;
 
         switch ($strategy) {
             case STRATEGY::SESSION:
-                $this->auth = new Session($username);
+                $this->auth = new Session(username: $username);
                 break;
             case STRATEGY::JWT:
-                $this->auth = new JWTAuth($username, ...$arg);
+                $this->auth = new JWTAuth(username: $username, token: $token);
                 break;
             default:
                 break;
