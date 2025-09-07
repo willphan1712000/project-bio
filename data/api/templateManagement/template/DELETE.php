@@ -3,6 +3,7 @@
 namespace api\templateManagement\template;
 
 use api\APIAuth;
+use business\auth\Authz;
 use business\templateManagement\Template;
 
 class DELETE extends APIAuth
@@ -13,5 +14,8 @@ class DELETE extends APIAuth
         return $template->delete(...$args);
     }
 
-    protected function checkPermission(?string $username = null) {}
+    protected function checkPermission(?string $username = null)
+    {
+        return Authz::checkPermision($username, "delete:templateserver");
+    }
 }

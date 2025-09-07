@@ -9,7 +9,7 @@ abstract class APIAuth implements API
 {
     protected Request $request;
     protected Response $response;
-    protected string $username;
+    protected ?string $username;
     protected bool $status;
 
     public function __construct(Request $request, Response $response)

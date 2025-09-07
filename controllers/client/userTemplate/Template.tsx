@@ -47,6 +47,7 @@ const Template = ({ isAdmin = false }: Props) => {
               if(!template_info.w) return
 
               const template_style = data.user_style
+              console.log(template_style[field as keyof typeof template_style])
 
               return (
                 <div
@@ -61,9 +62,10 @@ const Template = ({ isAdmin = false }: Props) => {
                     borderRadius: `${field === 'image' ? '50%' : '0px'}`,
                     overflow: `${field === 'image' ? 'hidden' : 'auto'}`,
                     color: `${template_style[field as keyof typeof template_style] ? template_style[field as keyof typeof template_style].fontColor : 'white'}`,
-                    fontSize: `${template_style[field as keyof typeof template_style] ? template_style[field as keyof typeof template_style].fontSize : 0}px`,
+                    fontSize: `${template_style[field as keyof typeof template_style] ? template_style[field as keyof typeof template_style].fontSize * 2 : 20}px`,
                     fontFamily: `${template_style[field as keyof typeof template_style] ? template_style[field as keyof typeof template_style].font : 'Google'}`,
-                    lineHeight: `1`
+                    lineHeight: `1`,
+                    textAlign: 'center'
                   }}
                   dangerouslySetInnerHTML={{ __html: isAdmin ? info.htmlAdmin : (template_info.isIcon ? info.html : info.htmlWValue) }}
                 />

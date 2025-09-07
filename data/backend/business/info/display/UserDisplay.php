@@ -44,7 +44,7 @@ class UserDisplay implements Display
             $children = $children ?? $this->value;
             $display = $this->value === null ? "none" : "flex";
             $value = ($this->o === null) ? $this->value : $this->o->execute($this->value);
-            return '<a href="' . $value . '" target="_blank" style="width: 100%; height: 100%; text-decoration: none; color: #000; display: ' . $display . ';">' . $children . '</a>';
+            return '<a href="' . $value . '" target="_blank" style="align-items: center; width: 100%; height: 100%; text-decoration: none; display: ' . $display . ';">' . $children . '</a>';
         }
 
         $children = $children ?? '';

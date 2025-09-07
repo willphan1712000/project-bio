@@ -11,7 +11,7 @@ use persistence\Entity\User;
 interface AuthInterface
 {
     /**
-     * This function return array for checking user is signed in or not and username
+     * This function return array [ success, username ] where success is a bool that checks whether user is signed in or not
      */
     public function auth(): array;
 

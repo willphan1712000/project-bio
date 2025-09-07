@@ -23,7 +23,9 @@ async function getTemplate() {
         template_id
     })
 
-    if(!res.ok) throw new Error(res.problem)
+    if(!res.ok) {
+        throw new Error(res.problem)
+    }
 
     const data = res.data as Response<Template_User>
 

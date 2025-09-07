@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import Template from '../../client/userTemplate/Template'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -6,6 +7,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       <Template />
     </QueryClientProvider>
   )
