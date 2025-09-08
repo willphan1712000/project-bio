@@ -4,11 +4,8 @@ use component\BioTemplateButton;
 use component\signup\SignupAgain;
 use controllers\admin\AdminController;
 
-$admin = new AdminController();
-$admin->execute();
-
-$g = $admin->get("g");
-$username = $admin->get("username");
+$g = AdminController::getGlobalVar();
+$username = AdminController::getUsername();
 
 if (isset($_POST['signout'])) {
     unset($_SESSION['username']);

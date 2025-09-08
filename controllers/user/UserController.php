@@ -23,7 +23,7 @@ class UserController extends Controller
     protected $g;
     protected $deleteToken;
 
-    public function username()
+    public static function getUsernameInUser()
     {
         return SystemConfig::URLExtraction(); // get username
     }
@@ -55,7 +55,7 @@ class UserController extends Controller
     protected function getPreData()
     {
         $this->g = SystemConfig::globalVariables(); // get global variables
-        $this->username = SystemConfig::URLExtraction(); // get username
+        $this->username = self::getUsernameInUser();
         $this->themeid = TemplateManagement::shareTemplate($this->username, (int) SystemConfig::URLExtraction(queryStr: "tem")); // get template id
         $this->deleteToken = Database::GET(User::class, 'deleteToken', ['username' => $this->username]);
     }

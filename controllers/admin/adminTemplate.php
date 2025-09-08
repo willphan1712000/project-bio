@@ -8,8 +8,7 @@ use controllers\admin\AdminController;
 use controllers\template\TemplateFactory;
 
 $admin = new AdminController(); // get admin object
-$admin->execute();
-$username = $admin->get("username"); // get username
+$username = AdminController::getUsername();
 
 // /** @var Display[] */
 // $infoArray = $admin->get("info");

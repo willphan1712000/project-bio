@@ -47,7 +47,6 @@ const Template = ({ isAdmin = false }: Props) => {
               if(!template_info.w) return
 
               const template_style = data.user_style
-              console.log(template_style[field as keyof typeof template_style])
 
               return (
                 <div
