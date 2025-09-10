@@ -9,9 +9,9 @@ use persistence\Entity\User;
 
 interface IUserManagement
 {
-    public static function isSignedIn(&$SESSION, ?string $username, ?string $token): bool;
-    public static function auth(&$SESSION, string $username, string $password): bool;
-    public static function getUsername(?string $token): string;
+    // public static function isSignedIn(&$SESSION, ?string $username, ?string $token): bool;
+    // public static function auth(&$SESSION, string $username, string $password): bool;
+    // public static function getUsername(?string $token): string;
     public static function URLGenerator(string $username, string $c): string|null;
     public static function isUserExist($username): bool;
     public static function isEmailMatchUsername(string $username, string $email): bool;
@@ -24,7 +24,7 @@ class UserManagement implements IUserManagement
      */
     public static function isSignedIn(&$SESSION, ?string $username = null, ?string $token = null): bool
     {
-        $authStrategy = new Auth($username, null, $token);
+        $authStrategy = new Auth(token: $token);
         return $authStrategy->auth()['success'];
     }
 
@@ -38,19 +38,6 @@ class UserManagement implements IUserManagement
     }
 
     /**
-     * This function is to create url for user
-     */
-    public static function URLGenerator(string $username, string $c = "main" | "share"): string|null
-    {
-        if ($c === "main") {
-            return "https://" . SystemConfig::globalVariables()["domain"] . "/" . $username;
-        } elseif ($c === "share") {
-            return "https://" . SystemConfig::globalVariables()["domain"] . "/" . $username . "?share=true";
-        }
-        return NULL;
-    }
-
-    /**
      * - This function handles getting username
      */
     public static function getUsername(?string $token = null): string
@@ -61,6 +48,19 @@ class UserManagement implements IUserManagement
             return "";
         }
         return $authex['username'];
+    }
+
+    /**
+     * This function is to create url for user
+     */
+    public static function URLGenerator(string $username, string $c = "main" | "share"): string|null
+    {
+        if ($c === "main") {
+            return "https://" . SystemConfig::globalVariables()["domain"] . "/" . $username;
+        } elseif ($c === "share") {
+            return "https://" . SystemConfig::globalVariables()["domain"] . "/" . $username . "?share=true";
+        }
+        return NULL;
     }
 
     /**

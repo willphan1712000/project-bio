@@ -1,13 +1,15 @@
 <?php
 
+use business\Controllers\User;
+use business\Controllers\UserController\Data;
 use config\SystemConfig as c;
 use component\UserFooter;
 use business\info\display\Display;
-use controllers\user\UserController;
 use component\Copyright;
 
-$user = new UserController();
-$user->execute();
+$user = new User();
+$userHandler = new Data();
+$userHandler->handle($user);
 
 $username = $user->get("username");
 $infoArray = $user->get("info");

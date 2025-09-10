@@ -1,14 +1,10 @@
 <?php
 
-use controllers\user\UserController;
+use business\Controllers\User;
 use component\Copyright;
 use component\UserFooter;
 
-// get User object
-$user = new UserController();
-$user->execute();
-
-$username = $user->get("username");
+$username = (new User())->get("username");
 
 ?>
 <!DOCTYPE html>
