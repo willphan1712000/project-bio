@@ -13,7 +13,7 @@ class Vcard extends InfoHandler
         parent::__construct($next);
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $username = $info->getInfo('username'); // get username
         $userPath = SystemConfig::globalVariables()['user_folder']; // get user folder path

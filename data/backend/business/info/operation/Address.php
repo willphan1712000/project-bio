@@ -37,7 +37,7 @@ class Address implements Operation
             return null;
         }
         if (!str_contains($info, 'https://')) {
-            return "https://https://maps.apple.com/?q=" . $info;
+            return "https://maps.apple.com/?q=" . $info;
         }
         return $info;
     }

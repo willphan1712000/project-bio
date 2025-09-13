@@ -31,7 +31,7 @@ class GET implements IAPI
 
             $userInfoHandler = InfoChainHandler::getInstance(null);
 
-            $get = $userInfoHandler->adminGET($info);
+            $get = $userInfoHandler->handleAdminGET($info);
 
             return [
                 'success' => $get,

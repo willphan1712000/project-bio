@@ -16,7 +16,7 @@ class Viber extends Phone
         $this->name = 'Viber';
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $o = OperationViber::getInstance();
         $value = $info->getInfo($this->name);
@@ -37,7 +37,7 @@ class Viber extends Phone
         return false;
     }
 
-    public function doAdminGET(Info $info): bool
+    public function doHandleAdminGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Viber', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('ViberCode', $info->getInfo('username'));
@@ -49,7 +49,7 @@ class Viber extends Phone
         return true;
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Viber', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('ViberCode', $info->getInfo('username'));

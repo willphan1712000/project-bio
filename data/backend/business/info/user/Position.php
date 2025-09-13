@@ -14,7 +14,7 @@ class Position extends User
         parent::__construct($next);
         $this->name = 'position';
     }
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new NormalDisplay($this->name, $value);
@@ -23,7 +23,7 @@ class Position extends User
         return true;
     }
 
-    public function doHandle(Info $info): bool
+    public function handlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {

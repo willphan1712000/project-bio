@@ -15,7 +15,7 @@ class Avatar extends User
         $this->name = 'image';
     }
 
-    public function doHandle(Info $info): bool
+    public function handlePush(Info $info): bool
     {
         try {
             $username = $info->getInfo('username'); // get username
@@ -56,7 +56,7 @@ class Avatar extends User
         }
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new AvatarDisplay($this->name, $this->format($value === NULL ? NULL : $info->getInfo("username") . "/" . $value));

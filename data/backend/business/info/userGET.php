@@ -34,7 +34,7 @@ class userGET implements IAPI
 
             $userInfoHandler = InfoChainHandler::getInstance(null);
 
-            $get = $userInfoHandler->userGET($info);
+            $get = $userInfoHandler->handleUserGET($info);
 
             return [
                 'success' => $get,

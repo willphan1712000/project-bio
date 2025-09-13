@@ -38,11 +38,69 @@ class InfoChainHandler
     public static function getInstance(?InfoHandler $next): InfoHandler
     {
         if (!isset(self::$instance)) {
-            $userSocialHandler = new Menu(new Booking(new Facebook(new HotSale(new Instagram(new Linkedin(new Messenger(new OrderOnline(new Pinterest(new Threads(new Tiktok(new Website(new X(new Youtube(new Zalo(new Zillow(new Realtor($next)))))))))))))))));
+            $userSocialHandler = new Menu(
+                new Booking(
+                    new Facebook(
+                        new HotSale(
+                            new Instagram(
+                                new Linkedin(
+                                    new Messenger(
+                                        new OrderOnline(
+                                            new Pinterest(
+                                                new Threads(
+                                                    new Tiktok(
+                                                        new Website(
+                                                            new X(
+                                                                new Youtube(
+                                                                    new Zalo(
+                                                                        new Zillow(
+                                                                            new Realtor(
+                                                                                $next
+                                                                            )
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
             // Handle user phone number
-            $userPhoneHandler = new Mobile(new Work(new HotLine(new Viber(new Whatsapp($userSocialHandler)))));
+            $userPhoneHandler = new Mobile(
+                new Work(
+                    new HotLine(
+                        new Viber(
+                            new Whatsapp(
+                                $userSocialHandler
+                            )
+                        )
+                    )
+                )
+            );
             // Handle user information
-            $userInfoHandler = new Name(new Avatar(new Position(new Organization(new Description(new Email(new Address($userPhoneHandler)))))));
+            $userInfoHandler = new Name(
+                new Avatar(
+                    new Position(
+                        new Organization(
+                            new Description(
+                                new Email(
+                                    new Address(
+                                        $userPhoneHandler
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
             self::$instance = $userInfoHandler;
         }
         return self::$instance;
