@@ -5,7 +5,7 @@ use business\Controllers\UserController\Deactivate;
 use business\Controllers\UserController\Init;
 use business\Controllers\UserController\Redirect;
 
-// Deactivate -> Redirect
+// Init -> Deactivate -> Redirect
 $userHandler = new Init(
     new Deactivate(
         new Redirect()

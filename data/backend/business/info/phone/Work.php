@@ -17,7 +17,7 @@ class Work extends Phone
         $this->name = 'Work';
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {
@@ -37,7 +37,7 @@ class Work extends Phone
         return false;
     }
 
-    public function doAdminGET(Info $info): bool
+    public function doHandleAdminGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Work', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('WorkCode', $info->getInfo('username'));
@@ -49,7 +49,7 @@ class Work extends Phone
         return true;
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Work', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('WorkCode', $info->getInfo('username'));

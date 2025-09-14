@@ -72,9 +72,8 @@ class User implements UserInterface
         $this->isSignedIn = $res['success'];
         if ($this->isSignedIn) {
             $this->username = $res['username'];
+            $this->setTemplateId($this->username);
         }
-
-        $this->setTemplateId($this->username);
     }
 
     public function isActiveAccount()

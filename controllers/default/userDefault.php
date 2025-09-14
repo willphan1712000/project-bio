@@ -3,18 +3,18 @@
 use business\Controllers\User;
 use business\Controllers\UserController\Data;
 use business\Controllers\UserController\Init;
-use config\SystemConfig as c;
 use component\UserFooter;
 use business\info\display\Display;
 use component\Copyright;
+use config\SystemConfig;
 
+$title = SystemConfig::globalVariables()['userTitle'];
 $user = new User();
 $userHandler = new Init(
     new Data()
 );
 $userHandler->handle($user);
 
-$username = $user->get("username");
 $infoArray = $user->get("info");
 $socialIconArr = $user->get("socialIconArr");
 $g = $user->get("g");
@@ -31,7 +31,7 @@ $exclude = array_merge($orders, $exclude1);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/controllers/default/css/universal.css?v=<?= $g['v']; ?>">
     <link rel="stylesheet" type="text/css" href="/controllers/default/css/user.css?v=<?= $g['v']; ?>">
-    <title><?= $username; ?></title>
+    <title><?= $title; ?></title>
     <script src="https://kit.fontawesome.com/960d33c629.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>

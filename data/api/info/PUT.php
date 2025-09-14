@@ -8,6 +8,9 @@ use business\info\PUT as InfoPUT;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
+/**
+ * - Body : {  }
+ */
 class PUT extends APIAbstract
 {
     public function handleRequest($body)

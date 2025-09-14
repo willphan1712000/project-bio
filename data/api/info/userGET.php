@@ -7,6 +7,9 @@ use business\info\userGET as InfoUserGET;
 
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
+/**
+ * - Body : { username }
+ */
 class userGET extends APIAbstract
 {
     public function handleRequest($body)

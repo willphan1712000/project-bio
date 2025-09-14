@@ -23,7 +23,7 @@ class Position extends User
         return true;
     }
 
-    public function handlePush(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {
