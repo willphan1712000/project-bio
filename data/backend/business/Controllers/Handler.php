@@ -1,8 +1,6 @@
 <?php
 
-namespace business\Controllers\UserController;
-
-use business\Controllers\User;
+namespace business\Controllers;
 
 abstract class Handler
 {

@@ -71,9 +71,9 @@ class TemplateManagement implements ITemplateManagement
      */
     public static function shareTemplate(?string $username = NULL, $tem = NULL): int
     {
-        if (empty($username)) {
-            return 0;
-        }
+        if (empty($username)) return 0;
+
+        if ($username === 'Allinclicks') return -1;
 
         $chosen = Database::GET(User::class, 'defaultTemplate', ['username' => $username]);
         if ($tem !== NULL) {

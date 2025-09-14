@@ -6,6 +6,7 @@ use business\auth\Auth;
 use business\info\userGET;
 use business\style\GET;
 use business\template\TemplateManagement;
+use business\user\activation\GET as ActivationGET;
 use business\user\UserManagement;
 use config\SystemConfig;
 use persistence\Database;
@@ -14,20 +15,20 @@ use persistence\Entity\User as EntityUser;
 interface UserInterface
 {
     /**
-     * This checks if a user is signed or not
+     * initialize some necessary user information
      */
-    public function checkSignedIn(): void;
+    public function iniUser(): void;
 
     /**
-     * This checks if the user is deactivated. If so, redirect them to restore page. Otherwise, allow access to admin
+     * This checks if a user is signed in or not
      */
-    public function checkRestoreAccount();
+    public function checkSignedIn(): void;
 
     /**
      * This checks of the user is deactivated.
      * @return bool true if there is not a delete token for this user, and false otherwise
      */
-    public function checkDeactivation();
+    public function isActiveAccount();
 
     /**
      * This returns all necessary data for this user
@@ -46,16 +47,21 @@ class User implements UserInterface
     protected array $css;
     protected $g;
 
-    public function __construct()
+    public function iniUser(): void
     {
         $this->username = SystemConfig::URLExtraction();
-        $this->template_id = TemplateManagement::shareTemplate($this->username, (int) SystemConfig::URLExtraction(queryStr: "tem"));
+        $this->setTemplateId($this->username);
+    }
+
+    private function setTemplateId($username): void
+    {
+        $this->template_id = TemplateManagement::shareTemplate($username, (int) SystemConfig::URLExtraction(queryStr: "tem"));
     }
 
     public function checkSignedIn(): void
     {
         // Get token from cookies sent along with each request (controller or api call)
-        $token = $_COOKIE[SystemConfig::globalVariables()['auth']['auth_property']] ?? NULL;
+        $token = $_COOKIE[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL;
 
         $auth = new Auth(
             token: $token
@@ -63,17 +69,22 @@ class User implements UserInterface
 
         $res = $auth->auth();
 
-        $this->username = $res['username'];
         $this->isSignedIn = $res['success'];
+        if ($this->isSignedIn) {
+            $this->username = $res['username'];
+        }
+
+        $this->setTemplateId($this->username);
     }
 
-    public function checkRestoreAccount() {}
-
-    public function checkDeactivation()
+    public function isActiveAccount()
     {
-        $deleteToken = Database::GET(EntityUser::class, 'deleteToken', ['username' => $this->username]) ?? NULL;
-
-        return $deleteToken === NULL;
+        try {
+            $deleteToken = (new ActivationGET($this->username))->execute();
+            return $deleteToken === NULL;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     public function fetchData()

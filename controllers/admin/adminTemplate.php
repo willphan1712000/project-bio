@@ -1,5 +1,7 @@
 <?php
 
+use business\Controllers\AdminController\Auth;
+use business\Controllers\User;
 use component\Back;
 use component\Copyright;
 use component\BioTemplateButton;
@@ -7,8 +9,11 @@ use business\info\display\Display;
 use controllers\admin\AdminController;
 use controllers\template\TemplateFactory;
 
-$admin = new AdminController(); // get admin object
-$username = AdminController::getUsername();
+$user = new User();
+$handler = new Auth();
+$handler->handle($user);
+
+$username = $user->get("username");
 
 // /** @var Display[] */
 // $infoArray = $admin->get("info");

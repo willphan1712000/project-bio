@@ -2,6 +2,7 @@
 
 namespace business\Controllers\UserController;
 
+use business\Controllers\Handler;
 use business\Controllers\User;
 
 class Redirect extends Handler

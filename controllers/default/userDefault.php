@@ -2,13 +2,16 @@
 
 use business\Controllers\User;
 use business\Controllers\UserController\Data;
+use business\Controllers\UserController\Init;
 use config\SystemConfig as c;
 use component\UserFooter;
 use business\info\display\Display;
 use component\Copyright;
 
 $user = new User();
-$userHandler = new Data();
+$userHandler = new Init(
+    new Data()
+);
 $userHandler->handle($user);
 
 $username = $user->get("username");
