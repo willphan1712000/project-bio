@@ -76,9 +76,9 @@ class Router
             $router->addRoute('/@' . $pages[$i], 'dist/' . $pages[$i] . '.php');
             $router->addRoute('/@' . $pages[$i] . '/', 'dist/' . $pages[$i] . '.php');
         }
-        $router->addRoute('/@admin/@upload', 'dist/aic.php');
-        $router->addRoute('/@admin/@price', 'dist/aic.php');
-        $router->addRoute('/@admin/@logout', 'dist/aic.php');
+        $router->addRoute('/@admin/@upload', 'dist/admin.php');
+        $router->addRoute('/@admin/@price', 'dist/admin.php');
+        $router->addRoute('/@admin/@logout', 'dist/admin.php');
 
         $uri = parse_url($_SERVER['REQUEST_URI'])['path']; // Get current uri from the address bar
         $router->route($uri);

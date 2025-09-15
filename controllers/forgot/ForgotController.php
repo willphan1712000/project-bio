@@ -39,7 +39,7 @@ class ForgotController extends Controller
             $this->error = "Username does not exist";
         } else {
             if (!$match) {
-                $this->error = "The email does not match with the username";
+                $this->error = "The given email does not belong to the given username";
             } else {
                 $token = time();
                 $link = $g['domain'] . "/@resetPass?username=" . $this->username . "&token=" . $token;

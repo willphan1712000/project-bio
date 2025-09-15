@@ -4,9 +4,9 @@ namespace controllers\deactivate;
 
 use business\user\activation\GET;
 use config\SystemConfig;
-use persistence\Database;
+use controllers\Controller;
 
-class Controller
+class DeactivateController extends Controller
 {
     protected ?string $username;
     protected ?string $signinUrl;
@@ -17,7 +17,12 @@ class Controller
         $this->signinUrl = '/@signin';
     }
 
-    public function redirect()
+    public function execute()
+    {
+        $this->redirect();
+    }
+
+    private function redirect()
     {
         if ($this->username === null) {
             header("Location: " . $this->signinUrl);

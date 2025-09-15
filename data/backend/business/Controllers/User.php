@@ -3,14 +3,12 @@
 namespace business\Controllers;
 
 use business\auth\Auth;
+use business\Controllers\UserLogics\UserManagement;
 use business\info\userGET;
 use business\style\GET;
 use business\template\TemplateManagement;
 use business\user\activation\GET as ActivationGET;
-use business\user\UserManagement;
 use config\SystemConfig;
-use persistence\Database;
-use persistence\Entity\User as EntityUser;
 
 interface UserInterface
 {
@@ -20,9 +18,14 @@ interface UserInterface
     public function iniUser(): void;
 
     /**
-     * This checks if a user is signed in or not
+     * This checks if a user is signed in. If so, set status to true, username, and template_id. Otherwise, set status to false
      */
     public function checkSignedIn(): void;
+
+    /**
+     * This checks provided user credentials and grant access to the cookies
+     */
+    public function generateAuth(): bool;
 
     /**
      * This checks of the user is deactivated.
@@ -36,16 +39,23 @@ interface UserInterface
     public function fetchData();
 }
 
-class User implements UserInterface
+class User extends UserManagement implements UserInterface
 {
     protected bool $isSignedIn;
-    protected string $username;
+    protected ?string $username;
+    protected ?string $password;
     protected int $template_id;
     protected array $socialIconArr;
     protected string $url;
     protected array $info;
     protected array $css;
     protected $g;
+
+    public function __construct(?string $username = null, ?string $password = null)
+    {
+        $this->username = $username;
+        $this->password = $password;
+    }
 
     public function iniUser(): void
     {
@@ -76,6 +86,14 @@ class User implements UserInterface
         }
     }
 
+    public function generateAuth(): bool
+    {
+        return $this::auth(
+            username: $this->username,
+            password: $this->password
+        );
+    }
+
     public function isActiveAccount()
     {
         try {
@@ -89,7 +107,7 @@ class User implements UserInterface
     public function fetchData()
     {
         $this->socialIconArr = SystemConfig::socialIconArr(); // get icon array
-        $this->url = UserManagement::URLGenerator($this->username, "share"); // get url based on username
+        $this->url = $this::URLGenerator($this->username, "share"); // get url based on username
         $this->g = SystemConfig::globalVariables();
 
         $infoProcess = (new userGET($this->username, true))->execute();
