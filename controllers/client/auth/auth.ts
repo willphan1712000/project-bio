@@ -1,9 +1,10 @@
 import apiClient, { Response } from "../api/apiClient";
 import Cookies from 'js-cookie';
 import authStorage from './storage'
+import config from "../config";
 
 // This link is a route that users will be redirected to whenever they logout or invalid login information found
-const signInLink = '/@signin' 
+const signInLink = config.routes.signin
 
 async function validate(username: string): Promise<boolean> {
     const res = await apiClient.post('/api/auth/check', {

@@ -8,7 +8,6 @@ interface Props {
 
 const AppToaster = ({ status = false, message = '' }: Props) => {
   if(typeof message !== 'string') {
-    console.log(message)
     message = 'Error...'
   }
   return (

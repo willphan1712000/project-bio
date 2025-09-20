@@ -1,6 +1,6 @@
-import { username } from "../admin/clientComponents/AdminContext";
-import Delete from "../admin/clientComponents/Delete/Delete";
-import { fetchData, getResource } from "../admin/clientComponents/FetchData";
+import { username } from "../admin/clientComponentsOld/AdminContext";
+import Delete from "../admin/clientComponentsOld/Delete/Delete";
+import { fetchData, getResource } from "../admin/clientComponentsOld/FetchData";
 import { $$ } from "../client/src/Web-Development/W";
 import InfoArea from "./clientComponents/InfoArea";
 

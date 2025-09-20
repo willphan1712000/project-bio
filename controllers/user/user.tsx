@@ -1,4 +1,4 @@
-import { username } from "../admin/clientComponents/AdminContext"
+import { username } from "../admin/clientComponentsOld/AdminContext"
 import { $$ } from "../client/src/Web-Development/W"
 
 $(document).ready(function () {

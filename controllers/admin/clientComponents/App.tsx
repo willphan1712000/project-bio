@@ -1,12 +1,17 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Template from '../../client/userTemplate/Template';
+import { Theme } from '@radix-ui/themes'
+import TemplateContainer from './Template/TemplateContainer'
+import "@radix-ui/themes/styles.css";
+import Utilities from './Utilities/Utilities';
 
 const App = () => {
-    const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <Template isAdmin={true} />
-    </QueryClientProvider>
+    <Theme accentColor="cyan" radius="full" style={{
+        backgroundColor: "transparent",
+        minHeight: "auto"
+      }}>
+      <TemplateContainer />
+      <Utilities />
+    </Theme>
   )
 }
 

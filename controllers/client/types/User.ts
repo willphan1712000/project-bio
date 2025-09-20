@@ -16,7 +16,8 @@ type EachInfo = {
     label: string,
     html: string,
     htmlWValue: string,
-    htmlAdmin: string
+    htmlAdmin: string,
+    htmlAdminWValue: string
 }
 
 type User_Info_Required = {

@@ -107,7 +107,8 @@ abstract class InfoHandler implements InfoElement
                 'label' => $display->getLabel(),
                 'html' => $display->getHTML(''),
                 'htmlWValue' => $display->getHTML($display->getValue()),
-                'htmlAdmin' => $display->getHTML(null, DISPLAY_TYPE::ADMIN)
+                'htmlAdmin' => $display->getHTML(null, DISPLAY_TYPE::ADMIN),
+                'htmlAdminWValue' => $display->getHTML($display->getValue(), DISPLAY_TYPE::ADMIN)
             ]);
         }
     }

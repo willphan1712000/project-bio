@@ -11,5 +11,11 @@ export default Object.freeze({
     template: {
         zoom_ratio: 210,
         text_zoom_ratio: 0.5
+    },
+    routes: {
+        signin: '/@signin',
+        signup: '/@signup',
+        template: '/@template',
+        templateWUsername: '/@template?username='
     }
 })

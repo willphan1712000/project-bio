@@ -20,7 +20,11 @@ class DELETE implements IAPI
     {
         try {
             // Check if the user exists, then delete user folder, then delete data in database
-            $deleteHandler = new IsUserExist(new DeleteFolder(new DeleteData(null)));
+            $deleteHandler = new IsUserExist(
+                new DeleteFolder(
+                    new DeleteData(null)
+                )
+            );
             $process = $deleteHandler->handle($this->username); // If process is successful
             return [
                 'success' => $process

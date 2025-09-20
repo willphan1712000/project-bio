@@ -1,7 +1,7 @@
 import apiTemplate from './api/template';
-import useAppQuery from '../hooks/useAppQuery';
-import useAppEffect from '../hooks/useAppEffect';
 import AppImage from '../clientComponents/AppImage';
+import useAppEffect from '../hooks/useAppEffect';
+import useAppQuery from '../hooks/useAppQuery';
 import template_dim from './hooks/template_dim';
 
 interface Props {
@@ -66,7 +66,7 @@ const Template = ({ isAdmin = false }: Props) => {
                     lineHeight: `1`,
                     textAlign: 'center'
                   }}
-                  dangerouslySetInnerHTML={{ __html: isAdmin ? info.htmlAdmin : (template_info.isIcon ? info.html : info.htmlWValue) }}
+                  dangerouslySetInnerHTML={{ __html: isAdmin ? (template_info.isIcon ? info.htmlAdmin : info.htmlAdminWValue) : (template_info.isIcon ? info.html : info.htmlWValue) }}
                 />
               )
             })}
