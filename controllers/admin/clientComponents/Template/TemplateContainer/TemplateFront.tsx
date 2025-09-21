@@ -1,12 +1,11 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Template from '../../../../client/userTemplate/Template';
 
 const TemplateFront = () => {
-    const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
+    <div className='relative'>
+      <div className='absolute top-[1%] left-[50%] bg-[#fff] rounded-[15px] p-[5px] translate-x-[-50%] z-[99]'>Front</div>
       <Template isAdmin={true} />
-    </QueryClientProvider>
+    </div>
   )
 }
 

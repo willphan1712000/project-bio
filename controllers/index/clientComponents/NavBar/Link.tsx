@@ -1,6 +1,3 @@
-import { useQuery } from "@tanstack/react-query"
-import apiCompanyInfo, { CompanyInfo } from '../api/companyInfo'
-import { BeatLoader } from "react-spinners"
 
 const Link = () => {
   return (

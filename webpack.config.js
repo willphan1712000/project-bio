@@ -30,7 +30,6 @@ const entryjs = {
   userjs: path.resolve(__dirname, 'controllers/client/src/dist/user/user.js'),
   userTemplatejs: path.resolve(__dirname, 'controllers/client/src/dist/user/userTemplate.js'),
   adminjs: path.resolve(__dirname, 'controllers/client/src/dist/admin/admin.js'),
-  adminTemplatejs: path.resolve(__dirname, 'controllers/client/src/dist/admin/adminTemplate.js'),
   adminDefaultjs: path.resolve(__dirname, 'controllers/client/src/dist/default/admin.js'),
   templatejs: path.resolve(__dirname, 'controllers/client/src/dist/template/template.js'),
   signupjs: path.resolve(__dirname, 'controllers/client/src/dist/signup/signup.js'),
@@ -84,7 +83,7 @@ const entryChunks = {
   "userTemplate.php": ['tailwind', 'userjs', 'userTemplatejs', 'universal', 'admin'],
   "admin.php": [],
   "adminDefault.php": ['adminDefaultjs', 'tailwind', 'universal'],
-  "adminTemplate.php": ['adminTemplatejs', 'tailwind', 'adminjs', 'universal', 'admin'],
+  "adminTemplate.php": ['tailwind', 'adminjs', 'universal', 'admin'],
   "checkout.php": ['tailwind', 'checkoutjs', 'universal'],
   "return.php": ['tailwind', 'checkoutjs', 'universal']
 }
@@ -152,42 +151,53 @@ export default {
     plugins: htmlEntry,
     module: {
         rules: [
-            {
-                test:/\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            }, {
-                test:/\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            },
-            {
-              test: /\.module\.css$/,
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+          {
+            test: /\.ts?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+          {
+              test:/\.scss$/i,
               use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                  'style-loader',
+                  'css-loader',
+                  'sass-loader'
+              ]
+          }, {
+              test:/\.css$/i,
+              use: [
+                  'style-loader',
+                  'css-loader',
+                  'sass-loader'
+              ]
+          },
+          {
+            test: /\.module\.css$/i,
+            use: [
+                  'style-loader',
+                  'css-loader',
+                  'sass-loader'
+              ]
+          },
+          {
+            test: /\.m?js/,
+            type: "javascript/auto",
+          },
+          {
+            test: /\.m?js/,
+            resolve: {
+              fullySpecified: false,
             },
-            {
-              test: /\.m?js/,
-              type: "javascript/auto",
-            },
-            {
-              test: /\.m?js/,
-              resolve: {
-                fullySpecified: false,
-              },
-            },
+          },
         ]
     },
     resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
       fallback: {
         "console": false
       },

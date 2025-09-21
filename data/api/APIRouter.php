@@ -37,7 +37,7 @@ class APIRouter
 
             $api_router->post('/api/template', 'api\templateManagement\user\USERGET@execute');
             $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
-            $api_router->post('/api/resources', 'api\resources\GET@execute');
+            $api_router->get('/api/resources', 'api\resources\GET@execute');
 
             $api_router->get('/api/pricing', 'api\pricing\GET@execute');
             $api_router->post('/api/pricing', 'api\pricing\POST@execute');
@@ -47,7 +47,7 @@ class APIRouter
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
 
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
-            $api_router->post('/api/auth/check', 'api\auth\AuthController@postValidate');
+            $api_router->get('/api/auth/username', 'api\auth\AuthController@getUsername');
 
             $api_router->resolve();
 

@@ -1,11 +1,9 @@
+import Link from '../../../client/clientComponents/button/Link'
 import config from '../../../client/config'
-import AppButton from '../AppButton'
 
 const CreateAnother = () => {
   return (
-    <AppButton>
-        <a href={config.routes.signup}>Create another account</a>
-    </AppButton>
+    <Link title='Create another account' href={config.routes.signup} />
   )
 }
 

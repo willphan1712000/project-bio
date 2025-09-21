@@ -1,4 +1,5 @@
 import { AlertDialog, Button, Flex } from '@radix-ui/themes';
+import * as AlertDialogTheme from "@radix-ui/react-alert-dialog";
 import { useState } from 'react';
 import { BarLoader } from 'react-spinners'
 
@@ -12,7 +13,7 @@ interface Props {
 const AppAlertDialog = ({ buttonTitle, title, des, fn }: Props) => {
     const [isPending, setPending] = useState<boolean>(false)
   return (
-    <Flex>
+    <Flex style={{ zIndex: 99 }}>
         <AlertDialog.Root>
             <AlertDialog.Trigger>
                 <Button color="red" disabled={isPending}>{isPending ? <BarLoader width={60} /> : buttonTitle}</Button>

@@ -1,12 +1,16 @@
-import { Button } from '@radix-ui/themes'
-import React from 'react'
+import Link from '../../../client/clientComponents/button/Link'
 import config from '../../../client/config'
 
 const TemplateButton = () => {
   return (
-    <Button>
-        <a href={config.routes.templateWUsername + 'nha'}>Bio Template</a>
-    </Button>
+    <Link 
+      title="Bio Template"
+      href={config.routes.templateWUsername}
+      style={{
+        backgroundColor: "#5b35ff",
+        color: "#fff"
+      }}
+    />
   )
 }
 

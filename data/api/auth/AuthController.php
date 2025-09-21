@@ -5,6 +5,7 @@ namespace api\auth;
 use api\Request;
 use api\Response;
 use business\auth\Auth;
+use business\Controllers\User;
 use config\SystemConfig;
 
 /**
@@ -40,16 +41,17 @@ class AuthController
         }
     }
 
-    public function postValidate()
+    public function getUsername()
     {
-        $body = $this->request->getBody();
-        $headers = $this->request->getHeaders();
-
         try {
-            $validate = new Auth($body["username"] ?? NULL, $headers[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL);
+            $user = new User();
+            $user->checkSignedIn();
             $this->response->setStatusCode(200)->json([
                 "success" => true,
-                "data" => $validate->auth()
+                "data" => [
+                    "status" => $user->get("isSignedIn"),
+                    "username" => $user->get("username")
+                ]
             ]);
         } catch (\Exception $e) {
             $this->response->setStatusCode(400)->json([
