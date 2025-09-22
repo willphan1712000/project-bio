@@ -1,17 +1,30 @@
 import { ReactNode } from "react"
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
-  children: ReactNode
+  children?: ReactNode,
+  style?: React.CSSProperties
 }
 
 /**
  * 
  * @returns App Button decorator
  */
-const AppButton = ({ children, ...props }: Props) => {
+const AppButton = ({ children, style, ...props }: Props) => {
   return (
     <div
-      className="flex justify-center items-center rounded-[30px] bg-[#e2e2e2] w-fit text-[#000] h-[40px] overflow-hidden"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '30px',
+        backgroundColor: '#e2e2e2',
+        width: 'fit-content',
+        color: '#000',
+        height: '40px',
+        overflow: 'hidden',
+        flexShrink: 0,
+        ...style
+      }}
       {...props}
     >
       {children}

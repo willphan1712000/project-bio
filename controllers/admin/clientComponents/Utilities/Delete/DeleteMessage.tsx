@@ -34,7 +34,7 @@ const DeleteMessage = () => {
 
   if(state.isDeleteWarningOpen)
     return (
-      <div ref={overlay} className='flex justify-center items-center absolute top-0 left-0 bg-[#00000082] h-[100vh] w-[100vw] z-[99]'>
+      <div ref={overlay} className='flex justify-center items-center top-0 left-0 bg-[#00000082] h-[100vh] w-[100vw] z-[99] fixed'>
         <div
           ref={modal}
           className='rounded-[30px] bg-white p-[30px] w-[80%] min-w-[300px] max-w-[600px]'
@@ -60,7 +60,9 @@ const DeleteMessage = () => {
               onClick={() => setState(prev => ({
                 ...prev,
                 isDeleteWarningOpen: false
-              }))}>Cancel</button>
+              }))}>
+                Cancel
+              </button>
             </AppButton>
           </div>
         </div>

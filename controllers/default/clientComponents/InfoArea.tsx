@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { AdminElementContext } from '../../admin/clientComponentsOld/AdminContext'
+import SocialTag from '../../admin/clientComponentsOld/SocialTag'
 import AdminContextProvider from '../../admin/clientComponentsOld/AdminContextProvider'
 import Avatar from '../../admin/clientComponentsOld/Avatar/Avatar'
 import Input from '../../admin/clientComponentsOld/Input'
 import SaveDefault from '../../admin/clientComponentsOld/Save/SaveDefault'
-import SocialTag from '../../admin/clientComponentsOld/SocialTag'
 
 interface Props {
     data: {

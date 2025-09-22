@@ -3,7 +3,10 @@ import config from '../../../client/config'
 
 const CreateAnother = () => {
   return (
-    <Link title='Create another account' href={config.routes.signup} />
+    <Link
+      title='Create another account'
+      href={config.routes.signup}
+    />
   )
 }
 

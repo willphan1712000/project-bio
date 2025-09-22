@@ -1,3 +1,4 @@
+import apiClient from "../../client/api/apiClient";
 import Response from "../../client/src/Web-Development/components/Response";
 import { $$$ } from "../../client/src/Web-Development/WW";
 
@@ -24,9 +25,13 @@ export async function fetchData(username: string = ''): Promise<Data> {
 }
 
 export async function getResource(username: string = ''): Promise<Resource> {
-    const resource = await $$$("/api/resources", {
-        username
-    }).api().post() as Response
+    const res = await apiClient.get('/api/resources')
+
+    if (!res.ok) {
+        throw new Error(res.problem)
+    }
+
+    const resource = res.data as Response
 
     if(!resource.success) {
         throw new Error(resource.error)

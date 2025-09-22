@@ -25,6 +25,7 @@ const DeleteConfirm = () => {
     const { error, data } = await handleAsync(apiUser.deleteUser(user.username))
     if(error) {
       setError(error)
+      setDeleting(false)
       return
     }
 

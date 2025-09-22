@@ -6,7 +6,6 @@ import AvatarTemplate from '../Avatar/AvatarTemplate'
 import Delete from '../Delete/Delete'
 import { fonts, solidColors } from '../ElementMap'
 import { Resource } from '../FetchData'
-import SocialTag from '../SocialTag'
 import Background from './Background'
 import Font from './Font'
 import FontColor from './FontColor'
@@ -16,6 +15,7 @@ import SavePDF from './SavePDF'
 import Save from './Save'
 import Reset from './Reset'
 import Bio from './Bio'
+import SocialTag from '../SocialTag'
 
 interface Props {
   data: {
