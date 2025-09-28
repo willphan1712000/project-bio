@@ -34,7 +34,7 @@ class UserManagement implements IUserManagement
 {
     public static function auth(string $username, string $password): bool
     {
-        $authStrategy = new Auth($username, $password);
+        $authStrategy = new Auth();
         return $authStrategy->generateAuth();
     }
 

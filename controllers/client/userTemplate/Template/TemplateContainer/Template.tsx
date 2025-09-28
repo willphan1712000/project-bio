@@ -1,8 +1,8 @@
-import apiTemplate from './api/template';
-import AppImage from '../clientComponents/AppImage';
-import useAppEffect from '../hooks/useAppEffect';
-import useAppQuery from '../hooks/useAppQuery';
-import template_dim from './hooks/template_dim';
+import apiTemplate from '../../api/template';
+import AppImage from '../../../clientComponents/AppImage';
+import useAppEffect from '../../../hooks/useAppEffect';
+import useAppQuery from '../../../hooks/useAppQuery';
+import template_dim from '../../hooks/template_dim';
 
 interface Props {
   isAdmin?: boolean

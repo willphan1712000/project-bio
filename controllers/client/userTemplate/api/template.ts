@@ -13,6 +13,7 @@ type Template_User = {
 
 /**
  * This function will get template and template info related to the user get from the route
+ * @returns promise - Promise of Template_User
  */
 async function getTemplate() {
     const username = getUsername();
@@ -34,6 +35,25 @@ async function getTemplate() {
     return data.data
 }
 
+/**
+ * Handle update user template information and user information
+ */
+async function updateTemplate(userData: any) {
+    const res = await apiClient.put("/api/template", userData)
+
+    if(!res.ok) {
+        throw new Error(res.problem)
+    }
+
+    const data = res.data as Response<any>;
+    if(!data.success) {
+        throw new Error(data.error)
+    }
+
+    return data.data
+}
+
 export default {
-    getTemplate
+    getTemplate,
+    updateTemplate
 }

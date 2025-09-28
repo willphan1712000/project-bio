@@ -3,6 +3,7 @@
 namespace api\templateManagement\user;
 
 use api\APIAuth;
+use business\auth\Authz;
 use business\templateManagement\TemplateUser;
 
 class USERPUT extends APIAuth
@@ -13,5 +14,8 @@ class USERPUT extends APIAuth
         return $templateUser->updateUser(...$arg);
     }
 
-    protected function checkPermission(?string $username = null) {}
+    protected function checkPermission(?string $username = null)
+    {
+        return Authz::checkPermision($username, "");
+    }
 }

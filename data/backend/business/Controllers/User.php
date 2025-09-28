@@ -70,12 +70,7 @@ class User extends UserManagement implements UserInterface
 
     public function checkSignedIn(): void
     {
-        // Get token from cookies sent along with each request (controller or api call)
-        $token = $_COOKIE[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL;
-
-        $auth = new Auth(
-            token: $token
-        );
+        $auth = new Auth();
 
         $res = $auth->auth();
 

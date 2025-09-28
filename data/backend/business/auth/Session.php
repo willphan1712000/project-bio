@@ -2,6 +2,7 @@
 
 namespace business\auth;
 
+use api\Request;
 use config\SystemConfig;
 use Exception;
 
@@ -12,9 +13,14 @@ class Session implements AuthInterface
 {
     protected ?string $username;
 
-    public function __construct(?string $username = null)
+    public function __construct(?Request $request = NULL)
     {
-        $this->username = $username;
+        if ($request === NULL) {
+            $this->username = $_POST['username'] ?? NULL;
+        } else {
+            $body = $request->getBody();
+            $this->username = $body['username'] ?? NULL;
+        }
     }
 
     public function auth(): array

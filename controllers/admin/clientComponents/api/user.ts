@@ -1,19 +1,8 @@
 import apiClient, { Response } from "../../../client/api/apiClient";
-
-export type UserSignin = {
-    status: boolean,
-    username: string
-} | undefined
+import auth from "../../../client/auth/auth";
 
 async function getUserSignin() {
-    const res = await apiClient.get('/api/auth/username')
-
-    if(!res.ok) throw new Error(res.problem)
-
-    const data = res.data as Response<UserSignin>
-    if(!data.success) throw new Error(data.error)
-
-    return data.data
+    return await auth.validate()
 }
 
 async function deleteUser(username: string) {

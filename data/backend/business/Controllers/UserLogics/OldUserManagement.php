@@ -44,19 +44,19 @@ class OldUserManagement implements IOldUserManagement
 {
     public static function isSignedIn(&$SESSION, ?string $username = null, ?string $token = null): bool
     {
-        $authStrategy = new Auth(token: $token);
+        $authStrategy = new Auth();
         return $authStrategy->auth()['success'];
     }
 
     public static function auth(&$SESSION, string $username, string $password): bool
     {
-        $authStrategy = new Auth($username, $password);
+        $authStrategy = new Auth();
         return $authStrategy->generateAuth();
     }
 
     public static function getUsername(?string $token = null): string
     {
-        $auth = new Auth(token: $token);
+        $auth = new Auth();
         $authex = $auth->auth();
         if (!$authex['success']) {
             return "";

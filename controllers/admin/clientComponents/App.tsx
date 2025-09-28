@@ -1,13 +1,14 @@
 import "@radix-ui/themes/styles.css";
-import TemplateContainer from './Template/TemplateContainer';
 import Utilities from './Utilities/Utilities';
 import { MyContext } from "./context";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import handleAsync from "../../client/utilities/handleAsync";
-import apiUser, { UserSignin } from './api/user';
+import apiUser, {  } from './api/user';
 import useAppEffect from "../../client/hooks/useAppEffect";
 import { Toaster } from "react-hot-toast";
+import TemplateContainer from "../../client/userTemplate/Template/TemplateContainer";
+import { UserSignin } from "../../client/auth/auth";
 
 const App = () => {
   const [isLoading, setLoading] = useState(true)

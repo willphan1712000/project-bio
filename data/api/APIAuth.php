@@ -2,8 +2,7 @@
 
 namespace api;
 
-use business\auth\Auth;
-use config\SystemConfig;
+use business\Controllers\User;
 
 abstract class APIAuth implements API
 {
@@ -17,13 +16,10 @@ abstract class APIAuth implements API
         $this->request = $request;
         $this->response = $response;
 
-        $headers = $this->request->getHeaders();
-
-        $token = $headers[SystemConfig::globalVariables()['auth']['token_property']] ?? NULL;
-
-        $auth = (new Auth(null, null, $token))->auth();
-        $this->status = $auth['success'];
-        $this->username = $auth['username'] ?? NULL;
+        $user = new User();
+        $user->checkSignedIn();
+        $this->username = $user->get("username");
+        $this->status = $user->get("isSignedIn");
     }
 
     protected function getUsername()

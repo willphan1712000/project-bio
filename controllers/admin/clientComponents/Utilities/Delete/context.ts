@@ -9,6 +9,9 @@ export type ContextDataType = [
     React.Dispatch<React.SetStateAction<Data>>
 ] | undefined
 
+/**
+ * - This context delivers data state and set data state down to whatever is consuming it
+ */
 export const MyContext = createContext<ContextDataType>(undefined)
 
 export default function useMyContext() {

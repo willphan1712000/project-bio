@@ -9,6 +9,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+/**
+ * Entry point for Template
+ * @returns TemplateContainer component
+ */
 const TemplateContainer = () => {
   const slideCss = `!flex justify-center z-[-1]`
   const queryClient = new QueryClient();

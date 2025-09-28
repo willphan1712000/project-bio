@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import Template from '../../client/userTemplate/Template'
+import Template from '../../client/userTemplate/Template/TemplateContainer/Template'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const App = () => {

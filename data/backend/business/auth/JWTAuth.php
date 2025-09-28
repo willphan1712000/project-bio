@@ -2,6 +2,7 @@
 
 namespace business\auth;
 
+use api\Request;
 use config\SystemConfig;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -18,15 +19,23 @@ class JWTAuth implements AuthInterface
     protected ?string $username;
     protected ?string $token;
 
-    public function __construct(?string $username = null, ?string $token = null)
+    public function __construct(?Request $request = NULL)
     {
-        $this->username = $username;
-        $this->token = $token;
+        $tokenName = SystemConfig::globalVariables()['auth']['token_property'];
+        if ($request === NULL) {
+            $this->username = $_POST['username'] ?? NULL;
+            $this->token = $_COOKIE[$tokenName] ?? NULL;
+        } else {
+            $headers = $request->getHeaders();
+            $body = $request->getBody();
+            $this->username = $body['username'];
+            $this->token = $_COOKIE[$tokenName] ?? ($headers[$tokenName] ?? NULL);
+        }
     }
 
     public function auth(): array
     {
-        if ($this->token === null) return [
+        if ($this->token === NULL) return [
             'success' => false
         ];
 

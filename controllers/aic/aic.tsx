@@ -4,7 +4,7 @@ import App from "./clientComponents/App";
 import "@radix-ui/themes/styles.css";
 
 $(document).ready(async function() {
-    const isSignedIn = await auth.validate("Allinclicks")
+    const isSignedIn = await auth.validate()
 
     if(isSignedIn)
         $$("#admin_container", <App />).reactMounting()

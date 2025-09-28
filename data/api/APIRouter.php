@@ -47,7 +47,9 @@ class APIRouter
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
 
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
-            $api_router->get('/api/auth/username', 'api\auth\AuthController@getUsername');
+            $api_router->get('/api/auth/check', 'api\auth\AuthController@getUsername');
+
+            $api_router->get('/api/test', 'api\ApiProcessing\ApiTest@execute');
 
             $api_router->resolve();
 
@@ -102,21 +104,34 @@ class APIRouter
  */
 class Request
 {
+    /**
+     * Get endpoint of the request
+     */
     public function getEndpoint()
     {
         return strtok($_SERVER['REQUEST_URI'], "?");
     }
 
+    /**
+     * Get method of the request
+     */
     public function getMethod()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    /**
+     * Get body of the request
+     * @return array associative array format
+     */
     public function getBody()
     {
         return json_decode(file_get_contents("php://input"), true);
     }
 
+    /**
+     * get headers of the request
+     */
     public function getHeaders()
     {
         return getallheaders();
@@ -128,12 +143,18 @@ class Request
  */
 class Response
 {
+    /**
+     * Set status of the response
+     */
     public function setStatusCode($code)
     {
         http_response_code($code);
         return $this;
     }
 
+    /**
+     * Send a json as a response
+     */
     public function json($data)
     {
         header('Access-Control-Allow-Origin');

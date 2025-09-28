@@ -2,6 +2,11 @@
 
 namespace business\auth;
 
+interface AuthzInterface
+{
+    public static function checkPermision(?string $username, ?string $permission = null);
+}
+
 class Authz
 {
     protected static array $roles = [

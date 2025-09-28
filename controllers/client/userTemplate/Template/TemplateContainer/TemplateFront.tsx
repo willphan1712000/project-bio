@@ -1,4 +1,4 @@
-import Template from '../../../../client/userTemplate/Template';
+import Template from './Template';
 
 const TemplateFront = () => {
   return (
