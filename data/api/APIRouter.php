@@ -21,6 +21,9 @@ class APIRouter
     {
         if (str_starts_with($_SERVER['REQUEST_URI'], '/api/')) {
             $api_router = new APIRouter(new Request(), new Response());
+
+            $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
+
             $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
             $api_router->get('/api/woo/product/{id}', 'business\wp\ProductController@getWithId');
 
@@ -104,6 +107,24 @@ class APIRouter
  */
 class Request
 {
+    private ?string $username;
+    private ?string $permission;
+    public function setUsername(?string $username)
+    {
+        $this->username = $username;
+    }
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    public function setPermission(?string $permission)
+    {
+        $this->permission = $permission;
+    }
+    public function getPermission()
+    {
+        return $this->permission;
+    }
     /**
      * Get endpoint of the request
      */
@@ -144,7 +165,7 @@ class Request
 class Response
 {
     /**
-     * Set status of the response
+     * Set status code for the response
      */
     public function setStatusCode($code)
     {

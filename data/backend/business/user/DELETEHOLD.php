@@ -24,10 +24,7 @@ class DELETEHOLD implements IAPI
                 'success' => $r
             ];
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
+            throw new \Exception($e->getMessage());
         }
     }
 

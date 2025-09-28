@@ -16,7 +16,13 @@ abstract class ApiHandler
 
     public function handle(Request $request, Response $response)
     {
-        if (!$this->doHandle($request, $response)) {
+        try {
+            if (!$this->doHandle($request, $response)) return;
+        } catch (\Exception $e) {
+            $response->setStatusCode(400)->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
             return;
         }
 

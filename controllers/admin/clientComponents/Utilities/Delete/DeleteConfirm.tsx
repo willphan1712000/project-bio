@@ -3,7 +3,6 @@ import AppButton from '../../../../client/clientComponents/button/AppButton'
 import { ClipLoader } from 'react-spinners'
 import handleAsync from '../../../../client/utilities/handleAsync'
 import apiUser from '../../api/user'
-import useMyContext from '../../context'
 import useAppEffect from '../../../../client/hooks/useAppEffect'
 import auth from '../../../../client/auth/auth'
 import config from '../../../../client/config'
@@ -12,7 +11,6 @@ import toast from 'react-hot-toast'
 import AppToaster from '../../../../client/clientComponents/AppToaster'
 
 const DeleteConfirm = () => {
-  const user = useMyContext()
   const [isDeleting, setDeleting] = useState(false)
   const [error, setError] = useState<string>('')
 
@@ -22,7 +20,7 @@ const DeleteConfirm = () => {
     e.preventDefault()
 
     setDeleting(true)
-    const { error, data } = await handleAsync(apiUser.deleteUser(user.username))
+    const { error, data } = await handleAsync(apiUser.deleteUser())
     if(error) {
       setError(error)
       setDeleting(false)

@@ -1,21 +1,20 @@
 import apiClient, { Response } from "../../../client/api/apiClient";
 import auth from "../../../client/auth/auth";
+import errorFormat from "../../../client/utilities/errorFormat";
 
 async function getUserSignin() {
     return await auth.validate()
 }
 
-async function deleteUser(username: string) {
-    const res = await apiClient.post('/data/api/user/DELETEHOLD.php', {
-        username
-    })
-
-    if(!res.ok) throw new Error(res.problem)
-
+async function deleteUser() {
+    const res = await apiClient.delete('/api/user/deletetemp')
+    
     const data = res.data as Response<undefined>
-    if(!data.success) throw new Error(data.error)
+
+    if(!res.ok) throw new Error(errorFormat(res.problem, data.error))
 
     return data.success
+
 }
 
 export default {

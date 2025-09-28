@@ -17,7 +17,7 @@ abstract class ApiProcess extends ApiHandler
         $this->response = $response;
     }
 
-    public function execute()
+    public function startProcessing()
     {
         $apiHandler = new ApiAuth(
             new ApiAuthz($this)
@@ -25,4 +25,7 @@ abstract class ApiProcess extends ApiHandler
 
         $apiHandler->handle($this->request, $this->response);
     }
+
+
+    abstract function execute();
 }

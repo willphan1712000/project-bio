@@ -18,7 +18,8 @@ class Authz
     private function __construct() {}
 
     /**
-     * Function checks where the given username has right permission
+     * - Function checks where the given username has right permission
+     * - permission format => operation : role
      */
     public static function checkPermision(?string $username = null, ?string $permission = null)
     {
