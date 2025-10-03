@@ -2,6 +2,7 @@
 
 namespace business\templateManagement;
 
+use business\Controllers\UserLogics\UserManagement;
 use business\info\Info;
 use business\info\PUT;
 use business\info\userGET;
@@ -10,16 +11,28 @@ use business\style\PUT as StylePUT;
 use business\template\TemplateManagement;
 use business\templateManagement\Template;
 use business\templateManagement\TemplateInfo;
+use config\SystemConfig;
 
 class TemplateUser
 {
     protected Template $template;
     protected TemplateInfo $templateInfo;
+    protected $g;
 
     public function __construct()
     {
         $this->template = new Template();
         $this->templateInfo = new TemplateInfo();
+        $this->g = SystemConfig::globalVariables();
+    }
+
+    private function getUserResources($username)
+    {
+        return [
+            'qrcode' => $this->g['absolute_user_folder'] . $username . '/qr-code.png',
+            'vcard' => $this->g['absolute_user_folder'] . $username . '/vcard.php',
+            'share' => UserManagement::URLGenerator($username, "share")
+        ];
     }
 
     /**
@@ -59,7 +72,8 @@ class TemplateUser
     {
         return [
             'user_info' => $this->getUserInfo($username),
-            'user_style' => $this->getUserStyle($username)
+            'user_style' => $this->getUserStyle($username),
+            'user_resources' => $this->getUserResources($username)
         ];
     }
 

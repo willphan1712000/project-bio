@@ -20,7 +20,7 @@ class SystemConfig
     {
         return [
             'company_domain' => 'https://allinclicks.com',
-            'product_name' => 'Allinclicks Bio',
+            'product_name' => 'Allinclicks Link Bio',
             'product_year' => date("Y"),
             'domain' => ProductionConfig::config()['domain'],
             'fulldomain' => ProductionConfig::config()['fulldomain'],

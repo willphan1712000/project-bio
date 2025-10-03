@@ -5,6 +5,9 @@ namespace business\templateManagement;
 use config\ExternalServices\TemplateServer;
 use config\SystemConfig;
 
+/**
+ * Responsible for Template management
+ */
 class Template
 {
     protected TemplateServer $otherServer;
