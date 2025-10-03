@@ -1,22 +1,17 @@
-import apiTemplate from '../../api/template';
 import AppImage from '../../../clientComponents/AppImage';
-import useAppEffect from '../../../hooks/useAppEffect';
-import useAppQuery from '../../../hooks/useAppQuery';
+
 import template_dim from '../../hooks/template_dim';
+import useMyContext from '../context';
+import { default as useMyTemplateContext } from '../templateContext';
 
-interface Props {
-  isAdmin?: boolean
-}
-
-const Template = ({ isAdmin = false }: Props) => {
+const Front = () => {
+  const { isAdmin } = useMyContext()
+  const { data } = useMyTemplateContext()
   const { ratio, template_corner, template_height, template_with, template_padding } = template_dim()
-  const { error, data, isLoading } = useAppQuery('template_user', apiTemplate.getTemplate);
-  useAppEffect(error)
-  if (isLoading) return <div>Loading...</div>;
   
   const template = data?.template_server_url + data?.template.template_url!;
   const textFields = ['Name', 'Image', 'Description', 'Organization', 'Position'];
-  
+
     if(data?.template.isActive) {
       return (
         <div className={`flex p-[${template_padding}px] w-fit`}>
@@ -80,4 +75,4 @@ const Template = ({ isAdmin = false }: Props) => {
     )
 }
 
-export default Template
+export default Front

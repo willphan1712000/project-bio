@@ -2,6 +2,7 @@ import apiClient, { Response } from "../../../client/api/apiClient";
 import { Template, Template_Info } from "../../../client/types/Template";
 import { User_Info, User_Style } from "../../../client/types/User";
 import getUsername, { getParams } from "../../../client/utilities/getUsername";
+import errorFormat from "../../utilities/errorFormat";
 
 type Template_User = {
     template: Template,
@@ -24,13 +25,14 @@ async function getTemplate() {
         template_id
     })
 
-    if(!res.ok) {
-        throw new Error(res.problem)
-    }
-
     const data = res.data as Response<Template_User>
 
-    if(!data.success) throw new Error(data.error)
+    if(!res.ok) {
+        throw new Error(errorFormat(
+            res.problem,
+            data.error
+        ))
+    }
 
     return data.data
 }
