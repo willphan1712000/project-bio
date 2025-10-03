@@ -1,15 +1,16 @@
 import apiClient, { Response } from "../../../client/api/apiClient";
 import { Template, Template_Info } from "../../../client/types/Template";
-import { User_Info, User_Style } from "../../../client/types/User";
+import { User_Info, User_Resources, User_Style } from "../../../client/types/User";
 import getUsername, { getParams } from "../../../client/utilities/getUsername";
 import errorFormat from "../../utilities/errorFormat";
 
-type Template_User = {
+export type Template_User = {
     template: Template,
     template_info: Template_Info,
     template_server_url: string,
     user_info: User_Info,
-    user_style: User_Style
+    user_style: User_Style,
+    user_resources: User_Resources
 }
 
 /**

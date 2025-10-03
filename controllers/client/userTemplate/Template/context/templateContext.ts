@@ -1,7 +1,8 @@
 import { createContext, useContext } from "react";
+import { Template_User } from "../../api/template";
 
 export type Data = {
-    data: any,
+    data: Template_User,
 }
 
 export type ContextDataType = Data | undefined

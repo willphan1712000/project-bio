@@ -5,7 +5,7 @@ export type UserSocial = | "Facebook" | "Instagram" | "Messenger" | "X" | "Tikto
 
 export type UserPhone = | "Mobile" | "Work" | "Hotline" | "Whatsapp" | "Viber"
 
-export type UserInfo = | "Name" | "Image" | "Organization" | "Description" | "Email" | "Address" | "Position"
+export type UserInfo = | "Name" | "Image" | "Organization" | "Description" | "Email" | "Address" | "Position" | "name" | "image" | "organization" | "description" | "position"
 
 export type User = | "username" | "password" | "email" | "token" | "deleteToken" | "createdAt"
 
@@ -36,4 +36,10 @@ export type User_Style = {
         fontSize: number,
         fontColor: string
     }
+}
+
+export type User_Resources = {
+    qrcode: string,
+    vcard: string,
+    share: string
 }
