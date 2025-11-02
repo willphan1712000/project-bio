@@ -4,6 +4,9 @@ namespace business\info\display;
 
 use config\SystemConfig;
 
+/**
+ * Handle dislaying avatar in user page
+ */
 class AvatarDisplay extends UserDisplay
 {
     function __construct(string $name, ?string $value)

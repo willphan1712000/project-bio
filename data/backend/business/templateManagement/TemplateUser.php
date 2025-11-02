@@ -3,6 +3,7 @@
 namespace business\templateManagement;
 
 use business\Controllers\UserLogics\UserManagement;
+use business\info\GET as InfoGET;
 use business\info\Info;
 use business\info\PUT;
 use business\info\userGET;
@@ -66,13 +67,27 @@ class TemplateUser
     }
 
     /**
+     * Get user admin info -> raw information from database, making the upcoming update consistent
+     */
+    private function getAdminInfo($username) {
+        $get = new InfoGET($username);
+        $info = $get->execute();
+        if(!$info['success']) {
+            throw new \Exception($info['error']);
+        }
+
+        return $info['data'];
+    }
+
+    /**
      * Bundle in one call method as user get
      */
     public function getUser($username)
     {
         return [
-            'user_info' => $this->getUserInfo($username),
+            'raw_info' => $this->getAdminInfo($username),
             'user_style' => $this->getUserStyle($username),
+            'user_info' => $this->getUserInfo($username),
             'user_resources' => $this->getUserResources($username)
         ];
     }
@@ -106,6 +121,7 @@ class TemplateUser
 
     /**
      * Bundle in one call method as user update
+     * - This also implements transaction for info and style update
      */
     public function updateUser(string $username, array $infoArray, array $styleArray)
     {

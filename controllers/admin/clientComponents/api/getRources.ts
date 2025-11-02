@@ -19,6 +19,9 @@ type ResourceDataType = {
     }
 }
 
+/**
+ * API handles getting user resources from the server
+ */
 export default async function getResource() {
     const res = await apiClient.get('/api/resources')
 

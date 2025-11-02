@@ -2,9 +2,9 @@ import AppImage from '../../../clientComponents/AppImage';
 import useAppEffect from '../../../hooks/useAppEffect';
 import useAppQuery from '../../../hooks/useAppQuery';
 
-import template_dim from '../../hooks/template_dim';
-import useMyContext from '../context';
 import apiTemplate from '../../api/template';
+import template_dim from '../../hooks/template_dim';
+import useMyContext from '../context/context';
 
 const Front = () => {
   const { isAdmin } = useMyContext()

@@ -7,6 +7,9 @@ use api\Request;
 use api\Response;
 use business\user\DELETEHOLD;
 
+/**
+ * This class handles deleting a user temporarily
+ */
 class DELETETEMP extends ApiProcess
 {
     public function doHandle(Request $request, Response $response)

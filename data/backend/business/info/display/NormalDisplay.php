@@ -2,6 +2,9 @@
 
 namespace business\info\display;
 
+/**
+ * Handle normal display such as texts
+ */
 class NormalDisplay extends UserDisplay
 {
     function __construct(string $name, ?string $value)

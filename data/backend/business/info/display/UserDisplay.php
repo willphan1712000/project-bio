@@ -25,6 +25,11 @@ class UserDisplay implements Display
         $this->o = null;
     }
 
+    public function getRealValue(): ?string
+    {
+        return $this->value;
+    }
+
     public function getValue(): ?string
     {
         $o = LongString::getInstance();

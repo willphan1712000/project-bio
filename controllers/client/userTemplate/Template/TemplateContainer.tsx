@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MyContext } from './context';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,6 +10,8 @@ import 'swiper/css/pagination';
 
 import TemplateFront from './TemplateContainer/TemplateFront'
 import TemplateBack from './TemplateContainer/Back';
+import { MyContext } from './context/context';
+import Tools from './Tools/Tools';
 
 const slideCss = `!flex justify-center z-[-1]`
 
@@ -32,6 +33,7 @@ const TemplateContainer = ({ isAdmin = true }: Props) => {
           <SwiperSlide className={slideCss}><TemplateFront /></SwiperSlide>
           <SwiperSlide className={slideCss}><TemplateBack /></SwiperSlide>
         </Swiper>
+        <Tools />
       </MyContext.Provider>
     </QueryClientProvider>
   )

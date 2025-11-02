@@ -22,13 +22,17 @@ class APIRouter
         if (str_starts_with($_SERVER['REQUEST_URI'], '/api/')) {
             $api_router = new APIRouter(new Request(), new Response());
 
+            // Delete a user temporarily
             $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
 
+            // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
             $api_router->get('/api/woo/product/{id}', 'business\wp\ProductController@getWithId');
 
+            // Get company information such as company name, company address, phone, email, ...
             $api_router->get('/api/branches', 'business\beautyBooking\BranchesController@get');
 
+            // New template management, handling add and modify template information
             $api_router->get('/api/template/manage', 'api\templateManagement\template\GETALL@execute');
             $api_router->get('/api/template/manage/{id}', 'api\templateManagement\template\GET@execute');
             $api_router->get('/api/template/manage/url', 'api\templateManagement\template\GETURL@execute');
@@ -36,23 +40,32 @@ class APIRouter
             $api_router->put('/api/template/manage/{id}', 'api\templateManagement\template\PUT@execute');
             $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\template\DELETE@execute');
 
+            // Get template dimension information
             $api_router->get('/api/template/info/{id}', 'api\templateManagement\info\GET@execute');
 
+            // Get all related user info and template info
             $api_router->post('/api/template', 'api\templateManagement\user\USERGET@execute');
-            $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
-            $api_router->get('/api/resources', 'api\resources\GET@execute');
 
+            // Update user info and style
+            $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
+
+            // User resources such as qrcode url, vcard url, share link
+            $api_router->get('/api/resources', 'api\resources\GET@execute'); 
+
+            // Manage pricing
             $api_router->get('/api/pricing', 'api\pricing\GET@execute');
             $api_router->post('/api/pricing', 'api\pricing\POST@execute');
             $api_router->put('/api/pricing/{id}', 'api\pricing\PUT@execute');
 
+            // Manage analytics
             $api_router->get('/api/analytics', 'api\analytics\GET@execute');
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
 
+            // Manage auth
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
             $api_router->get('/api/auth/check', 'api\auth\AuthController@getUsername');
 
-            $api_router->get('/api/test', 'api\ApiProcessing\ApiTest@execute');
+            $api_router->get('/api/test', 'api\ApiProcessing\ApiTest@execute'); // test api
 
             $api_router->resolve();
 
