@@ -18,6 +18,6 @@ class AvatarDisplay extends UserDisplay
     {
         $src = $this->value !== null ? '/user/' . $this->value : SystemConfig::globalVariables()['img']['unknown'];
 
-        return '<img src="' . $src . '" alt="bio_user_avatar" draggable="false" style="width: 100%; height: 100%;" />';
+        return '<img data-name="image" src="' . $src . '" alt="bio_user_avatar" draggable="false" style="width: 100%; height: 100%;" />';
     }
 }

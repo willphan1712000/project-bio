@@ -30,6 +30,16 @@ type User_Info_Required = {
 
 export type User_Info = Partial<User_Info_Required>
 
+type Raw_User_Info = {
+    [K in UserPhone]: string
+} & {
+    [K in UserSocial]: string
+} & {
+    [K in UserInfo]: string
+}
+
+export type Raw_Info = Partial<Raw_User_Info>
+
 export type User_Style = {
     [K in User_Text]: {
         font: string,

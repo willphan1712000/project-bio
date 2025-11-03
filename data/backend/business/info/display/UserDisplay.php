@@ -53,7 +53,7 @@ class UserDisplay implements Display
         }
 
         $children = $children ?? '';
-        return '<div id="element" data-name="' . $this->name . '" style="display: flex; align-items: center; width: 100%; height: 100%;">' . $children . '</div>'; // Indicator for editting
+        return '<div id="' . $this->name . '" data-name="' . $this->name . '" style="cursor: pointer; display: flex; align-items: center; width: 100%; height: 100%;">' . $children . '</div>'; // Indicator for editting
     }
 
     public function setOperation(Operation $o): Display

@@ -1,7 +1,9 @@
 import { createContext, useContext } from "react";
 
 export type Data = {
-    isAdmin: boolean
+    isAdmin: boolean,
+    frontTemplateHTML: HTMLDivElement | undefined,
+    setFrontTemplateHTML: React.Dispatch<React.SetStateAction<HTMLDivElement | undefined>>
 }
 
 export type ContextDataType = Data | undefined
