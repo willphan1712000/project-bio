@@ -5,7 +5,7 @@ namespace api\ApiProcessing;
 use api\Request;
 use api\Response;
 
-class ApiTest extends ApiProcess
+class ApiTest extends ApiPublic
 {
     public function doHandle(Request $request, Response $response)
     {
@@ -13,10 +13,5 @@ class ApiTest extends ApiProcess
         $response->setStatusCode(200)->json([
             'data' => $data
         ]);
-    }
-
-    public function execute()
-    {
-        
     }
 }

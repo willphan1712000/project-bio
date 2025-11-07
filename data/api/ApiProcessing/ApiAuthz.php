@@ -10,7 +10,12 @@ class ApiAuthz extends ApiHandler
 {
     public function doHandle(Request $request, Response $response)
     {
-        $isAuthorized = Authz::checkPermision($request->getUsername(), $request->getPermission());
+        return $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $request->getEndpoint()
+        ]);
+
+        $isAuthorized = Authz::checkPermision($request);
         if (!$isAuthorized) {
             $response->setStatusCode(403)->json([
                 'success' => false,

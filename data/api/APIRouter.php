@@ -24,6 +24,7 @@ class APIRouter
 
             // Delete a user temporarily
             $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
+            $api_router->delete("api/users/{id}", "api\user\DELETETEMP@execute");
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
@@ -120,8 +121,10 @@ class APIRouter
  */
 class Request
 {
+    private ?array $id;
     private ?string $username;
     private ?string $permission;
+
     public function setUsername(?string $username)
     {
         $this->username = $username;
@@ -129,6 +132,12 @@ class Request
     public function getUsername()
     {
         return $this->username;
+    }
+    public function setId(?string $id) {
+        $this->id = $id !== NULL ? explode("/", $id) : NULL;
+    }
+    public function getId() {
+        return $this->id;
     }
     public function setPermission(?string $permission)
     {
