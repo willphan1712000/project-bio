@@ -8,17 +8,28 @@
 
 # Below is how it works
 
-- user registers their own accout
-- user logs in to their account
-- user is able to put their links to boxes in the admin page
-- user hits "save" button to save everything on server
-- after this, it will go back to user page to view main bio page
+- User registers their own accout
+- User logs in to their account
+- User is able to put their links to boxes in the admin page
+- User hits "save" button to save everything on server
+- After this, it will go back to user page to view main bio page
 
-# Our mission
+## Our mission is to integrate advanced technology to the bio web application to make it more capable of making our customers feel satisfied and safe to use our application
 
-## is to integrate advanced technology to the bio web application to make it more capable of making our customers feel satisfied and safe to use our application
+# Backend Development
 
-# Code Notes
+## API Management
+- First, every database has tables and every table has rows (record) and columns (features or attributes)
+- REST API routes should follow the following api schema
+| Route | API prefix | table | id1 | id2 | ... |
+|---|---|---|---|---|---|
+| User | /api | /users | /id |
+| Style | /api | /styles | /userid | /templateid |
+- If dealing with microservices
+| Route | API prefix | service | table | id1 | id2 | ... |
+|---|---|---|---|---|---|---|
+| User | /api | /system1 | /users | /id |
+| Style | /api | /system2 | /styles | /userid | /templateid |
 
 ## Server
 

@@ -1,9 +1,13 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { BiFontSize } from "react-icons/bi";
 import { IoIosColorPalette } from "react-icons/io";
 import { ImFont } from "react-icons/im";
 import { nameType } from "../../Tools";
 import { Raw_Info } from "../../../../../types/User";
+import Font from "./Font";
+import Color from "./Color";
+import FontSize from "./FontSize";
+import { styles } from "./styles";
 
 interface Props {
     name: nameType,
@@ -12,47 +16,29 @@ interface Props {
 }
 
 const TextBox = ({ name, userInfo, setUserInfo }: Props) => {
+    const [tool, setTool] = useState<number>(-1)
     const textBoxTools = ["Font Size", "Font", "Font color"]
     const iconTools: ReactNode[] = [
         <BiFontSize size="30"/>,
         <ImFont size="30"/>,
         <IoIosColorPalette size="30"/>,
     ]
+    const tools: ReactNode[] = [
+        <FontSize />,
+        <Font />,
+        <Color />
+    ]
 
   return (
-    <div style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '5px',
-    }}>
-        <div style={{
-            height: '35px' // reserve space for tools of textbox 
-        }}>
-
+    <div style={styles.container}>
+        <div style={styles.tool}>
+            {tool > -1 && tools[tool]}
         </div>
-        <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '15px',
-        }}>
+        <div style={styles.optionContainer}>
             {textBoxTools.map((tool, idx) => (
-                <div key={idx} style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    gap: '5px',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '8px',
-                    background: '#f0f0f7',
-                    borderRadius: '30px',
-                    fontSize: '15px',
-                    cursor: 'pointer',
-                }}>
+                <div key={idx} style={styles.option}
+                onClick={() => setTool(idx)}
+                >
                     {iconTools[idx]}
                     <span>{tool}</span>
                 </div>

@@ -14,4 +14,9 @@ class ApiTest extends ApiProcess
             'data' => $data
         ]);
     }
+
+    public function execute()
+    {
+        
+    }
 }
