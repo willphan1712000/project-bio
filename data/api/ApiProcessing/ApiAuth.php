@@ -20,7 +20,7 @@ class ApiAuth extends ApiHandler
 
         $response->setStatusCode(401)->json([
             'success' => false,
-            'error' => 'User is not signed in, denied access to resources'
+            'error' => 'Failed to authenticate user, denied access to resources'
         ]);
         return false;
     }

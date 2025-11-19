@@ -3,6 +3,11 @@
 - This project is for people to share their information as digital business card
 - This project also provides templates and design tools for users to freely customize their template
 
+# Why do we develop this project?
+- Replace physical business card with digital version to reduce print waste to the environment
+- Make networking to the next level
+- Give users more convenient way to update their information
+
 > [!IMPORTANT]
 > For design tools, this is another project in the future
 
@@ -13,8 +18,6 @@
 - User is able to put their links to boxes in the admin page
 - User hits "save" button to save everything on server
 - After this, it will go back to user page to view main bio page
-
-## Our mission is to integrate advanced technology to the bio web application to make it more capable of making our customers feel satisfied and safe to use our application
 
 # Backend Development
 
@@ -30,6 +33,12 @@
 |---|---|---|---|---|---|---|
 | User | /api | /system1 | /users | /id |
 | Style | /api | /system2 | /styles | /userid | /templateid |
+
+- For private api, the flow is Auth > Authz > Processing details
+- For public api, the flow is ApiSecret > Processing details
+- If auth strategy is session, Auth will get username from session storage and pass it Authz
+- If auth strategy is token-based, Auth will get token from the request headers
+- ApiSecret will get the secret key from the request headers
 
 ## Server
 

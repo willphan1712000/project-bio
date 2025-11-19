@@ -25,7 +25,8 @@ abstract class ApiPublic extends ApiHandler implements ApiInterface {
         try {
             $this->request->setId($id);
 
-            $this->handle($this->request, $this->response);
+            $apiHandler = new ApiSecret($this);
+            $apiHandler->handle($this->request, $this->response);
         } catch (\Exception $e) {
             $this->response->setStatusCode(400)->json([
                 "success" => false,

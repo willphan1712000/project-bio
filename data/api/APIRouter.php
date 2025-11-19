@@ -22,9 +22,11 @@ class APIRouter
         if (str_starts_with($_SERVER['REQUEST_URI'], '/api/')) {
             $api_router = new APIRouter(new Request(), new Response());
 
-            // Delete a user temporarily
+            // User management
+            $api_router->post("/api/users/register", "api\users\REGISTER@execute");
+            $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
+            
             $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
-            $api_router->delete("api/users/{id}", "api\user\DELETETEMP@execute");
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
@@ -99,7 +101,7 @@ class APIRouter
     {
         // Loop over all routes
         foreach ($this->routes as $route) {
-            $pattern = preg_replace('/\{[^\}]+\}/', '([0-9]+)', $route['endpoint']);
+            $pattern = preg_replace('/\{[^\}]+\}/', '([0-9]+|[a-zA-Z]+)', $route['endpoint']);
             // Identify which route and which method to use
             if ($this->request->getMethod() === $route['method'] && preg_match("#^$pattern$#", $this->request->getEndpoint(), $matches)) {
                 $handlerParts = explode('@', $route['handler']);
@@ -113,96 +115,5 @@ class APIRouter
         }
 
         $this->response->setStatusCode(404)->json(['error' => 'Not Found']);
-    }
-}
-
-/**
- * Request should have header and body
- */
-class Request
-{
-    private ?array $id;
-    private ?string $username;
-    private ?string $permission;
-
-    public function setUsername(?string $username)
-    {
-        $this->username = $username;
-    }
-    public function getUsername()
-    {
-        return $this->username;
-    }
-    public function setId(?string $id) {
-        $this->id = $id !== NULL ? explode("/", $id) : NULL;
-    }
-    public function getId() {
-        return $this->id;
-    }
-    public function setPermission(?string $permission)
-    {
-        $this->permission = $permission;
-    }
-    public function getPermission()
-    {
-        return $this->permission;
-    }
-    /**
-     * Get endpoint of the request
-     */
-    public function getEndpoint()
-    {
-        return strtok($_SERVER['REQUEST_URI'], "?");
-    }
-
-    /**
-     * Get method of the request
-     */
-    public function getMethod()
-    {
-        return $_SERVER['REQUEST_METHOD'];
-    }
-
-    /**
-     * Get body of the request
-     * @return array associative array format
-     */
-    public function getBody()
-    {
-        return json_decode(file_get_contents("php://input"), true);
-    }
-
-    /**
-     * get headers of the request
-     */
-    public function getHeaders()
-    {
-        return getallheaders();
-    }
-}
-
-/**
- * Response should have response status code and data
- */
-class Response
-{
-    /**
-     * Set status code for the response
-     */
-    public function setStatusCode($code)
-    {
-        http_response_code($code);
-        return $this;
-    }
-
-    /**
-     * Send a json as a response
-     */
-    public function json($data)
-    {
-        header('Access-Control-Allow-Origin');
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        return $this;
     }
 }

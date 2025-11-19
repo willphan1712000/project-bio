@@ -1,6 +1,6 @@
 <?php
 
-namespace api\user;
+namespace api\users;
 
 use api\ApiProcessing\ApiPrivate;
 use api\Request;

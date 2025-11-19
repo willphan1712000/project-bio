@@ -4,17 +4,16 @@ namespace api\ApiProcessing;
 
 use api\Request;
 use api\Response;
-use business\auth\Authz;
 
-class ApiAuthz extends ApiHandler
+class ApiSecret extends ApiHandler
 {
     public function doHandle(Request $request, Response $response)
     {
-        $isAuthorized = Authz::checkPermision($request);
-        if (!$isAuthorized) {
+        $secret = $request->getSecretKey();
+        if ($secret !== $_ENV["SYSTEM_SECRET_KEY"]) {
             $response->setStatusCode(403)->json([
                 'success' => false,
-                'error' => 'User is not authorized to access resources'
+                'error' => 'Missing secret key'
             ]);
             return false;
         }
