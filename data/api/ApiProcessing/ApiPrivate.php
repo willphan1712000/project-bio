@@ -30,7 +30,7 @@ abstract class ApiPrivate extends ApiHandler implements ApiInterface
                 new ApiAuthz($this)
             );
     
-            $apiHandler->handle($this->request, $this->response);
+            $this->handle($this->request, $this->response);
         } catch (\Exception $e) {
             $this->response->setStatusCode(400)->json([
                 "success" => false,

@@ -32,8 +32,8 @@ class APIRouter
             $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
 
             // Get products from allinclicks.com
-            $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
-            $api_router->get('/api/woo/product/{id}', 'business\wp\ProductController@getWithId');
+            $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
+            $api_router->get('/api/woo/product/{id}', 'api\wp\GET@execute');
 
             // Get company information such as company name, company address, phone, email, ...
             $api_router->get('/api/branches', 'business\beautyBooking\BranchesController@get');

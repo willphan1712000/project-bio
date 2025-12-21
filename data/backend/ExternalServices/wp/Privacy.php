@@ -1,6 +1,6 @@
 <?php
 
-namespace business\wp;
+namespace config\ExternalServices\wp;
 
 use config\APIClient;
 use config\SystemConfig;

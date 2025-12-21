@@ -1,6 +1,6 @@
 <?php
 
-use business\wp\Pricing;
+use config\ExternalServices\wp\Pricing;
 use config\SystemConfig;
 
 $g = SystemConfig::globalVariables();

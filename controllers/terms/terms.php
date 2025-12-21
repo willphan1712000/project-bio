@@ -1,6 +1,6 @@
 <?php
 
-use business\wp\Terms;
+use config\ExternalServices\wp\Terms;
 use config\SystemConfig;
 
 $g = SystemConfig::globalVariables();
