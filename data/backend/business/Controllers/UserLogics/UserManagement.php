@@ -87,4 +87,8 @@ class UserManagement implements IUserManagement
         }
         return false;
     }
+
+    public static function createHashedPassword(string $password): string {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
 }

@@ -31,6 +31,8 @@ class REGISTER extends ApiPublic {
 
         $result = (new POST(username: $username, password: $password, email: $email))->execute();
 
-        $response->setStatusCode(200)->json($result);
+        $response->setStatusCode(200)->json([
+            'success' => $result
+        ]);
     }
 }

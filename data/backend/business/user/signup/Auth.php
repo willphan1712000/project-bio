@@ -2,8 +2,8 @@
 
 namespace business\user\signup;
 
+use business\Controllers\UserLogics\UserManagement;
 use business\user\signup\SignupHandler;
-use business\user\UserManagement;
 
 class Auth extends SignupHandler
 {
@@ -14,7 +14,7 @@ class Auth extends SignupHandler
 
     public function doHandle(Input $input): bool
     {
-        SESSION_START();
-        return UserManagement::auth($_SESSION, $input->getUsername(), $input->getPassword());
+        UserManagement::auth($input->getUsername(), $input->getPassword());
+        return true;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace business\user\signup;
 
+use business\Controllers\UserLogics\UserManagement;
 use business\user\signup\SignupHandler;
 use business\user\signup\Input;
 use persistence\Entity\User;
@@ -31,7 +32,7 @@ class Push extends SignupHandler
         $userSocial = new UserSocial();
 
         $user->set("username", $username);
-        $user->set("password", password_hash($password, PASSWORD_BCRYPT));
+        $user->set("password", UserManagement::createHashedPassword($password));
         $user->set("email", $email);
         $user->set('defaultTemplate', 0);
 

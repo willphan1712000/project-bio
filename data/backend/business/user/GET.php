@@ -10,10 +10,16 @@ class GET implements IAPI
 {
     private ?string $username;
     private ?int $offset;
-    private ?string $limit;
+    private ?int $limit;
     private ?string $like;
 
-    function __construct(?string $username = null, ?int $offset = 0, ?string $limit = null, ?string $like = '')
+    /**
+     * @param null|string $username possible specific username
+     * @param null|int $offset how many records we like to ignore until desired records
+     * @param null|int $limit how many records we like to retrieve
+     * @param null|string $like perform pattern matching
+     */
+    function __construct(?string $username = null, ?int $offset = 0, ?int $limit = null, ?string $like = '')
     {
         $this->username = $username;
         $this->offset = $offset;
@@ -21,31 +27,12 @@ class GET implements IAPI
         $this->like = $like;
     }
 
-    private function getUser()
+    /**
+     * @return array{success: true, data: mixed}
+     */
+    private function getUser(): array
     {
-        try {
-
-            if ($this->username === null) {
-                $users = Database::GET(User::class);
-                $out = [];
-                foreach ($users as $user) {
-                    $row = [];
-
-                    foreach (User::getProperty() as $prop) {
-                        if (!in_array($prop, ['UserInfo', 'UserPhone', 'UserSocial', 'Template', 'Purchase', 'Style', 'StyleDefault'])) {
-                            $row[$prop] = $user->get($prop);
-                        }
-                    }
-
-                    array_push($out, $row);
-                }
-
-                return [
-                    'success' => true,
-                    'data' => $out
-                ];
-            }
-
+        if ($this->username === null) {
             if ($this->like !== null || $this->offset !== null || $this->limit !== null) {
                 $like = $this->like . "%";
                 $offset = $this->offset;
@@ -58,32 +45,51 @@ class GET implements IAPI
                 ];
             }
 
-            $user = Database::GET(User::class, null, [
-                'username' => $this->username
-            ]);
+            $users = Database::GET(User::class);
+            $out = [];
+            foreach ($users as $user) {
+                $row = [];
 
-            if ($user === null) {
-                throw new \Exception("user does not exist");
-            }
-
-            $row = [];
-
-            foreach (User::getProperty() as $prop) {
-                if (!in_array($prop, ['UserInfo', 'UserPhone', 'UserSocial', 'Template', 'Purchase', 'Style', 'StyleDefault'])) {
-                    $row[$prop] = $user->get($prop);
+                foreach (User::getProperty() as $prop) {
+                    if (!in_array($prop, ['UserInfo', 'UserPhone', 'UserSocial', 'Template', 'Purchase', 'Style', 'StyleDefault'])) {
+                        $row[$prop] = $user->get($prop);
+                    }
                 }
+
+                array_push($out, $row);
             }
 
-            return $row;
-        } catch (\Exception $e) {
             return [
-                'success' => false,
-                'error' => $e->getMessage()
+                'success' => true,
+                'data' => $out
             ];
         }
+
+        $user = Database::GET(User::class, null, [
+            'username' => $this->username
+        ]);
+
+        if ($user === null) {
+            throw new \Exception("user does not exist");
+        }
+
+        $row = [];
+
+        foreach (User::getProperty() as $prop) {
+            if (!in_array($prop, ['UserInfo', 'UserPhone', 'UserSocial', 'Template', 'Purchase', 'Style', 'StyleDefault'])) {
+                $row[$prop] = $user->get($prop);
+            }
+        }
+
+        return $row;
     }
 
-    public function execute()
+    /**
+     * Execution
+     * @return array{success: true, data: mixed}
+     * @throws \Exeception SQL error or Database management driver issue
+     */
+    public function execute(): array
     {
         return $this->getUser();
     }

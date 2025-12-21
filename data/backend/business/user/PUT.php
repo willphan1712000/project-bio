@@ -4,6 +4,7 @@ namespace business\user;
 
 require_once __DIR__ . "/../IAPI.php";
 
+use business\Controllers\UserLogics\UserManagement;
 use business\IAPI;
 use business\user\signup\Input;
 use business\user\signup\Password;
@@ -28,7 +29,7 @@ class PUT implements IAPI
             // validate password
             $passValid = new Password(null);
             if ($passValid->doHandle(new Input(null, null, $this->password))) {
-                Database::PUT(User::class, 'password', $this->password, ['username' => $this->username]);
+                Database::PUT(User::class, 'password', UserManagement::createHashedPassword($this->password), ['username' => $this->username]);
                 return [
                     'success' => true
                 ];

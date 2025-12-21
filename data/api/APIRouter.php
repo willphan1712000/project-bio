@@ -23,7 +23,10 @@ class APIRouter
             $api_router = new APIRouter(new Request(), new Response());
 
             // User management
+            $api_router->get("/api/users", "api\users\GETALL@execute");
+            $api_router->get("/api/users/{id}", "api\users\GET@execute");
             $api_router->post("/api/users/register", "api\users\REGISTER@execute");
+            $api_router->put("/api/users/{id}", "api\users\PUT@execute");
             $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
             
             $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
