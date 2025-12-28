@@ -2,13 +2,12 @@
 
 namespace business\style;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\Style;
 use persistence\Entity\User;
 use persistence\EntityManager;
 
-class GET implements IAPI
+class GET
 {
     protected string $username;
     protected ?int $template;

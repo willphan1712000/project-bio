@@ -2,16 +2,13 @@
 
 namespace business\user;
 
-require_once __DIR__ . "/../IAPI.php";
-
 use business\Controllers\UserLogics\UserManagement;
-use business\IAPI;
 use business\user\signup\Input;
 use business\user\signup\Password;
 use persistence\Database;
 use persistence\Entity\User;
 
-class PUT implements IAPI
+class PUT
 {
     private ?string $username;
     private string $password;

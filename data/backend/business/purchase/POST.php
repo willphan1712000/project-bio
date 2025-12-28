@@ -2,7 +2,6 @@
 
 namespace business\purchase;
 
-use business\IAPI;
 use persistence\EntityManager;
 use business\purchase\operation\Amount;
 use business\purchase\operation\Operation;
@@ -12,7 +11,7 @@ use persistence\Entity\Style;
 use persistence\Entity\StyleDefault;
 use persistence\Entity\User;
 
-class POST implements IAPI
+class POST
 {
     private string $username;
     private array $templates;

@@ -2,13 +2,12 @@
 
 namespace business\info;
 
-use business\IAPI;
 use business\info\Info;
 
 /**
  * This class is for getting user information for admin site
  */
-class GET implements IAPI
+class GET
 {
     private string $username;
 

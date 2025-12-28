@@ -2,13 +2,11 @@
 
 namespace business\template;
 
-use business\IAPI;
-use persistence\Entity\StyleDefault;
 use persistence\Entity\Template;
 use persistence\Entity\User;
 use persistence\EntityManager;
 
-class POST implements IAPI
+class POST
 {
     private string $username;
     private int $template_id;

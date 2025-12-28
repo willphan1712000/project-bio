@@ -2,10 +2,9 @@
 
 namespace business\purchase;
 
-use business\IAPI;
 use persistence\Database;
 
-class GET implements IAPI
+class GET
 {
     private string $username;
 

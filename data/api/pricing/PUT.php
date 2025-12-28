@@ -2,20 +2,18 @@
 
 namespace api\pricing;
 
-use api\APIAuth;
-use business\auth\Authz;
-use business\pricing\Pricing;
+use api\Request;
+use api\Response;
+use config\ExternalServices\TemplateServer\pricing\Pricing;
+use api\ApiProcessing\ApiPrivate;
 
-class PUT extends APIAuth
+class PUT extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
-        $pricing = new Pricing();
-        return $pricing->put(...$args);
-    }
+        $id = $request->getId()[0];
 
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "put:pricing");
+        $pricing = new Pricing();
+        return $pricing->put($id);
     }
 }

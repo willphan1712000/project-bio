@@ -2,21 +2,20 @@
 
 namespace api\pricing;
 
-use api\APIAuth;
-use business\auth\Authz;
-use business\pricing\Pricing;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
+use config\ExternalServices\TemplateServer\pricing\Pricing;
 
-class POST extends APIAuth
+class POST extends ApiPrivate
 {
-    public function handleRequest(...$arg)
+    public function doHandle(Request $request, Response $response)
     {
         $pricing = new Pricing();
         $data = $this->request->getBody();
-        return $pricing->post($data);
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "post:pricing");
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $pricing->post($data)
+        ]);
     }
 }

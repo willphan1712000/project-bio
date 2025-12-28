@@ -2,11 +2,10 @@
 
 namespace business\template;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\Template;
 
-class DELETE implements IAPI
+class DELETE
 {
     private string $username;
     private int $template_id;

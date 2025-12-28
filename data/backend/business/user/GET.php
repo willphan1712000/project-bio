@@ -2,11 +2,10 @@
 // 
 namespace business\user;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 
-class GET implements IAPI
+class GET
 {
     private ?string $username;
     private ?int $offset;

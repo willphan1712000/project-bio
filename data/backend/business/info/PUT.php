@@ -2,11 +2,10 @@
 
 namespace business\info;
 
-use business\IAPI;
 use business\info\Info;
 use business\info\Vcard;
 
-class PUT implements IAPI
+class PUT
 {
     private Info $info;
 

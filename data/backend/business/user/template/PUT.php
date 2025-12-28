@@ -2,11 +2,10 @@
 
 namespace business\user\template;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 
-class PUT implements IAPI
+class PUT
 {
     private ?string $username;
     private int $template_id;

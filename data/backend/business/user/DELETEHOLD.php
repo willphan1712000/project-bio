@@ -2,11 +2,10 @@
 
 namespace business\user;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 
-class DELETEHOLD implements IAPI
+class DELETEHOLD
 {
     private ?string $username;
 

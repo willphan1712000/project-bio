@@ -2,12 +2,11 @@
 
 namespace business\template;
 
-use business\IAPI;
 use persistence\Entity\Template;
 use persistence\Entity\User;
 use persistence\EntityManager;
 
-class GET implements IAPI
+class GET
 {
     private string $username;
 

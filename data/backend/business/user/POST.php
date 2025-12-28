@@ -2,8 +2,6 @@
 
 namespace business\user;
 
-// require_once __DIR__."/../../../../vendor/autoload.php";
-use business\IAPI;
 use business\user\signup\Auth;
 use business\user\signup\CheckUsername;
 use business\user\signup\CheckEmail;
@@ -13,7 +11,7 @@ use business\user\signup\CreateQR;
 use business\user\signup\Push;
 use business\user\signup\Input;
 
-class POST implements IAPI
+class POST
 {
     private string $username;
     private string $email;

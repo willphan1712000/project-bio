@@ -2,12 +2,11 @@
 
 namespace business\user;
 
-use business\IAPI;
 use business\user\delete\IsUserExist;
 use business\user\delete\DeleteFolder;
 use business\user\delete\DeleteData;
 
-class DELETE implements IAPI
+class DELETE
 {
     private ?string $username;
 

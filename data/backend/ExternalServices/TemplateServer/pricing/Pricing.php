@@ -1,6 +1,6 @@
 <?php
 
-namespace business\pricing;
+namespace config\ExternalServices\TemplateServer\pricing;
 
 use config\ExternalServices\TemplateServer;
 use config\SystemConfig;

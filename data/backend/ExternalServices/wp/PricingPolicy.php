@@ -5,7 +5,7 @@ namespace config\ExternalServices\wp;
 use config\APIClient;
 use config\SystemConfig;
 
-class Pricing
+class PricingPolicy
 {
     protected const Page_ID = 3430;
     protected string $endpoint;

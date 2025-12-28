@@ -2,12 +2,11 @@
 
 namespace business\style;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 use persistence\Entity\Style;
 
-class PUT implements IAPI
+class PUT
 {
     protected string $username;
     protected int $template;
