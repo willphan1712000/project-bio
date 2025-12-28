@@ -29,6 +29,15 @@ class APIRouter
             $api_router->put("/api/users/{id}", "api\users\PUT@execute");
             $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
             $api_router->delete("/api/users/delete/{id}", "api\users\DELETE@execute");
+            
+            // User template preferences such as liked templates, default template, ...
+            $api_router->get("/api/template/like/{id}", "api\\template\like\GETLIKED@execute");
+            $api_router->post("/api/template/like", "api\\template\like\POSTLIKED@execute");
+            $api_router->delete("/api/template/like", "api\\template\like\DELETELIKED@execute");
+
+            $api_router->get("/api/template/default/{id}", "api\\template\default\GETDEFAULT@execute");
+            $api_router->put("/api/template/default", "api\\template\default\PUTDEFAULT@execute");
+
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
