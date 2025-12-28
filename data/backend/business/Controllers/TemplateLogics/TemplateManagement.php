@@ -1,6 +1,6 @@
 <?php
 
-namespace business\template;
+namespace business\Controllers\TemplateLogics;
 
 use persistence\Database;
 use persistence\Entity\User;
