@@ -2,20 +2,20 @@
 
 namespace api\templateManagement\template;
 
-use api\APIAuth;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
 use business\templateManagement\Template;
 
-class GETURL extends APIAuth
+class GETURL extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
         $template = new Template();
-        return $template->getTemplateServerURL();
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "get:templateserverurl");
+        $url = $template->getTemplateServerURL();
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $url
+        ]);
     }
 }

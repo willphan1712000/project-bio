@@ -2,20 +2,18 @@
 
 namespace api\templateManagement\template;
 
-use api\APIAuth;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
 use business\templateManagement\Template;
 
-class DELETE extends APIAuth
+class DELETE extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
+        $id = $request->getId()[0];
+        
         $template = new Template();
-        return $template->delete(...$args);
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "delete:templateserver");
+        return $template->delete($id);
     }
 }

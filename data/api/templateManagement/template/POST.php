@@ -2,20 +2,16 @@
 
 namespace api\templateManagement\template;
 
-use api\APIAuth;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
 use business\templateManagement\Template;
 
-class POST extends APIAuth
+class POST extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
         $template = new Template();
         return $template->post();
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "post:templateserver");
     }
 }

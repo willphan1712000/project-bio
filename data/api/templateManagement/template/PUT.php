@@ -2,20 +2,18 @@
 
 namespace api\templateManagement\template;
 
-use api\APIAuth;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
 use business\templateManagement\Template;
 
-class PUT extends APIAuth
+class PUT extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
-        $template = new Template();
-        return $template->put(...$args);
-    }
+        $id = $request->getId()[0];
 
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "put:templateserver");
+        $template = new Template();
+        return $template->put($id);
     }
 }

@@ -40,8 +40,8 @@ class APIRouter
 
             // New template management, handling add and modify template information
             $api_router->get('/api/template/manage', 'api\templateManagement\template\GETALL@execute');
-            $api_router->get('/api/template/manage/{id}', 'api\templateManagement\template\GET@execute');
             $api_router->get('/api/template/manage/url', 'api\templateManagement\template\GETURL@execute');
+            $api_router->get('/api/template/manage/{id}', 'api\templateManagement\template\GET@execute');
             $api_router->post('/api/template/manage', 'api\templateManagement\template\POST@execute');
             $api_router->put('/api/template/manage/{id}', 'api\templateManagement\template\PUT@execute');
             $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\template\DELETE@execute');
