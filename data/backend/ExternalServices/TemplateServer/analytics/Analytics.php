@@ -1,6 +1,6 @@
 <?php
 
-namespace business\analytics;
+namespace config\ExternalServices\TemplateServer\analytics;
 
 use config\ExternalServices\TemplateServer;
 use config\SystemConfig;

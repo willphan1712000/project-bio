@@ -3,9 +3,9 @@
 namespace api\users;
 
 use api\ApiProcessing\ApiPrivate;
+use business\user\DELETEHOLD;
 use api\Request;
 use api\Response;
-use business\user\DELETEHOLD;
 
 /**
  * This class handles deleting a user temporarily

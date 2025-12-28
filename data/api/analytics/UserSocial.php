@@ -2,21 +2,19 @@
 
 namespace api\analytics;
 
-use api\APIAuth;
-use business\analytics\Analytics;
-use business\auth\Authz;
+use api\Request;
+use api\Response;
+use config\ExternalServices\TemplateServer\analytics\Analytics;
+use api\ApiProcessing\ApiPrivate;
 
-class UserSocial extends APIAuth
+class UserSocial extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
         $analytics = new Analytics();
-
-        return  $analytics->getSocial();
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, 'get:usersocial');
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $analytics->getSocial()
+        ]);
     }
 }

@@ -28,8 +28,7 @@ class APIRouter
             $api_router->post("/api/users/register", "api\users\REGISTER@execute");
             $api_router->put("/api/users/{id}", "api\users\PUT@execute");
             $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
-            
-            $api_router->delete("/api/user/deletetemp", "api\user\DELETETEMP@execute");
+            $api_router->delete("/api/users/delete/{id}", "api\users\DELETE@execute");
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
@@ -73,8 +72,6 @@ class APIRouter
             // Manage auth
             $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
             $api_router->get('/api/auth/check', 'api\auth\AuthController@getUsername');
-
-            $api_router->get('/api/test', 'api\ApiProcessing\ApiTest@execute'); // test api
 
             $api_router->resolve();
 

@@ -2,29 +2,30 @@
 
 namespace api\analytics;
 
-use api\APIAuth;
-use business\analytics\Analytics;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPrivate;
+use config\ExternalServices\TemplateServer\analytics\Analytics;
+use api\Request;
+use api\Response;
 
-class GET extends APIAuth
+class GET extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
         $analytics = new Analytics();
-
+    
         $number_of_templates = $analytics->getTotalTemplate();
         $nubmer_of_subscription = 0;
         $number_of_users = $analytics->getTotalUsers();
-
-        return [
+    
+        $data = [
             "numberOfTemplates" => $number_of_templates,
             "numberOfSubscriptions" => $nubmer_of_subscription,
             "numberOfUsers" => $number_of_users
         ];
-    }
 
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "get:analytics");
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $data
+        ]);
     }
 }
