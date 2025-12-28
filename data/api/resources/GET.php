@@ -2,20 +2,19 @@
 
 namespace api\resources;
 
-use api\APIAuth;
-use business\auth\Authz;
+use api\ApiProcessing\ApiPublic;
+use api\Request;
+use api\Response;
 use business\resources\Info;
 
-class GET extends APIAuth
+class GET extends ApiPublic
 {
-    public function handleRequest(...$arg)
+    public function doHandle(Request $request, Response $response)
     {
         $resources = new Info();
-        return $resources->get();
-    }
-
-    protected function checkPermission(?string $username = null)
-    {
-        return Authz::checkPermision($username, "get:resources");
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $resources->get()
+        ]);
     }
 }

@@ -120,10 +120,10 @@ class TemplateUser
     }
 
     /**
-     * Bundle in one call method as user update
+     * Bundle in one method call as user update
      * - This also implements transaction for info and style update
      */
-    public function updateUser(string $username, array $infoArray, array $styleArray)
+    public function updateUser(string $username, array $infoArray, array $styleArray): bool
     {
         $userInfoCache = $this->getUserInfo($username);
         $userStyleCache = $this->getUserStyle($username);

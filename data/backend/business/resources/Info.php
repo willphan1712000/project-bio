@@ -8,6 +8,10 @@ class Info
 {
     public function __construct() {}
 
+    /**
+     * Get resources
+     * @return array
+     */
     public function get()
     {
         return [

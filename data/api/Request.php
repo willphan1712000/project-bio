@@ -57,7 +57,7 @@ interface RequestInteface {
 
     /**
      * Get endpoint from Request object
-     * @return string|false endpoint of current request. False when no endpoint
+     * @return string|false endpoint of current request. False when no endpoint is given
      */
     public function getEndpoint();
 
@@ -78,6 +78,12 @@ interface RequestInteface {
      * @return array|false request headers. False when no headers
      */
     public function getHeaders();
+
+    /**
+     * Get query string from a parameter
+     * @return null|string
+     */
+    public function getQueryString(?string $param);
 }
 /**
  * Request should have header and body
@@ -143,5 +149,9 @@ class Request implements RequestInteface
     public function getHeaders()
     {
         return getallheaders();
+    }
+
+    public function getQueryString(?string $param) {
+        return $param === NULL ? NULL : $_GET[$param];
     }
 }

@@ -55,8 +55,11 @@ class APIRouter
             // Update user info and style
             $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
 
-            // User resources such as qrcode url, vcard url, share link
-            $api_router->get('/api/resources', 'api\resources\GET@execute'); 
+            // General resources
+            $api_router->get('/api/resources', 'api\resources\GET@execute');
+            
+            // User personal resources
+            $api_router->get('/api/personal/{id}', 'api\resources\GETPERSONAL@execute');
 
             // Manage pricing
             $api_router->get('/api/pricing', 'api\pricing\GET@execute');

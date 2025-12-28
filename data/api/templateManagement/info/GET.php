@@ -2,16 +2,21 @@
 
 namespace api\templateManagement\info;
 
-use api\APIAuth;
+use api\ApiProcessing\ApiPrivate;
+use api\Request;
+use api\Response;
 use business\templateManagement\TemplateInfo;
 
-class GET extends APIAuth
+class GET extends ApiPrivate
 {
-    public function handleRequest(...$args)
+    public function doHandle(Request $request, Response $response)
     {
-        $template = new TemplateInfo();
-        return $template->get(...$args);
-    }
+        $id = $request->getId()[0];
 
-    protected function checkPermission(?string $username = null) {}
+        $template = new TemplateInfo();
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => $template->get($id)
+        ]);
+    }
 }

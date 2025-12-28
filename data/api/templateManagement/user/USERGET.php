@@ -2,27 +2,40 @@
 
 namespace api\templateManagement\user;
 
+use api\ApiProcessing\ApiPublic;
 use api\Request;
 use api\Response;
 use business\Controllers\User;
 use business\templateManagement\TemplateUser;
 
-class USERGET
+class USERGET extends ApiPublic
 {
     protected Request $request;
     protected Response $response;
 
-    public function __construct(Request $request, Response $response)
+    public function doHandle(Request $request, Response $response)
     {
-        $this->request = $request;
-        $this->response = $response;
-    }
-
-    public function execute(...$arg)
-    {
-        $body = $this->request->getBody();
+        $body = $request->getBody();
         $username = $body['username'] ?? NULL;
         $template_id = $body['template_id'] ?? NULL;
+
+        if($username === NULL) {
+            $response->setStatusCode(400)->json([
+                'success' => false,
+                'error' => 'username is missing'
+            ]);
+            
+            return false;
+        }
+
+        if($template_id === NULL) {
+            $response->setStatusCode(400)->json([
+                'success' => false,
+                'error' => 'template id is missing'
+            ]);
+            
+            return false;
+        }
 
         if ($username === '@admin') {
             $user = new User();
@@ -35,7 +48,7 @@ class USERGET
 
         $userTemplate = new TemplateUser();
         try {
-            $this->response->setStatusCode(200)->json([
+            $response->setStatusCode(200)->json([
                 'success' => true,
                 'data' => array_merge(
                     $userTemplate->getTemplate($username, $template_id),
@@ -43,7 +56,7 @@ class USERGET
                 )
             ]);
         } catch (\Exception $e) {
-            $this->response->setStatusCode(400)->json([
+            $response->setStatusCode(400)->json([
                 'success' => true,
                 'error' => $e->getMessage()
             ]);
