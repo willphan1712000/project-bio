@@ -20,31 +20,25 @@ class userGET
 
     private function get()
     {
-        try {
-            $info = new Info([]);
-            $info->setInfo('username', $this->username);
-            $info->setInfo('is_server_render', $this->is_server_render);
+        $info = new Info([]);
+        $info->setInfo('username', $this->username);
+        $info->setInfo('is_server_render', $this->is_server_render);
 
-            // $userSocialHandler = new Booking(new Facebook(new HotSale(new Instagram(new Linkedin(new Messenger(new OrderOnline(new Pinterest(new Threads(new Tiktok(new Website(new X(new Youtube(new Zalo(null))))))))))))));
-            // // Handle user phone number
-            // $userPhoneHandler = new Mobile(new Work(new HotLine(new Viber($userSocialHandler))));
-            // // Handle user information
-            // $userInfoHandler = new Name(new Avatar(new Organization(new Description(new Email(new Address($userPhoneHandler))))));
+        // $userSocialHandler = new Booking(new Facebook(new HotSale(new Instagram(new Linkedin(new Messenger(new OrderOnline(new Pinterest(new Threads(new Tiktok(new Website(new X(new Youtube(new Zalo(null))))))))))))));
+        // // Handle user phone number
+        // $userPhoneHandler = new Mobile(new Work(new HotLine(new Viber($userSocialHandler))));
+        // // Handle user information
+        // $userInfoHandler = new Name(new Avatar(new Organization(new Description(new Email(new Address($userPhoneHandler))))));
 
-            $userInfoHandler = InfoChainHandler::getInstance(null);
+        $userInfoHandler = InfoChainHandler::getInstance(null);
 
-            $get = $userInfoHandler->handleUserGET($info);
+        $get = $userInfoHandler->handleUserGET($info);
 
-            return [
-                'success' => $get,
-                'data' => $info->getEntireInfo()
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
+        if(!$get) {
+            throw new \Exception("There is something wrong getting user information");
         }
+        
+        return $info->getEntireInfo();
     }
 
     public function execute()

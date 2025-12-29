@@ -29,6 +29,11 @@ class APIRouter
             $api_router->put("/api/users/{id}", "api\users\PUT@execute");
             $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
             $api_router->delete("/api/users/delete/{id}", "api\users\DELETE@execute");
+
+            // User information such as name, org, Facebook, Instagram, ...
+            $api_router->get("/api/info/admin/{id}", "api\info\GET@execute");
+            $api_router->put("/api/info/admin", "api\info\PUT@execute");
+            $api_router->get("/api/info/{id}", "api\info\userGET@execute");
             
             // User template preferences such as liked templates, default template, ...
             $api_router->get("/api/template/like/{id}", "api\\template\like\GETLIKED@execute");
@@ -37,11 +42,14 @@ class APIRouter
 
             $api_router->get("/api/template/default/{id}", "api\\template\default\GETDEFAULT@execute");
             $api_router->put("/api/template/default", "api\\template\default\PUTDEFAULT@execute");
-
+            
+            // User purchase            
+            $api_router->get("/api/purchase/{id}", "api\purchase\GET@execute");
+            $api_router->put("/api/purchase", "api\purchase\POST@execute");
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
-            $api_router->get('/api/woo/product/{id}', 'api\wp\GET@execute');
+            $api_router->post('/api/woo/product/{id}', 'api\wp\GET@execute');
 
             // Get company information such as company name, company address, phone, email, ...
             $api_router->get('/api/branches', 'business\beautyBooking\BranchesController@get');

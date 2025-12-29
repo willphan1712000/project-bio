@@ -18,24 +18,14 @@ class GET
 
     private function get()
     {
-        try {
-            $info = new Info([]);
-            $info->setInfo('username', $this->username);
+        $info = new Info([]);
+        $info->setInfo('username', $this->username);
 
-            $userInfoHandler = InfoChainHandler::getInstance(null);
+        $userInfoHandler = InfoChainHandler::getInstance(null);
 
-            $get = $userInfoHandler->handleAdminGET($info);
+        $userInfoHandler->handleAdminGET($info);
 
-            return [
-                'success' => $get,
-                'data' => $info->getEntireInfo()
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        return $info->getEntireInfo();
     }
 
     public function execute()

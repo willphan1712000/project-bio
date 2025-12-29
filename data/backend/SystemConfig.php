@@ -257,4 +257,28 @@ class SystemConfig
             }
         }
     }
+
+    /**
+     * Function returns an API JSON format
+     * [ success, data, error ]
+     */
+    public static function apiJSONformat(bool $status = false, mixed $data = NULL, ?string $error = NULL) {
+        if($error !== NULL) {
+            return [
+                'success' => false,
+                'error' => $error
+            ];
+        }
+
+        if ($data === NULL) {
+            return [
+                'success' => $status
+            ];
+        }
+
+        return [
+            'success' => true,
+            'data' => $data
+        ];
+    }
 }

@@ -2,17 +2,20 @@
 
 namespace api\purchase;
 
-use api\APIAbstract;
+use api\Request;
+use api\Response;
+
+use api\ApiProcessing\ApiPrivate;
 use business\purchase\GET as TemplateGET;
 
-require_once __DIR__ . "/../../../vendor/autoload.php";
-
-class GET extends APIAbstract
+class GET extends ApiPrivate
 {
-    public function handleRequest($body)
+    public function doHandle(Request $request, Response $response)
     {
-        return (new TemplateGET($body->username))->execute();
+        $username = $request->getId()[0];
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => (new TemplateGET($username))->execute()
+        ]);
     }
 }
-
-echo json_encode((new GET())->execute());

@@ -16,24 +16,13 @@ class PUT
 
     private function infoProcess()
     {
-        try {
-            // Handle push to database and create Vcard
-            $user = new Vcard(null);
+        // Handle push to database and create Vcard
+        $user = new Vcard(null);
 
-            $userInfoHandler = InfoChainHandler::getInstance($user);
+        $userInfoHandler = InfoChainHandler::getInstance($user);
 
-            $this->info->setInfo('vcard', ''); // set vcard string to empty before attaching info elements to it
-            $userInfoSuccess = $userInfoHandler->handlePush($this->info);
-
-            return [
-                'success' => $userInfoSuccess
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        $this->info->setInfo('vcard', ''); // set vcard string to empty before attaching info elements to it
+        return $userInfoHandler->handlePush($this->info);
     }
 
     public function execute()

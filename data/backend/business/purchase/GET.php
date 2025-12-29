@@ -15,14 +15,7 @@ class GET
 
     private function getPurchase()
     {
-        try {
-            return Database::SQL("SELECT *FROM Purchase WHERE username = '$this->username'");
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        return Database::SQL("SELECT *FROM Purchase WHERE username = '$this->username'");
     }
 
     public function execute()

@@ -2,20 +2,20 @@
 
 namespace api\info;
 
-use api\APIAbstract;
+use api\Request;
+use api\Response;
+use api\ApiProcessing\ApiPrivate;
 use business\info\GET as infoGET;
 
-require_once __DIR__ . "/../../../vendor/autoload.php";
-
-/**
- * - Body : { username }
- */
-class GET extends APIAbstract
+class GET extends ApiPrivate
 {
-    public function handleRequest($body)
+    public function doHandle(Request $request, Response $response)
     {
-        return (new infoGET($body->username))->execute();
+        $username = $request->getId()[0];
+
+        $response->setStatusCode(200)->json([
+            'success' => true,
+            'data' => (new infoGET($username))->execute()
+        ]);
     }
 }
-
-echo json_encode((new GET())->execute());

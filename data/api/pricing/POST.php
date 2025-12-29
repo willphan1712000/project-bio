@@ -2,10 +2,11 @@
 
 namespace api\pricing;
 
-use api\ApiProcessing\ApiPrivate;
 use api\Request;
 use api\Response;
+use api\ApiProcessing\ApiPrivate;
 use config\ExternalServices\TemplateServer\pricing\Pricing;
+use config\SystemConfig;
 
 class POST extends ApiPrivate
 {
@@ -13,9 +14,8 @@ class POST extends ApiPrivate
     {
         $pricing = new Pricing();
         $data = $this->request->getBody();
-        $response->setStatusCode(200)->json([
-            'success' => true,
-            'data' => $pricing->post($data)
-        ]);
+        $response->setStatusCode(200)->json(
+            SystemConfig::apiJSONformat(data: $pricing->post($data))
+        );
     }
 }
