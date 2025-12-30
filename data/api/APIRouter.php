@@ -45,7 +45,7 @@ class APIRouter
             
             // User purchase            
             $api_router->get("/api/purchase/{id}", "api\purchase\GET@execute");
-            $api_router->put("/api/purchase", "api\purchase\POST@execute");
+            $api_router->post("/api/purchase", "api\purchase\POST@execute");
 
             // Get products from allinclicks.com
             $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
@@ -66,8 +66,7 @@ class APIRouter
             $api_router->get('/api/template/info/{id}', 'api\templateManagement\info\GET@execute');
 
             // Get all related user info and template info
-            $api_router->post('/api/template', 'api\templateManagement\user\USERGET@execute');
-
+            $api_router->get('/api/template', 'api\templateManagement\user\USERGET@execute');
             // Update user info and style
             $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
 
@@ -85,10 +84,6 @@ class APIRouter
             // Manage analytics
             $api_router->get('/api/analytics', 'api\analytics\GET@execute');
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
-
-            // Manage auth
-            $api_router->post('/api/auth', 'api\auth\AuthController@postGenerate');
-            $api_router->get('/api/auth/check', 'api\auth\AuthController@getUsername');
 
             $api_router->resolve();
 

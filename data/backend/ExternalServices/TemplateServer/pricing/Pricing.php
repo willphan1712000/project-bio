@@ -4,6 +4,7 @@ namespace config\ExternalServices\TemplateServer\pricing;
 
 use config\ExternalServices\TemplateServer;
 use config\SystemConfig;
+use Exception;
 
 class Pricing
 {
@@ -18,16 +19,43 @@ class Pricing
 
     public function get()
     {
-        return $this->otherServer->get($this->endpoint);
+        /**
+         * @var array{success: false, data: array, error: ?string}
+         */
+        $result = $this->otherServer->get($this->endpoint);
+
+        $status = $result['success'];
+
+        if(!$status) {
+            throw new \Exception($result['error']);
+        }
+
+        return $result['data'];
     }
 
     public function post($data)
     {
-        return $this->otherServer->post($this->endpoint, $data);
+        /**
+         * @var array{success: bool, error: ?string}
+         */
+        $result = $this->otherServer->post($this->endpoint, $data);
+        if(!$result['success']) {
+            throw new \Exception($result['error']);
+        }
+
+        return $result['success'];
     }
 
     public function put($id)
     {
-        return $this->otherServer->put($this->endpoint . "/" . $id);
+        /**
+         * @var array{success: bool, error: ?string}
+         */
+        $result = $this->otherServer->put($this->endpoint . "/" . $id);
+        if(!$result['success']) {
+            throw new \Exception($result['error']);
+        }
+
+        return $result['success'];
     }
 }

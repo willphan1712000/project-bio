@@ -20,37 +20,27 @@ class GET
 
     private function getStyle()
     {
-        try {
-            if ($this->template === null) {
-                $this->template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
-            }
+        if ($this->template === null) {
+            $this->template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
+        }
 
-            $entityManager = EntityManager::getEntityManager();
+        $entityManager = EntityManager::getEntityManager();
 
-            $styles = $entityManager->getRepository(Style::class)->findBy([
-                'username' => $this->username,
-                'template_id' => $this->template
-            ]);
+        $styles = $entityManager->getRepository(Style::class)->findBy([
+            'username' => $this->username,
+            'template_id' => $this->template
+        ]);
 
-            $out = [];
-            foreach ($styles as $style) {
-                $out[$style->get("element")] = [
-                    "font" => $style->get("font"),
-                    "fontSize" => $style->get("fontSize"),
-                    "fontColor" => $style->get("fontColor")
-                ];
-            }
-
-            return [
-                'success' => true,
-                'data' => $out
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
+        $out = [];
+        foreach ($styles as $style) {
+            $out[$style->get("element")] = [
+                "font" => $style->get("font"),
+                "fontSize" => $style->get("fontSize"),
+                "fontColor" => $style->get("fontColor")
             ];
         }
+
+        return $out;
     }
 
     public function execute()

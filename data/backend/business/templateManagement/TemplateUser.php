@@ -2,6 +2,7 @@
 
 namespace business\templateManagement;
 
+use business\Controllers\TemplateLogics\TemplateManagement;
 use business\Controllers\UserLogics\UserManagement;
 use business\info\GET as InfoGET;
 use business\info\Info;
@@ -9,7 +10,6 @@ use business\info\PUT;
 use business\info\userGET;
 use business\style\GET;
 use business\style\PUT as StylePUT;
-use business\template\TemplateManagement;
 use business\templateManagement\Template;
 use business\templateManagement\TemplateInfo;
 use config\SystemConfig;
@@ -44,11 +44,8 @@ class TemplateUser
         // Get user info
         $infoObj = new userGET($username);
         $info = $infoObj->execute();
-        if (!$info['success']) {
-            throw new \Exception($info['error']);
-        }
 
-        return $info['data'];
+        return $info;
     }
 
     /**
@@ -59,11 +56,8 @@ class TemplateUser
         // Get style info
         $styleObj = new GET($username);
         $style = $styleObj->execute();
-        if (!$style['success']) {
-            throw new \Exception($style['error']);
-        }
 
-        return $style['data'];
+        return $style;
     }
 
     /**
@@ -72,11 +66,8 @@ class TemplateUser
     private function getAdminInfo($username) {
         $get = new InfoGET($username);
         $info = $get->execute();
-        if(!$info['success']) {
-            throw new \Exception($info['error']);
-        }
 
-        return $info['data'];
+        return $info;
     }
 
     /**

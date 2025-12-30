@@ -21,6 +21,9 @@ class TemplateInfo
 
     public function get($id)
     {
+        /**
+         * @var array{success: bool, data: array, error: ?string}
+         */
         return $this->otherServer->get($this->endpoint . "/" . $id);
     }
 }

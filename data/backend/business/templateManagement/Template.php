@@ -29,6 +29,10 @@ class Template
     public function get($id = NULL)
     {
         $id = $id ? "/" . $id : '';
+
+        /**
+         * @var array{success: bool, data: array, error: ?string}
+         */
         $res = $this->otherServer->get($this->endpoint . $id);
 
         return $res;
@@ -82,6 +86,9 @@ class Template
 
     public function put($id)
     {
+        /**
+         * @var array{success: bool, error: ?string}
+         */
         $res = $this->otherServer->put($this->endpoint . "/" . $id);
 
         return $res;
@@ -89,6 +96,9 @@ class Template
 
     public function delete($id)
     {
+        /**
+         * @var array{success: bool, error: ?string}
+         */
         $res = $this->otherServer->delete($this->endpoint . "/" . $id);
 
         return $res;
