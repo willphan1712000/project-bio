@@ -39,7 +39,6 @@ class APIRouter
             $api_router->get("/api/template/like/{id}", "api\\template\like\GETLIKED@execute");
             $api_router->post("/api/template/like", "api\\template\like\POSTLIKED@execute");
             $api_router->delete("/api/template/like", "api\\template\like\DELETELIKED@execute");
-
             $api_router->get("/api/template/default/{id}", "api\\template\default\GETDEFAULT@execute");
             $api_router->put("/api/template/default", "api\\template\default\PUTDEFAULT@execute");
             

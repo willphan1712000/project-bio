@@ -17,6 +17,10 @@ class Pricing
         $this->endpoint = SystemConfig::globalVariables()['template_server']['endpoint']['pricing'];
     }
 
+    /**
+     * Get all pricings
+     * @return array{price: float, discount: int, period: int, isRucurring: bool}[]
+     */
     public function get()
     {
         /**
@@ -33,6 +37,11 @@ class Pricing
         return $result['data'];
     }
 
+    /**
+     * Add a new pricing
+     * @return bool
+     * @throws Exception if there is an error with other server
+     */
     public function post($data)
     {
         /**
@@ -46,6 +55,11 @@ class Pricing
         return $result['success'];
     }
 
+    /**
+     * Modify pricing
+     * @return bool
+     * @throws Exception if there is an error with other server
+     */
     public function put($id)
     {
         /**

@@ -2,72 +2,79 @@
 
 namespace business\purchase;
 
+use config\ExternalServices\PaymentServer;
 use config\ExternalServices\TemplateServer\pricing\Pricing;
-use persistence\EntityManager;
-use persistence\Database;
-use persistence\Entity\Purchase;
-use persistence\Entity\Style;
-use persistence\Entity\StyleDefault;
-use persistence\Entity\User;
 
+/**
+ * Handle user subscription
+ * - username : username of the user
+ * - template : template user wants to subscribe to
+ * - period : during of the subscription
+ */
 class POST
 {
     private string $username;
-    private array $templates;
+    private int $template;
+    private int $period;
+    private PaymentServer $paymentServer;
 
-    function __construct(string $username, array $templates)
+    function __construct(?string $username = null, ?int $template = null, ?int $period = null)
     {
         $this->username = $username;
-        $this->templates = $templates;
+        $this->template = $template;
+        $this->period = $period;
+        $this->paymentServer = PaymentServer::getInstance();
+    }
+
+    /**
+     * This method calculates subtotal based on template and discount if possible for a certain duration of a subscription
+     */
+    private function calculateSubtotal(float $price = 0, int $discount = 0): float {
+        return number_format($price * (1 - $discount / 100), 2);
+    }
+
+    /**
+     * Call payment server to add purcharse
+     * @return array
+     */
+    private function processPayment(float $total, int $template) {
+        return [
+            'success' => true,
+            'customer' => $this->username,
+            'product' => $template,
+            'method' => 'credit',
+            'subtotal' => $total,
+            'total' => $total
+        ];
     }
 
     private function addPurchase()
     {
-        $pricing = new Pricing();
-        $prices = $pricing->get();
-        // $entityManager = EntityManager::getEntityManager();
+        if($this->username === null || $this->template === null || $this->period === null) {
+            throw new \Exception("either username, or template, or period is missing");
+        }
 
-        // // Calculate subtotal
-        // $subtotal = $this->operation->execute();
-        // // Suppose tax rate
-        // $rate = 0.06;
-        // $total = $subtotal * (1 + $rate);
+        // Get pricing from template server and determine subtotal
+        $prices = (new Pricing())->get();
 
-        // // Add new purchase
-        // $purchase = new Purchase();
-        // $purchase
-        //     ->set('username', $this->username)
-        //     ->set('subtotal', $subtotal)
-        //     ->set('total', $total);
+        $hasPricing = false;
+        foreach ($prices as $price) {
+            if($price['period'] === $this->period) {
+                $subtotal = $this->calculateSubtotal($price['price'], $price['discount']);
+                $hasPricing = true;
+                break;
+            }
+        }
+        if(!$hasPricing) {
+            throw new \Exception("There is no pricing with period of ". $this->period);
+        }
 
-        // /** @var User|NULL */
-        // $user = $entityManager->find(User::class, ['username' => $this->username]);
+        // Payment server processing...
+        $payment = $this->processPayment($subtotal, $this->template);
+        if(!$payment['success']) {
+            throw new \Exception("There is problem processing your payment");
+        }
 
-        // // Check if user exists or not
-        // if ($user === NULL) {
-        //     throw new \Exception("user does not exist");
-        // }
-
-        // // iteratively add each purchased template
-        // foreach ($this->templates as $template) {
-        //     $style = (new Style())
-        //         ->set('username', $this->username)
-        //         ->set('template_id', $template)
-        //         ->set('font', Database::GET(StyleDefault::class, 'font', ['template_id' => $template]))
-        //         ->set('fontSize', Database::GET(StyleDefault::class, 'fontSize', ['template_id' => $template]))
-        //         ->set('fontColor', Database::GET(StyleDefault::class, 'fontColor', ['template_id' => $template]))
-        //         ->set('background', Database::GET(StyleDefault::class, 'background', ['template_id' => $template]));
-
-        //     $purchase->setStyle($style);
-        //     $user->setStyle($style);
-
-        //     /** @var StyleDefault|NULL */
-        //     $styleDefault = $entityManager->find(StyleDefault::class, ['template_id' => $template]);
-        //     $styleDefault->setStyle($style);
-        // }
-
-        // $entityManager->persist($purchase);
-        // $entityManager->flush();
         return true;
     }
 
