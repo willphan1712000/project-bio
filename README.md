@@ -24,11 +24,14 @@
 ## API Management
 - First, every database has tables and every table has rows (record) and columns (features or attributes)
 - REST API routes should follow the following api schema
+
 | Route | API prefix | table | id1 | id2 | ... |
 |---|---|---|---|---|---|
 | User | /api | /users | /id |
 | Style | /api | /styles | /userid | /templateid |
+
 - If dealing with microservices
+
 | Route | API prefix | service | table | id1 | id2 | ... |
 |---|---|---|---|---|---|---|
 | User | /api | /system1 | /users | /id |
@@ -42,7 +45,8 @@
 
 ## Server
 
-- The database we implement does not use any foreign key constraints for scalability and modification reasons. Read this article for more information https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints
+- The database stores user personal information such as Email, Phone, Facebook, Template style, ...
+- The database does not use any foreign key constraints for scalability and modification reasons. Read this article for more information https://planetscale.com/docs/vitess/operating-without-foreign-key-constraints
 
 - This project uses DOCTRINE ORM to do CRUD operations through Entity Manager
 
@@ -51,9 +55,9 @@
 
 - This project also uses an abstraction layer over calling api endpoint to other servers to get resources (microservice architecture) called APIClient.php, and have external services implement this abstraction
 
-- When calling api endpoints, each api controller inherits APIAbstract or APISecret to protect the api routes itself
+- When calling api endpoints, each api controller inherits API public, which requires only secret key to get and modify resources and API private, which requires authentication and authorization to get and modify resources
 
-- Model Migration
+- Model Migration command
 
 ```linux
 ./vendor/bin/doctrine-migrations diff && ./vendor/bin/doctrine-migrations migrate
