@@ -7,9 +7,13 @@ const Button = () => {
   const [language, ] = useLanguageContext()
   return (
     <>
-        <Language content="Change language"/>
-        <Signin content={language.navBar.signin} />
-        <Signup content={language.navBar.signup} />
+        <div className="w-fit">
+          <Language content={`Current language: ${language.name}`}/>
+        </div>
+        <div className="flex flex-row gap-2 justify-center py-5">
+          <Signin content={language.navBar.signin} />
+          <Signup content={language.navBar.signup} />
+        </div>
     </>
   )
 }

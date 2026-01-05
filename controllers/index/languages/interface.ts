@@ -1,10 +1,14 @@
+/**
+ * Type of language depending on how many countries are supported
+ */
 export const types = ['en', 'vn'] as const
 
 /**
  * Language interface for main page
  */
 export default interface Language {
-    type: | 'en' | 'vn' | 'others'
+    type: (typeof types)[number],
+    name: string
     navBar: {
         templates: string,
         terms: string,

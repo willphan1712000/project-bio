@@ -1,10 +1,9 @@
-import { Button } from '@willphan1712000/w'
-import { ComponentProps } from 'react'
+import { Button } from '@willphan1712000/frontend'
 import useLanguageContext from '../../languages/context'
 import languages from '../../languages'
 
-interface Props extends ComponentProps<typeof Button> {
-    title?: string
+interface Props {
+    content: string
 }
 
 const Language = ({...otherProps}: Props) => {
@@ -19,7 +18,9 @@ const Language = ({...otherProps}: Props) => {
         localStorage.setItem('language', 'en')
         setLanguage(languages.en)
       }
-    }} type="solid" />
+    }} buttonType="solid" 
+    className='text-[12px]'
+    />
   )
 }
 

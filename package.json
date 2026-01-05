@@ -64,7 +64,7 @@
     "@tanstack/react-router": "^1.131.2",
     "@tanstack/react-router-devtools": "^1.128.4",
     "@types/js-cookie": "^3.0.6",
-    "@willphan1712000/frontend": "^1.0.2",
+    "@willphan1712000/frontend": "^1.0.3",
     "@willphan1712000/w": "^1.2.3",
     "apisauce": "^3.2.0",
     "buffer": "^6.0.3",

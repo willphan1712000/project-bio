@@ -2,6 +2,7 @@ import Language from "../interface";
 
 const en: Language = {
     type: 'en',
+    name: 'English',
     navBar: {
         templates: "Templates",
         privacy: "Privacy",

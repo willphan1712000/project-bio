@@ -1,13 +1,14 @@
-import { Button } from '@willphan1712000/w'
+// import { Button } from '@willphan1712000/w'
 import { ComponentProps } from 'react'
+import { Button } from '@willphan1712000/frontend'
 
-interface Props extends ComponentProps<typeof Button> {
-    title?: string
+interface Props {
+    content: string
 }
 
 const Signin = ({...otherProps}: Props) => {
   return (
-    <Button {...otherProps} onClick={() => window.location.href = '/@signin'} type="solid" />
+    <Button {...otherProps} onClick={() => window.location.href = '/@signin'} buttonType='solid'/>
   )
 }
 

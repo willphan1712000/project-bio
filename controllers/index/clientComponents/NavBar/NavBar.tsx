@@ -77,7 +77,7 @@ const NavBar = () => {
                 <div className="flex flex-col gap-5 justify-start items-center flex-1 px-10">
                     <Link />
                 </div>
-                <div className="flex flex-row gap-2 justify-center py-5">
+                <div className="flex flex-col gap-2 justify-center py-5 items-center">
                     <Button />
                 </div>
             </div>

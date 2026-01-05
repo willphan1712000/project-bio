@@ -1157,6 +1157,16 @@ video {
   height: 100%;
 }
 
+.size-\[50\%\] {
+  width: 50%;
+  height: 50%;
+}
+
+.size-\[10\%\] {
+  width: 10%;
+  height: 10%;
+}
+
 .h-0\.5 {
   height: 0.125rem;
 }

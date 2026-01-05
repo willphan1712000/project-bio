@@ -2,6 +2,7 @@ import Language from "../interface";
 
 const vn: Language = {
     type: 'vn',
+    name: 'Vietnamese',
     navBar: {
         templates: "Templates",
         privacy: "Quyền riêng tư",
