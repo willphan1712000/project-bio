@@ -1,4 +1,4 @@
-import SignUpUI from "./SignUpUI";
+import SignUpUI from './SignUpUI';
 
 export default class Error {
     private $error: JQuery<HTMLElement>;

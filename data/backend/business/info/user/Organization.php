@@ -15,7 +15,7 @@ class Organization extends User
         parent::__construct($next);
         $this->name = 'organization';
     }
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new NormalDisplay($this->name, $value);
@@ -24,7 +24,7 @@ class Organization extends User
         return true;
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {

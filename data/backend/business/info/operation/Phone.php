@@ -13,12 +13,12 @@ class Phone implements Operation
         return self::$instance;
     }
     private function __construct() {}
-    private function phoneNumberFormat(array $list): ?string
+    private function phoneNumberFormat(?array $list): ?string
     {
+        if ($list === null) return null;
+
         $number = $this->handleNumber($list['number']);
-        if ($number === null) {
-            return null;
-        }
+        if ($number === null) return null;
 
         $code = $list['code'];
         // if coed is +84 Vietname, trim the first digit of the phone number

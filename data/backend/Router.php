@@ -36,15 +36,8 @@ class Router
                 }
             }
         } else {
-            if ($base !== "admin") {
-                if (UserManagement::isUserExist($base)) {
-                    return require __DIR__ . '/../../dist/user.php';
-                }
-            } else {
-                $user = explode("/", parse_url($_SERVER['REQUEST_URI'])['path'])[1];
-                if (UserManagement::isUserExist($user)) {
-                    return require __DIR__ . '/../../dist/admin.php';
-                }
+            if (UserManagement::isUserExist($base)) {
+                return require __DIR__ . '/../../dist/user.php';
             }
         }
 
@@ -61,5 +54,33 @@ class Router
     function removeLastRoute()
     {
         array_pop($this->routes);
+    }
+
+    /**
+     * This function will add all routes and parse the current route based on the current uri
+     */
+    public static function router_work()
+    {
+        $payment = ['checkout', 'return'];
+        $user = ['signin', 'signup', 'forgot', 'forgotUsername', 'resetPass', 'restore'];
+        $template = ['template'];
+        $warning = ['expire', 'deactivate'];
+        $admin = ['admin'];
+        $document = ['terms', 'privacy', 'pricing'];
+
+        $pages = array_merge($payment, $user, $template, $warning, $admin, $document);
+
+        $router = new Router();
+        $router->addRoute('/', 'dist/index.php');
+        for ($i = 0; $i < count($pages); $i++) {
+            $router->addRoute('/@' . $pages[$i], 'dist/' . $pages[$i] . '.php');
+            $router->addRoute('/@' . $pages[$i] . '/', 'dist/' . $pages[$i] . '.php');
+        }
+        $router->addRoute('/@admin/@upload', 'dist/admin.php');
+        $router->addRoute('/@admin/@price', 'dist/admin.php');
+        $router->addRoute('/@admin/@logout', 'dist/admin.php');
+
+        $uri = parse_url($_SERVER['REQUEST_URI'])['path']; // Get current uri from the address bar
+        $router->route($uri);
     }
 }

@@ -1,57 +1,24 @@
-import Lenis from "@studio-freight/lenis"
+import Lenis from '@studio-freight/lenis';
 
 export default Object.freeze({
     default_product: {
-        thumbnails: "/controllers/client/img/unknown.png",
-        url: "/"
-    },
-    nfc: {
-        title: "Use NFC - Near Field Communication Technology",
-        one: "Cards use short-range wireless technology to communicate with compatible devices when brought close together.",
-        two: "These cards can store and transmit small amounts of data, such as contact info, website links, or payment credentials.",
-        three: "NFC cards require no battery and are often used for digital business cards, access control, or contactless payments."
+        thumbnails: '/controllers/client/img/unknown.png',
+        url: '/',
     },
     heading: {
-        title: "Level Up Your eBusiness Cards",
-        des1: "Create your profile and save it on an ",
-        desSpan: "eBusiness Cards",
-        des2: " Tap it on a phone to see how amazing your profile is",
-        img: "/controllers/client/img/ip.png"
+        img: '/controllers/client/img/ip.png',
     },
-    templates: {
-        basic: {
-            heading: "Basic Templates",
-            des: "Just create your profile, buy a template of your choice and we will ship your card to you.",
-        },
-        pro: {
-            heading: "Pro Templates",
-            des: "Just create your profile, buy a pro template of your choice. You will have the pro template displayed on your profile + a card printed with the template shipped to you.",
-        },
-        diamond: {
-            heading: "",
-            des: ""
-        }
-    },
-    cards: {
-        basic: {
-            heading: "Basic eBusiness Cards",
-            des: "",
-        },
-        professional: {
-            heading: "Professional eBusiness Cards",
-            des: "",
-        }
-    }
-})
+    faqs: 'https://allinclicks.com/2026/01/04/linkbio-faq/',
+});
 
 export function smoothScrolling() {
     // smooth scroll
-    const lenis = new Lenis()
-    
+    const lenis = new Lenis();
+
     function ref(time: any) {
-        lenis.raf(time)
-        requestAnimationFrame(ref)
+        lenis.raf(time);
+        requestAnimationFrame(ref);
     }
 
-    requestAnimationFrame(ref)
+    requestAnimationFrame(ref);
 }

@@ -2,8 +2,6 @@
 
 namespace business\user;
 
-// require_once __DIR__."/../../../../vendor/autoload.php";
-use business\IAPI;
 use business\user\signup\Auth;
 use business\user\signup\CheckUsername;
 use business\user\signup\CheckEmail;
@@ -13,7 +11,7 @@ use business\user\signup\CreateQR;
 use business\user\signup\Push;
 use business\user\signup\Input;
 
-class POST implements IAPI
+class POST
 {
     private string $username;
     private string $email;
@@ -26,24 +24,19 @@ class POST implements IAPI
         $this->password = $password;
     }
 
-    private function singup(String $username, String $email, String $password)
+    private function singup(string $username, string $email, string $password)
     {
-        try {
-            $input = new Input($username, $email, $password); // input object from user
-            // Check username -> check email -> check password -> create user folder -> create user QR code -> push data to database -> create admin authorization
-            $signupHandler = new CheckUsername(new CheckEmail(new Password(new CreateFolder(new CreateQR(new Push(new Auth(null)))))));
-            $process = $signupHandler->handle($input); // return true if the process is successful
-            return [
-                'success' => $process
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        $input = new Input($username, $email, $password); // input object from user
+        // Check username -> check email -> check password -> create user folder -> create user QR code -> push data to database -> create admin authorization
+        $signupHandler = new CheckUsername(new CheckEmail(new Password(new CreateFolder(new CreateQR(new Push(new Auth(null)))))));
+        $process = $signupHandler->handle($input); // return true if the process is successful
+        return $process;
     }
 
+    /**
+     * @throws \Exception if username already exists, password is not valid, email is not valid
+     * @return bool process status
+     */
     function execute()
     {
         return $this->singup($this->username, $this->email, $this->password);

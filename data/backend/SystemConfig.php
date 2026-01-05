@@ -20,7 +20,7 @@ class SystemConfig
     {
         return [
             'company_domain' => 'https://allinclicks.com',
-            'product_name' => 'Allinclicks Bio',
+            'product_name' => 'Allinclicks Link Bio',
             'product_year' => date("Y"),
             'domain' => ProductionConfig::config()['domain'],
             'fulldomain' => ProductionConfig::config()['fulldomain'],
@@ -72,23 +72,18 @@ class SystemConfig
                 'url' => ProductionConfig::config()['template_server'],
                 'endpoint' => [
                     'template' => '/api/template',
+                    'template_count' => '/api/template/count',
                     'pricing' => '/api/pricing',
                     'info' => '/api/info'
                 ],
-                'headers' => [
-                    "Authorization: {$_ENV['SYSTEM_SECRET_KEY']}",
-                    "Content-Type: application/json"
-                ]
+                'api_key' => $_ENV['SYSTEM_SECRET_KEY']
             ],
             'payment_server' => [
                 'url' => ProductionConfig::config()['payment_server'],
                 'endpoint' => [
                     ''
                 ],
-                'headers' => [
-                    "Authorization: {$_ENV['SYSTEM_SECRET_KEY']}",
-                    "Content-Type: application/json"
-                ]
+                'api_key' => $_ENV['SYSTEM_SECRET_KEY']
             ],
             "auth" => [
                 "token_property" => "CRM-ctoken", // This name is the property name whenever accessing token from headers of a request,
@@ -261,5 +256,29 @@ class SystemConfig
                 header("Location: https://" . $currentDomain . $uri);
             }
         }
+    }
+
+    /**
+     * Function returns an API JSON format
+     * [ success, data, error ]
+     */
+    public static function apiJSONformat(bool $status = false, mixed $data = NULL, ?string $error = NULL) {
+        if($error !== NULL) {
+            return [
+                'success' => false,
+                'error' => $error
+            ];
+        }
+
+        if ($data === NULL) {
+            return [
+                'success' => $status
+            ];
+        }
+
+        return [
+            'success' => true,
+            'data' => $data
+        ];
     }
 }

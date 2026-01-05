@@ -1,12 +1,19 @@
-import { ColorPicker, ColorPickerOptions } from "./ColorPicker";
-import { ColorPickerMethod } from "./ColorPickerMethod";
+import { ColorPicker, ColorPickerOptions } from './ColorPicker';
+import { ColorPickerMethod } from './ColorPickerMethod';
 
-export default class ColorPickerSingle extends ColorPickerMethod implements ColorPicker {
+export default class ColorPickerSingle
+    extends ColorPickerMethod
+    implements ColorPicker
+{
     private color: string;
     private container: string;
     private options: ColorPickerOptions;
 
-    constructor(container: string, cb: (e: any) => void, options: ColorPickerOptions) {
+    constructor(
+        container: string,
+        cb: (e: any) => void,
+        options: ColorPickerOptions
+    ) {
         super();
         this.options = options;
         this.container = container;
@@ -16,18 +23,20 @@ export default class ColorPickerSingle extends ColorPickerMethod implements Colo
 
         this.clickBehavior(this.container); // set click behavior for color picker
 
-        const color = document.querySelector(this.container + " #color") as HTMLInputElement;
-        color.addEventListener("input", e => {
+        const color = document.querySelector(
+            this.container + ' #color'
+        ) as HTMLInputElement;
+        color.addEventListener('input', (e) => {
             const input = e.target as HTMLInputElement;
             this.setColor(input.value);
             cb(this.getColor());
-        })
+        });
 
-        $(this.container + " .colorPickerBox__reset").click(e => {
+        $(this.container + ' .colorPickerBox__reset').click((e) => {
             e.stopPropagation();
-            this.color = this.options.default
+            this.color = this.options.default;
             cb(this.getColor());
-        })
+        });
     }
 
     public getColor(): string {
@@ -39,15 +48,15 @@ export default class ColorPickerSingle extends ColorPickerMethod implements Colo
     }
 
     private render() {
-        const style = document.createElement("style");
+        const style = document.createElement('style');
         style.textContent = this.css();
         document.head.append(style);
-        
+
         const $container = $(this.container);
         $container.append(this.html());
     }
 
-    private html() : string {
+    private html(): string {
         return `
             <div class="colorPickerBox">
                 <div class="colorPickerBox__reset">
@@ -81,7 +90,7 @@ export default class ColorPickerSingle extends ColorPickerMethod implements Colo
                 z-index: 1;
             }
             ${this.container} .colorPickerBox__reset {
-                display: ${this.options?.default == null ? "none" : "flex"};
+                display: ${this.options?.default == null ? 'none' : 'flex'};
                 justify-content: center;
                 align-items: center;
                 height: fit-content;

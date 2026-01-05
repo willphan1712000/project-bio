@@ -2,12 +2,11 @@
 
 namespace business\style;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 use persistence\Entity\Style;
 
-class PUT implements IAPI
+class PUT
 {
     protected string $username;
     protected int $template;
@@ -22,26 +21,17 @@ class PUT implements IAPI
 
     protected function updateStyle()
     {
-        try {
-            foreach ($this->props as $key => $value) {
-                if ($value === null || $value === '') {
-                    continue;
-                }
-                Database::PUT(Style::class, $key, $value, [
+        foreach ($this->props as $element => $values) {
+            foreach ($values as $value_key => $value) {
+                Database::PUT(Style::class, $value_key, $value, [
                     'username' => $this->username,
-                    'template_id' => $this->template
+                    'template_id' => $this->template,
+                    'element' => $element
                 ]);
             }
-
-            return [
-                'success' => true
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
         }
+
+        return true;
     }
 
     public function execute()

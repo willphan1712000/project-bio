@@ -3,7 +3,8 @@
     height: 100vh;
     height: 100svh;
 }
-h2, h5 {
+h2,
+h5 {
     text-align: center;
     margin: 10px 0px;
 }
@@ -86,13 +87,13 @@ h2, h5 {
     height: 40px;
     overflow: hidden;
     cursor: pointer;
-    transition: all .2s;
+    transition: all 0.2s;
 }
 .passRequirements.dropdown {
     height: auto;
 }
 .signupChild__error {
-    color: red
+    color: red;
 }
 .signupChild h1 {
     margin-bottom: 60px;
@@ -121,7 +122,8 @@ h2, h5 {
     align-items: center;
     flex-direction: column;
 }
-.signupChild__confirm, .signupChild__confirm--php {
+.signupChild__confirm,
+.signupChild__confirm--php {
     width: 100px;
     height: 50px;
     border-radius: 20px;
@@ -282,7 +284,7 @@ h2, h5 {
     z-index: 1;
     visibility: hidden;
     opacity: 0;
-    transition: all .2s cubic-bezier(0.4, 0, 0.58, 1.4)
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.58, 1.4);
 }
 .warning__parent.active {
     opacity: 1;

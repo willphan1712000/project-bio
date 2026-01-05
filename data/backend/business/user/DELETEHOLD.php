@@ -2,11 +2,10 @@
 
 namespace business\user;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\User;
 
-class DELETEHOLD implements IAPI
+class DELETEHOLD
 {
     private ?string $username;
 
@@ -24,10 +23,7 @@ class DELETEHOLD implements IAPI
                 'success' => $r
             ];
         } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
+            throw new \Exception($e->getMessage());
         }
     }
 

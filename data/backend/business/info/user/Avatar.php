@@ -15,13 +15,14 @@ class Avatar extends User
         $this->name = 'image';
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         try {
             $username = $info->getInfo('username'); // get username
             $old = $this->getValueFromDatabase($this->name, $username); // get old image from database
 
             $src = $info->getInfo($this->name); // get image source uploaded
+            if ($src === null) return true;
 
             if ($src === $old) {
                 $path = __DIR__ . "/../../../../../user/" . $username . "/" . $old;
@@ -56,7 +57,7 @@ class Avatar extends User
         }
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new AvatarDisplay($this->name, $this->format($value === NULL ? NULL : $info->getInfo("username") . "/" . $value));

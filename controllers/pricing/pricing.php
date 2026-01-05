@@ -1,6 +1,6 @@
 <?php
 
-use business\wp\Pricing;
+use config\ExternalServices\wp\PricingPolicy;
 use config\SystemConfig;
 
 $g = SystemConfig::globalVariables();
@@ -17,7 +17,7 @@ require_once __DIR__ . "/../controllers/components/signup/SignupTerms.php";
 
 use function component\signup\signupTerms;
 
-$pricing = new Pricing();
+$pricing = new PricingPolicy();
 $content = $pricing->get();
 ?>
 <!DOCTYPE html>

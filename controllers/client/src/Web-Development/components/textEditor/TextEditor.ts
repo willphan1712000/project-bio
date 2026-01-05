@@ -1,4 +1,3 @@
-
 export default class TextEditor {
     private text!: string;
     private element!: string;
@@ -9,10 +8,10 @@ export default class TextEditor {
         this.text = elementHtml.textContent as string;
         elementHtml.contentEditable = 'true';
 
-        elementHtml.addEventListener("input", e => {
+        elementHtml.addEventListener('input', (e) => {
             this.setText(elementHtml.textContent!);
-            cb(elementHtml.textContent)
-        })
+            cb(elementHtml.textContent);
+        });
     }
 
     public setText(text: string): void {

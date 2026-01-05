@@ -1,15 +1,19 @@
 export type RangeSliderOptions = {
-    default?: number,
-    unit?: string,
-    range?: Array<number>
-}
+    default?: number;
+    unit?: string;
+    range?: Array<number>;
+};
 
 export class RangeSlider {
     private options: any | null;
     private value: number;
     private container: string;
 
-    constructor(container: string, cb: (e: any) => void, options: RangeSliderOptions) {
+    constructor(
+        container: string,
+        cb: (e: any) => void,
+        options: RangeSliderOptions
+    ) {
         this.options = options;
         this.value = this.options?.default;
         this.container = container;
@@ -17,55 +21,59 @@ export class RangeSlider {
         this.render();
 
         const $container = $(this.container);
-        const $rangeSlider = $(this.container + " .rangeSliderBox");
-        $container.click(e => {
+        const $rangeSlider = $(this.container + ' .rangeSliderBox');
+        $container.click((e) => {
             e.stopPropagation();
             if ($rangeSlider.css('display') === 'none') {
                 $rangeSlider.css('display', 'flex');
             } else {
                 $rangeSlider.css('display', 'none');
             }
-        })
-        $("body").click(e => {
+        });
+        $('body').click((e) => {
             e.stopPropagation();
-            $rangeSlider.css('display', 'none')
-        })
-        $rangeSlider.click(e => {
+            $rangeSlider.css('display', 'none');
+        });
+        $rangeSlider.click((e) => {
             e.stopPropagation();
             $rangeSlider.css('display', 'flex');
-        })
+        });
 
-        const range = document.querySelector(this.container + " #range") as HTMLInputElement;
-        const showRange = document.querySelector(this.container + " #showRange") as HTMLInputElement;
+        const range = document.querySelector(
+            this.container + ' #range'
+        ) as HTMLInputElement;
+        const showRange = document.querySelector(
+            this.container + ' #showRange'
+        ) as HTMLInputElement;
 
-        range.addEventListener("input", e => {
+        range.addEventListener('input', (e) => {
             const input = e.target as HTMLInputElement;
             this.setValue(Number(input.value));
 
             cb(this.getValue());
             showRange.value = this.getValue() + this.options?.unit;
-        })
-        
-        $(".rangeSliderBox__reset").click(e => {
+        });
+
+        $('.rangeSliderBox__reset').click((e) => {
             e.stopPropagation();
             this.setValue(this.options?.default);
-            
+
             cb(this.getValue());
             showRange.value = this.getValue() + this.options?.unit;
             range.value = this.getValue() + '';
-        })
+        });
     }
 
     public getValue(): number {
         return this.value;
     }
 
-    public setValue(value: number) : void {
+    public setValue(value: number): void {
         this.value = value;
     }
 
     private render() {
-        const style = document.createElement("style");
+        const style = document.createElement('style');
         style.textContent = this.css();
         document.head.append(style);
 
@@ -73,7 +81,7 @@ export class RangeSlider {
         $container.append(this.html());
     }
 
-    private html() : string {
+    private html(): string {
         return `
             <div class="rangeSliderBox">
                 <div class="rangeSliderBox__reset">
@@ -87,7 +95,7 @@ export class RangeSlider {
         `;
     }
 
-    private css() : string {
+    private css(): string {
         return `
             ${this.container} {
                 position: relative;
@@ -108,7 +116,7 @@ export class RangeSlider {
                 z-index: 1;
             }
             ${this.container} .rangeSliderBox__reset {
-                display: ${this.options?.default == null ? "none" : "flex"};
+                display: ${this.options?.default == null ? 'none' : 'flex'};
                 justify-content: center;
                 align-items: center;
                 height: fit-content;

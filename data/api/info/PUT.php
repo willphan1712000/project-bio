@@ -2,19 +2,20 @@
 
 namespace api\info;
 
-use api\APIAbstract;
+use api\Request;
+use api\Response;
 use business\info\Info;
 use business\info\PUT as InfoPUT;
+use api\ApiProcessing\ApiPrivate;
 
-require_once __DIR__ . "/../../../vendor/autoload.php";
-
-class PUT extends APIAbstract
+class GET extends ApiPrivate
 {
-    public function handleRequest($body)
+    public function doHandle(Request $request, Response $response)
     {
-        $infoArr = json_decode(json_encode($body), true);
-        return (new InfoPUT(new Info($infoArr)))->execute();
+        $infoArr = $request->getBody();
+
+        $response->setStatusCode(200)->json([
+            'success' => (new InfoPUT(new Info($infoArr)))->execute()
+        ]);
     }
 }
-
-echo json_encode((new PUT())->execute());

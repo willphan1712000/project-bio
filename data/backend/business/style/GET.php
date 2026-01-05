@@ -2,12 +2,12 @@
 
 namespace business\style;
 
-use business\IAPI;
 use persistence\Database;
 use persistence\Entity\Style;
 use persistence\Entity\User;
+use persistence\EntityManager;
 
-class GET implements IAPI
+class GET
 {
     protected string $username;
     protected ?int $template;
@@ -20,32 +20,27 @@ class GET implements IAPI
 
     private function getStyle()
     {
-        try {
-            if ($this->template === null) {
-                $this->template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
-            }
-            $style = Database::GET(Style::class, null, [
-                'username' => $this->username,
-                'template_id' => $this->template
-            ]);
+        if ($this->template === null) {
+            $this->template = Database::GET(User::class, 'defaultTemplate', ['username' => $this->username]);
+        }
 
-            $out = [];
-            foreach (Style::getProperty() as $prop) {
-                if (!in_array($prop, ['Purchase', 'StyleDefault', 'User'])) {
-                    $out[$prop] = $style->get($prop);
-                }
-            }
+        $entityManager = EntityManager::getEntityManager();
 
-            return [
-                'success' => true,
-                'data' => $out
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
+        $styles = $entityManager->getRepository(Style::class)->findBy([
+            'username' => $this->username,
+            'template_id' => $this->template
+        ]);
+
+        $out = [];
+        foreach ($styles as $style) {
+            $out[$style->get("element")] = [
+                "font" => $style->get("font"),
+                "fontSize" => $style->get("fontSize"),
+                "fontColor" => $style->get("fontColor")
             ];
         }
+
+        return $out;
     }
 
     public function execute()

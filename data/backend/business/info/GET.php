@@ -2,10 +2,12 @@
 
 namespace business\info;
 
-use business\IAPI;
 use business\info\Info;
 
-class GET implements IAPI
+/**
+ * This class is for getting user information for admin site
+ */
+class GET
 {
     private string $username;
 
@@ -16,30 +18,14 @@ class GET implements IAPI
 
     private function get()
     {
-        try {
-            $info = new Info([]);
-            $info->setInfo('username', $this->username);
+        $info = new Info([]);
+        $info->setInfo('username', $this->username);
 
-            // $userSocialHandler = new Booking(new Facebook(new HotSale(new Instagram(new Linkedin(new Messenger(new OrderOnline(new Pinterest(new Threads(new Tiktok(new Website(new X(new Youtube(new Zalo(null))))))))))))));
-            // // Handle user phone number
-            // $userPhoneHandler = new Mobile(new Work(new HotLine(new Viber($userSocialHandler))));
-            // // Handle user information
-            // $userInfoHandler = new Name(new Avatar(new Organization(new Description(new Email(new Address($userPhoneHandler))))));
+        $userInfoHandler = InfoChainHandler::getInstance(null);
 
-            $userInfoHandler = InfoChainHandler::getInstance(null);
+        $userInfoHandler->handleAdminGET($info);
 
-            $get = $userInfoHandler->adminGET($info);
-
-            return [
-                'success' => $get,
-                'data' => $info->getEntireInfo()
-            ];
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        return $info->getEntireInfo();
     }
 
     public function execute()

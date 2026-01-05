@@ -1,21 +1,20 @@
 // W.js is module created by Will - Thanh Nha Phan - Kennesaw State University
 // This module helps frontend development to be easily deployed
-import $ from 'jquery'
-import SearchUI from "./components/search/SearchUI";
+import $ from 'jquery';
+import SearchUI from './components/search/SearchUI';
 
-import Transform from "./components/Transform/Transform";
-import UploadFile from "./components/upload/UploadFile";
-import TextEditor from "./components/textEditor/TextEditor";
-import ReactDOM from "react-dom/client";
-import FileType from "./components/upload/filetype";
+import Transform from './components/Transform/Transform';
+import UploadFile from './components/upload/UploadFile';
+import TextEditor from './components/textEditor/TextEditor';
+import ReactDOM from 'react-dom/client';
+import FileType from './components/upload/filetype';
 
 // Export React Components
 export { default as ColorPickerGradient } from './components/colorPicker/ColorPickerGradient';
-export {default as Options} from './components/options/Options';
-export {default as FontType} from './components/options/types/FontType'
-export {default as ColorType} from './components/options/types/ColorType'
-export {default as RangeSlider} from './components/rangeSlider/RangeSlider'
-
+export { default as Options } from './components/options/Options';
+export { default as FontType } from './components/options/types/FontType';
+export { default as ColorType } from './components/options/types/ColorType';
+export { default as RangeSlider } from './components/rangeSlider/RangeSlider';
 
 // Method overloads
 export function $$(ele1: any): W1;
@@ -60,11 +59,14 @@ export class W1 {
         return new Share(this.ele1);
     }
 
-    public textEditor(cb: (e: any) => void) : TextEditor {
-        return new TextEditor(this.ele1, cb)
+    public textEditor(cb: (e: any) => void): TextEditor {
+        return new TextEditor(this.ele1, cb);
     }
 
-    public uploadFile(cb: ({e, error}: any) => void, type: FileType): UploadFile {
+    public uploadFile(
+        cb: ({ e, error }: any) => void,
+        type: FileType
+    ): UploadFile {
         return new UploadFile(this.ele1, cb, type);
     }
 }
@@ -95,7 +97,7 @@ export class W2 {
 
     // reactMounting uses latest React syntax to mount an element to an already defined element
     public reactMounting(): ReactMounting {
-        return new ReactMounting(this.ele1, this.ele2)
+        return new ReactMounting(this.ele1, this.ele2);
     }
 }
 
@@ -117,7 +119,7 @@ export class W3 {
     public addIntersectionObserver(): AddIntersectionObserver {
         return new AddIntersectionObserver(this.ele1, this.ele2, this.ele3);
     }
-    
+
     public toggle(): Toggle {
         return new Toggle(this.ele1, this.ele2, this.ele3);
     }
@@ -138,22 +140,26 @@ export class W4 {
 }
 
 class ReactMounting {
-    private element!: string
-    private jsx!: JSX.Element
+    private element!: string;
+    private jsx!: JSX.Element;
 
     constructor(element: string, jsx: JSX.Element) {
-        this.element = element
-        this.jsx = jsx
+        this.element = element;
+        this.jsx = jsx;
 
         this.render();
     }
 
     private render() {
-        const parentElement: HTMLElement | null = document.querySelector(this.element);
+        const parentElement: HTMLElement | null = document.querySelector(
+            this.element
+        );
         if (!parentElement) {
-            throw new Error("The element React components will be mounted on is not found");
+            throw new Error(
+                'The element React components will be mounted on is not found'
+            );
         }
-        (ReactDOM.createRoot(parentElement).render(this.jsx))
+        ReactDOM.createRoot(parentElement).render(this.jsx);
     }
 }
 
@@ -168,24 +174,24 @@ export class AddIntersectionObserver extends W3 {
         this.target = document.querySelector(this.ele1);
 
         this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 this.ele3(entry.isIntersecting, this.count);
-            })
-        }, this.ele2)
+            });
+        }, this.ele2);
         this.count = 0;
     }
 
-    public observe() : this {
+    public observe(): this {
         this.observer.observe(this.target);
         return this;
     }
 
-    public unobserve() : this {
+    public unobserve(): this {
         this.observer.unobserve(this.target);
         return this;
     }
 
-    public increaseCount() : void {
+    public increaseCount(): void {
         this.count++;
     }
 
@@ -193,25 +199,22 @@ export class AddIntersectionObserver extends W3 {
         this.count = 0;
     }
 
-    public getCount() : number {
+    public getCount(): number {
         return this.count;
     }
 }
 
 class Share extends W1 {
-    constructor(obj: {
-        title: string,
-        url: string
-    }) {
+    constructor(obj: { title: string; url: string }) {
         super(obj);
         this.run();
     }
 
     private run() {
-        if(navigator.share) {
-            navigator.share(this.ele1)
+        if (navigator.share) {
+            navigator.share(this.ele1);
         } else {
-            alert("Share does not support this browser")
+            alert('Share does not support this browser');
         }
     }
 }
@@ -251,7 +254,7 @@ export class Table extends W2 {
         // Append header
         for (const headerKey in this.data[0]) {
             if (this.data[0].hasOwnProperty(headerKey)) {
-                $(this.location + " table tr").append(`<th>${headerKey}</th>`);
+                $(this.location + ' table tr').append(`<th>${headerKey}</th>`);
             }
         }
 
@@ -260,14 +263,15 @@ export class Table extends W2 {
 
     public addRow(data: {
         [key: number]: {
-            [key: number]: any
-        }
+            [key: number]: any;
+        };
     }): this {
         // Append data rows
         for (const dataKey in data) {
-            let row = `<tr>`, eachData = data[dataKey];
+            let row = `<tr>`,
+                eachData = data[dataKey];
             for (const eachKey in eachData) {
-                if(eachKey === 'createdAt') {
+                if (eachKey === 'createdAt') {
                     let dateFormatted = new Intl.DateTimeFormat('en-US', {
                         timeZone: 'America/New_York',
                         year: 'numeric',
@@ -276,16 +280,16 @@ export class Table extends W2 {
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',
-                      }).format(new Date(eachData[eachKey]));
+                    }).format(new Date(eachData[eachKey]));
                     row += `<th>${dateFormatted}</th>`;
-                    continue
+                    continue;
                 }
                 row += `<th>${eachData[eachKey]}</th>`;
             }
             row += `</tr>`;
-            $(this.location + " table").append(row);
+            $(this.location + ' table').append(row);
         }
-    
+
         return this;
     }
 
@@ -293,29 +297,27 @@ export class Table extends W2 {
         $(this.location).empty();
         this.addHeader();
     }
-
 }
 
 class Spinner extends W1 {
-
     constructor(ele1: HTMLElement) {
         super(ele1);
     }
 
     public show(): this {
         // $(this.ele1 + " .loader").addClass("spinner");
-        $(this.ele1.querySelector(".loader")).addClass("spinner")
+        $(this.ele1.querySelector('.loader')).addClass('spinner');
         return this;
     }
-    
+
     public hide(): this {
         // $(this.ele1 + " .loader").removeClass("spinner");
-        $(this.ele1.querySelector(".loader")).removeClass("spinner")
+        $(this.ele1.querySelector('.loader')).removeClass('spinner');
         return this;
     }
 
     public singleSpinner(): this {
-        const styleElement = document.createElement("style");
+        const styleElement = document.createElement('style');
         styleElement.textContent = `
         .spinner::after {
             content: "";
@@ -342,7 +344,7 @@ class Spinner extends W1 {
         }`;
         document.head.appendChild(styleElement);
         $(this.ele1).append(`<div class="loader"></div>`);
-        $(this.ele1).css("position", "relative");
+        $(this.ele1).css('position', 'relative');
         return this;
     }
 
@@ -351,7 +353,6 @@ class Spinner extends W1 {
         return this;
     }
 }
-
 
 class PassShowHide extends W1 {
     private inputSelector: string;
@@ -366,7 +367,7 @@ class PassShowHide extends W1 {
     public run(): this {
         const inputWidth = this.$input.innerWidth();
         const inputHeight = this.$input.innerHeight();
-        
+
         // Create a wrapper div and move the input inside it
         this.$input.wrap('<div style="position: relative;"></div>');
 
@@ -378,12 +379,12 @@ class PassShowHide extends W1 {
         const $eye = this.$input.next();
 
         $eye.on('click', () => {
-            if (this.$input.attr('type') === "password") {
+            if (this.$input.attr('type') === 'password') {
                 this.$input.attr('type', 'text');
-                $eye.css({ color: "green" });
+                $eye.css({ color: 'green' });
             } else {
                 this.$input.attr('type', 'password');
-                $eye.css({ color: "#333" });
+                $eye.css({ color: '#333' });
             }
         });
 
@@ -392,11 +393,14 @@ class PassShowHide extends W1 {
 }
 
 class Toggle extends W3 {
-
-    constructor(ele1: {
-        trigger: HTMLElement,
-        terminate?: Array<HTMLElement>
-    }, ele2: HTMLElement, ele3: string) {
+    constructor(
+        ele1: {
+            trigger: HTMLElement;
+            terminate?: Array<HTMLElement>;
+        },
+        ele2: HTMLElement,
+        ele3: string
+    ) {
         super(ele1, ele2, ele3);
     }
 
@@ -408,61 +412,67 @@ class Toggle extends W3 {
     }
 
     private disableScroll() {
-        $("body").css({
-            overflow: "hidden"
-        })
+        $('body').css({
+            overflow: 'hidden',
+        });
     }
 
     private enableScroll() {
-        $("body").css({
-            overflow: "auto"
-        })
+        $('body').css({
+            overflow: 'auto',
+        });
     }
 
     public advanced(): this {
         // Check if the showing element is defined or rendered yet
-        if(this.ele2 === null) {
-            throw new Error("showing element is not defined or rendered on DOM")
+        if (this.ele2 === null) {
+            throw new Error(
+                'showing element is not defined or rendered on DOM'
+            );
         }
 
         // Check if trigger element is defined or rendered yet. If so, perform click event. If clicked, open the showing element. If clicked again, close the showing element
-        if(this.ele1.terminate === null) {
-            throw new Error("terminating element is not defined or rendered on DOM")
+        if (this.ele1.terminate === null) {
+            throw new Error(
+                'terminating element is not defined or rendered on DOM'
+            );
         } else {
             this.ele1.trigger.addEventListener('click', (e: any) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if($(this.ele2).hasClass(this.ele3)) {
-                    this.enableScroll()
-                    $(this.ele2).removeClass(this.ele3)
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(this.ele2).hasClass(this.ele3)) {
+                    this.enableScroll();
+                    $(this.ele2).removeClass(this.ele3);
                 } else {
-                    this.disableScroll()
-                    $(this.ele2).addClass(this.ele3)
+                    this.disableScroll();
+                    $(this.ele2).addClass(this.ele3);
                 }
-            })
+            });
         }
 
         // terminating element could be null. If not null, perform click event for every element in the terminating array to close the showing menu
-        if(this.ele1.terminate !== null) {
-            document.addEventListener('click', e => {
-                const target = e.target as HTMLElement
+        if (this.ele1.terminate !== null) {
+            document.addEventListener('click', (e) => {
+                const target = e.target as HTMLElement;
 
-                if((this.ele1.terminate as Array<HTMLElement>).includes(target)) {
-                    this.enableScroll()
-                    $(this.ele2).removeClass(this.ele3)
+                if (
+                    (this.ele1.terminate as Array<HTMLElement>).includes(target)
+                ) {
+                    this.enableScroll();
+                    $(this.ele2).removeClass(this.ele3);
                 }
-            })
+            });
         }
 
-        return this
+        return this;
     }
 
     public cancel(): this {
-        $(this.ele1.trigger).off()
-        $(this.ele1.terminate).off()
-        $(this.ele2).off()
-        $(document).off()
-        return this
+        $(this.ele1.trigger).off();
+        $(this.ele1.terminate).off();
+        $(this.ele2).off();
+        $(document).off();
+        return this;
     }
 }
 
@@ -481,11 +491,10 @@ class CopyToClipboard extends W2 {
 }
 
 class Search extends W2 {
-    private searchUI: SearchUI
-    
+    private searchUI: SearchUI;
+
     constructor(ele1: any, ele2: any) {
         super(ele1, ele2);
         this.searchUI = new SearchUI(this.ele1, this.ele2);
-        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace business\auth;
 
+use api\Request;
 use config\SystemConfig;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -18,28 +19,44 @@ class JWTAuth implements AuthInterface
     protected ?string $username;
     protected ?string $token;
 
-    public function __construct(?string $username, ?string $token = null)
+    public function __construct(?Request $request = NULL)
     {
-        $this->username = $username;
-        $this->token = $token;
+        $tokenName = SystemConfig::globalVariables()['auth']['token_property'];
+        if ($request === NULL) {
+            $this->username = $_POST['username'] ?? NULL;
+            $this->token = $_COOKIE[$tokenName] ?? NULL;
+        } else {
+            $headers = $request->getHeaders();
+            $body = $request->getBody();
+            $this->username = $body['username'];
+            $this->token = $_COOKIE[$tokenName] ?? ($headers[$tokenName] ?? NULL);
+        }
     }
 
-    public function auth(): bool
+    public function auth(): array
     {
-        if (!isset($this->username) || $this->username === null) throw new Exception("Username is not given");
-
-        if ($this->token === null) return false;
+        if ($this->token === NULL) return [
+            'success' => false
+        ];
 
         try {
             $decode = JWT::decode($this->token, new Key($_ENV['JWT_SECRET'], 'HS256'));
-            if ($decode->username === $this->username) {
-                return true;
+            $username = $decode->username;
+            if (isset($decode->username)) {
+                return [
+                    'success' => true,
+                    'username' => $username
+                ];
             }
         } catch (\Exception $e) {
             // Invalid signature
-            return false;
+            return [
+                'success' => false
+            ];
         }
-        return false;
+        return [
+            'success' => false
+        ];
     }
 
     public function generateAuth(): bool|string

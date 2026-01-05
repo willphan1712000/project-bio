@@ -1,21 +1,23 @@
-import { Theme } from '@radix-ui/themes'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createRouter, RouterProvider } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { ThemeContext, ThemeContextType } from '../../client/clientComponents/context/theme'
-import detectLightMode from '../../client/utilities/detectLightMode'
-import { routeTree } from './routes/routeTree.gen'
+import { Theme } from '@radix-ui/themes';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
+import {
+    ThemeContext,
+    ThemeContextType,
+} from '../../client/clientComponents/context/theme';
+import detectLightMode from '../../client/utilities/detectLightMode';
+import { routeTree } from './routes/routeTree.gen';
 
-const router = createRouter({ 
+const router = createRouter({
     routeTree,
-    basepath: '/@aic'
- })
- declare module "@tanstack/react-router" {
+    basepath: '/@admin',
+});
+declare module '@tanstack/react-router' {
     interface Register {
-        router: typeof router
+        router: typeof router;
     }
- }
-
+}
 
 const App = () => {
     const [theme, setTheme] = useState<ThemeContextType>({
@@ -24,24 +26,24 @@ const App = () => {
             border: '',
             hover: '',
             text: '',
-            container: ''
+            container: '',
         },
-    })
+    });
 
     useEffect(() => {
-        const currentTheme = detectLightMode()
+        const currentTheme = detectLightMode();
         setTheme({
             classes: {
                 bg: `system-${currentTheme}-bg`,
                 border: `system-${currentTheme}-border`,
                 hover: `system-${currentTheme}-hover`,
                 text: `system-${currentTheme}-text`,
-                container: `system-${currentTheme}-container`
-            }
-        })
-    }, [])
+                container: `system-${currentTheme}-container`,
+            },
+        });
+    }, []);
 
-    const queryClient = new QueryClient()
+    const queryClient = new QueryClient();
 
     return (
         <ThemeContext.Provider value={theme}>
@@ -51,7 +53,7 @@ const App = () => {
                 </Theme>
             </QueryClientProvider>
         </ThemeContext.Provider>
-    )
-}
+    );
+};
 
-export default App
+export default App;

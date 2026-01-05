@@ -1,28 +1,28 @@
-import { $$$ } from "../../WW";
-import Response from "../Response";
-import CheckBox from "./CheckBox";
-import Email from "./Email";
-import Error from "./Error";
-import Password from "./Password";
-import Register from "./Register";
-import Username from "./Username";
+import { $$$ } from '../../WW';
+import Response from '../Response';
+import CheckBox from './CheckBox';
+import Email from './Email';
+import Error from './Error';
+import Password from './Password';
+import Register from './Register';
+import Username from './Username';
 
 interface UI {
-    username: string,
-    password: string,
-    email: string,
-    checkbox: string,
-    register: string,
-    error: string
+    username: string;
+    password: string;
+    email: string;
+    checkbox: string;
+    register: string;
+    error: string;
 }
 interface Success {
-    before: string,
-    after: string,
-    beforeClass: string,
-    afterClass: string
+    before: string;
+    after: string;
+    beforeClass: string;
+    afterClass: string;
 }
 
-const key = process.env.SYSTEM_SECRET_KEY
+const key = process.env.SYSTEM_SECRET_KEY;
 
 export default class SignUpUI {
     private usernameBox: Username;
@@ -46,32 +46,38 @@ export default class SignUpUI {
     }
 
     public async update(): Promise<void> {
-        const userExist = await $$$(this.url.userExist, {
+        const userExist = (await $$$(this.url.userExist, {
             username: this.usernameBox.getUsername(),
-            key
-        }).api().post() as Response;
+            key,
+        })
+            .api()
+            .post()) as Response;
 
-        const validEmail = await $$$(this.url.validEmail, {
+        const validEmail = (await $$$(this.url.validEmail, {
             email: this.emailBox.getEmail(),
-            key
-        }).api().post() as Response;
+            key,
+        })
+            .api()
+            .post()) as Response;
 
-        const validPassword = await $$$(this.url.validPassword, {
+        const validPassword = (await $$$(this.url.validPassword, {
             password: this.passwordBox.getPassword(),
-            key
-        }).api().post() as Response;
-        
+            key,
+        })
+            .api()
+            .post()) as Response;
+
         // Real time error message update
-        if(!userExist.success) {
+        if (!userExist.success) {
             this.error.setError(userExist.error!);
-        } else if(!this.usernameBox.isFilled()) {
-            this.error.setError("Please enter username");
-        } else if(!validEmail.success) {
+        } else if (!this.usernameBox.isFilled()) {
+            this.error.setError('Please enter username');
+        } else if (!validEmail.success) {
             this.error.setError(validEmail.error!);
-        } else if(!validPassword.success) {
+        } else if (!validPassword.success) {
             this.error.setError(validPassword.error!);
-        } else if(!this.checkBox.isChecked()) {
-            this.error.setError("Please check terms and conditions");
+        } else if (!this.checkBox.isChecked()) {
+            this.error.setError('Please check terms and conditions');
         } else {
             this.error.setError(`<i style="color: green;
                                 border: solid green 1px;
@@ -85,23 +91,30 @@ export default class SignUpUI {
         }
 
         // Handle logic, when user fill all information and all information should be valid before submitting to database
-        this.register.enabled(userExist.success && this.usernameBox.isFilled() && validPassword.success && validEmail.success && this.checkBox.isChecked());
+        this.register.enabled(
+            userExist.success &&
+                this.usernameBox.isFilled() &&
+                validPassword.success &&
+                validEmail.success &&
+                this.checkBox.isChecked()
+        );
     }
 
     public async signup(): Promise<void> {
-
         const r = await $$$(this.url.signup, {
             username: this.usernameBox.getUsername(),
             password: this.passwordBox.getPassword(),
             email: this.emailBox.getEmail(),
-            key
-        }).api().post();
-        if(r) {
+            key,
+        })
+            .api()
+            .post();
+        if (r) {
             $(this.success.before).addClass(this.success.beforeClass);
             $(this.success.after).addClass(this.success.afterClass);
             setTimeout(() => {
-                window.location.href = '/' + this.usernameBox.getUsername() + '/admin' // redirect user to admin page
-            }, 2000)
+                window.location.href = '/@admin'; // redirect user to admin page
+            }, 2000);
         }
     }
 }

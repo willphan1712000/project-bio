@@ -2,6 +2,7 @@
 
 namespace business\info;
 
+use business\info\display\DISPLAY_TYPE;
 use business\info\display\UserDisplay;
 use config\SystemConfig;
 
@@ -15,43 +16,43 @@ abstract class InfoHandler implements InfoElement
         $this->info = $next;
     }
 
-    public function handle(Info $info): bool
+    public function handlePush(Info $info): bool
     {
-        if (!$this->doHandle($info)) {
+        if (!$this->doHandlePush($info)) {
             return false;
         }
         if ($this->info != null) {
-            return $this->info->handle($info);
+            return $this->info->handlePush($info);
         } else {
             return true;
         }
     }
 
-    public function adminGET(Info $info): bool
+    public function handleAdminGET(Info $info): bool
     {
-        if (!$this->doAdminGET($info)) {
+        if (!$this->doHandleAdminGET($info)) {
             return false;
         }
         if ($this->info != null) {
-            return $this->info->adminGET($info);
+            return $this->info->handleAdminGET($info);
         } else {
             return true;
         }
     }
 
-    public function userGET(Info $info): bool
+    public function handleUserGET(Info $info): bool
     {
-        if (!$this->doUserGET($info)) {
+        if (!$this->doHandleUserGET($info)) {
             return false;
         }
         if ($this->info != null) {
-            return $this->info->userGET($info);
+            return $this->info->handleUserGET($info);
         } else {
             return true;
         }
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {
@@ -61,14 +62,14 @@ abstract class InfoHandler implements InfoElement
         return false;
     }
 
-    public function doAdminGET(Info $info): bool
+    public function doHandleAdminGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $info->setInfo($this->name, $value);
         return true;
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase($this->name, $info->getInfo('username'));
         $display = new UserDisplay($this->name, $this->format($value));
@@ -77,7 +78,6 @@ abstract class InfoHandler implements InfoElement
         return true;
     }
 
-    // This algorithm might change in the future when we utilize AI to validate the information that is safe for work
     public function validate($name, $info): bool
     {
         if (empty($info)) {
@@ -106,7 +106,9 @@ abstract class InfoHandler implements InfoElement
                 'value' => $display->getValue(),
                 'label' => $display->getLabel(),
                 'html' => $display->getHTML(''),
-                'htmlWValue' => $display->getHTML()
+                'htmlWValue' => $display->getHTML($display->getValue()),
+                'htmlAdmin' => $display->getHTML(null, DISPLAY_TYPE::ADMIN),
+                'htmlAdminWValue' => $display->getHTML($display->getValue(), DISPLAY_TYPE::ADMIN)
             ]);
         }
     }

@@ -1,17 +1,20 @@
 <?php
 
+use business\Controllers\AdminController\Auth;
+use business\Controllers\User;
 use component\BioTemplateButton;
 use component\signup\SignupAgain;
-use controllers\admin\AdminController;
+use config\SystemConfig;
 
-$admin = new AdminController();
-$admin->execute();
+$user = new User();
+$handler = new Auth();
+$handler->handle($user);
 
-$g = $admin->get("g");
-$username = $admin->get("username");
+$username = $user->get("username");
+$g = SystemConfig::globalVariables();
 
 if (isset($_POST['signout'])) {
-    unset($_SESSION[$username]);
+    unset($_SESSION['username']);
     header("Location: /" . $username);
 }
 ?>

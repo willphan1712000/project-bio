@@ -85,6 +85,6 @@ class RestoreAccount extends Controller
 
     private function redirectAdmin()
     {
-        header("Location: /" . $this->username . "/admin");
+        header("Location: /@admin");
     }
 }

@@ -1,4 +1,3 @@
-
 /**
  * This function returns a Promise that waits for a certain period of time
  * @param howLong how long we should wait (ms)
@@ -7,9 +6,9 @@
 const wait = (howLong: number) => {
     return new Promise((res, rej) => {
         setTimeout(() => {
-            res(null)
-        }, howLong)
-    })
-}
+            res(null);
+        }, howLong);
+    });
+};
 
-export default wait
+export default wait;

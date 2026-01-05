@@ -1,6 +1,6 @@
 <?php
 
-use business\wp\Privacy;
+use config\ExternalServices\wp\Privacy;
 use config\SystemConfig;
 
 $g = SystemConfig::globalVariables();

@@ -4,9 +4,11 @@ use component\Logo;
 use component\Copyright;
 use component\signin\SigninGoBack;
 use config\SystemConfig;
+use controllers\deactivate\DeactivateController;
 
 $img = SystemConfig::globalVariables()['img']['deactivate'];
-
+$controller = new DeactivateController();
+$controller->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -16,7 +16,7 @@ class Mobile extends Phone
         $this->name = 'Mobile';
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $value = $info->getInfo($this->name);
         if ($this->validate($this->name, $value)) {
@@ -35,7 +35,7 @@ class Mobile extends Phone
         return false;
     }
 
-    public function doAdminGET(Info $info): bool
+    public function doHandleAdminGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Mobile', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('MobileCode', $info->getInfo('username'));
@@ -47,7 +47,7 @@ class Mobile extends Phone
         return true;
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Mobile', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('MobileCode', $info->getInfo('username'));

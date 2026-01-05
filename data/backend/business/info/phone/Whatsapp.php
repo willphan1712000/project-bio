@@ -16,7 +16,7 @@ class Whatsapp extends Phone
         $this->name = 'Whatsapp';
     }
 
-    public function doHandle(Info $info): bool
+    public function doHandlePush(Info $info): bool
     {
         $o = OperationWhatsapp::getInstance();
         $value = $info->getInfo($this->name);
@@ -37,7 +37,7 @@ class Whatsapp extends Phone
         return false;
     }
 
-    public function doAdminGET(Info $info): bool
+    public function doHandleAdminGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Whatsapp', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('WhatsappCode', $info->getInfo('username'));
@@ -49,7 +49,7 @@ class Whatsapp extends Phone
         return true;
     }
 
-    public function doUserGET(Info $info): bool
+    public function doHandleUserGET(Info $info): bool
     {
         $value = $this->getValueFromDatabase('Whatsapp', $info->getInfo('username'));
         $code = $this->getValueFromDatabase('WhatsappCode', $info->getInfo('username'));

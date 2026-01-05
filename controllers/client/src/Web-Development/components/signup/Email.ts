@@ -1,12 +1,12 @@
-import SignUpUI from "./SignUpUI";
+import SignUpUI from './SignUpUI';
 
 export default class Email {
     private $email: JQuery<HTMLInputElement>;
     constructor(email: string, signUpUI: SignUpUI) {
         this.$email = $(email);
-        this.$email.on("input", e => {
+        this.$email.on('input', (e) => {
             signUpUI.update();
-        })
+        });
     }
 
     public getEmail(): string {

@@ -2,8 +2,9 @@
 
 namespace business\info\display;
 
-use config\SystemConfig;
-
+/**
+ * Handle normal display such as texts
+ */
 class NormalDisplay extends UserDisplay
 {
     function __construct(string $name, ?string $value)
@@ -11,13 +12,12 @@ class NormalDisplay extends UserDisplay
         parent::__construct($name, $value);
     }
 
-    public function getHTML(?string $children = null): string
+    public function getHTML(?string $children = null, DISPLAY_TYPE $display = DISPLAY_TYPE::USER): string
     {
-        $searchParams = SystemConfig::URLExtraction(1);
-        if ($searchParams === 'admin') {
+        if ($display === DISPLAY_TYPE::ADMIN) {
             $list = ['name', 'position', 'organization'];
             if (in_array($this->name, $list)) {
-                return '<input id="element" data-name="' . $this->name . '" class="w-full border-none bg-transparent text-center" value="' . ($this->value ?? '') . '">'; // Indicator for editting
+                return '<input id="' . $this->name . '" data-name="' . $this->name . '" class="w-full border-none bg-transparent text-center" value="' . ($this->value ?? '') . '" autocomplete="true">'; // Indicator for editting
             }
         }
 

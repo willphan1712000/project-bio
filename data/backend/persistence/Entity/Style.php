@@ -20,12 +20,12 @@ class Style extends EntityFunction
     protected string $username;
     #[Column(name: 'template_id')]
     protected int $template_id;
-    #[Column(name: 'font')]
-    protected string $font;
-    #[Column(name: 'fontSize')]
-    protected string $fontSize;
-    #[Column(name: 'fontColor')]
-    protected string $fontColor;
-    #[Column(name: 'background')]
-    protected string $background;
+    #[Column(name: 'font', nullable: true)]
+    protected ?string $font;
+    #[Column(name: 'fontSize', nullable: true)]
+    protected ?string $fontSize;
+    #[Column(name: 'fontColor', nullable: true)]
+    protected ?string $fontColor;
+    #[Column(name: 'background', nullable: true)]
+    protected ?string $background;
 }

@@ -2,6 +2,7 @@
 
 namespace business\auth;
 
+use api\Request;
 use config\SystemConfig;
 use Exception;
 
@@ -12,25 +13,35 @@ class Session implements AuthInterface
 {
     protected ?string $username;
 
-    public function __construct(?string $username)
+    public function __construct(?Request $request = NULL)
     {
-        $this->username = $username;
+        if ($request === NULL) {
+            $this->username = $_POST['username'] ?? NULL;
+        } else {
+            $body = $request->getBody();
+            $this->username = $body['username'] ?? NULL;
+        }
     }
 
-    public function auth(): bool
+    public function auth(): array
     {
-        if (!isset($this->username) || $this->username === NULL) throw new Exception("Username is not given");
-
-        if (isset($_SESSION[$this->username])) {
-            if (time() - $_SESSION['last_time_' . $this->username] > SystemConfig::globalVariables()['timeSession']) {
-                unset($_SESSION[$this->username]);
-                return false;
+        if (isset($_SESSION['username'])) {
+            if (time() - $_SESSION['last_time'] > SystemConfig::globalVariables()['timeSession']) {
+                unset($_SESSION['username']);
+                return [
+                    'success' => false
+                ];
             } else {
-                $_SESSION['last_time_' . $this->username] = time();
-                return true;
+                $_SESSION['last_time'] = time();
+                return [
+                    'success' => true,
+                    'username' => $_SESSION['username']
+                ];
             }
         } else {
-            return false;
+            return [
+                'success' => false
+            ];
         }
     }
 
@@ -39,8 +50,8 @@ class Session implements AuthInterface
      */
     public function generateAuth(): bool
     {
-        $_SESSION[$this->username] = $this->username;
-        $_SESSION['last_time_' . $this->username] = time();
+        $_SESSION['username'] = $this->username;
+        $_SESSION['last_time'] = time();
 
         return true;
     }

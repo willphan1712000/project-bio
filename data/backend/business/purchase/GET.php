@@ -2,10 +2,9 @@
 
 namespace business\purchase;
 
-use business\IAPI;
 use persistence\Database;
 
-class GET implements IAPI
+class GET
 {
     private string $username;
 
@@ -16,14 +15,7 @@ class GET implements IAPI
 
     private function getPurchase()
     {
-        try {
-            return Database::SQL("SELECT *FROM Purchase WHERE username = '$this->username'");
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
-        }
+        return Database::SQL("SELECT *FROM Purchase WHERE username = '$this->username'");
     }
 
     public function execute()

@@ -14,33 +14,82 @@ class APIRouter
         $this->response = $response;
     }
 
+    /**
+     * This function will capture all api calls from the client and resolve it and send response back to the client
+     */
     public static function api_work()
     {
         if (str_starts_with($_SERVER['REQUEST_URI'], '/api/')) {
             $api_router = new APIRouter(new Request(), new Response());
-            $api_router->get("/api/woo/product", 'business\wp\ProductController@getAll');
-            $api_router->get('/api/woo/product/{id}', 'business\wp\ProductController@getWithId');
 
+            // User management
+            $api_router->get("/api/users", "api\users\GETALL@execute");
+            $api_router->get("/api/users/{id}", "api\users\GET@execute");
+            $api_router->post("/api/users/register", "api\users\REGISTER@execute");
+            $api_router->put("/api/users/{id}", "api\users\PUT@execute");
+            $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
+            $api_router->delete("/api/users/delete/{id}", "api\users\DELETE@execute");
+
+            // User register validation
+            $api_router->post("/api/users/validate/username", "api\users\\validation\Username@execute");
+            $api_router->post("/api/users/validate/email", "api\users\\validation\Email@execute");
+            $api_router->post("/api/users/validate/password", "api\users\\validation\Password@execute");
+
+            // User information such as name, org, Facebook, Instagram, ...
+            $api_router->get("/api/info/admin/{id}", "api\info\GET@execute");
+            $api_router->put("/api/info/admin", "api\info\PUT@execute");
+            $api_router->get("/api/info/{id}", "api\info\userGET@execute");
+            
+            // User template preferences such as liked templates, default template, ...
+            $api_router->get("/api/template/like/{id}", "api\\template\like\GETLIKED@execute");
+            $api_router->post("/api/template/like", "api\\template\like\POSTLIKED@execute");
+            $api_router->delete("/api/template/like", "api\\template\like\DELETELIKED@execute");
+            $api_router->get("/api/template/default/{id}", "api\\template\default\GETDEFAULT@execute");
+            $api_router->put("/api/template/default", "api\\template\default\PUTDEFAULT@execute");
+            
+            // User purchase            
+            $api_router->get("/api/purchase/{id}", "api\purchase\GET@execute");
+            $api_router->post("/api/purchase", "api\purchase\POST@execute");
+
+            // Get products from allinclicks.com
+            $api_router->get("/api/woo/products", 'api\wp\GETALL@execute');
+            $api_router->post('/api/woo/product/{id}', 'api\wp\GET@execute');
+
+            // Get company information such as company name, company address, phone, email, ...
             $api_router->get('/api/branches', 'business\beautyBooking\BranchesController@get');
 
-            $api_router->get('/api/template/manage', 'business\templateManagement\TemplateController@get');
-            $api_router->get('/api/template/manage/{id}', 'business\templateManagement\TemplateController@getId');
-            $api_router->get('/api/template/manage/url', 'business\templateManagement\TemplateController@getTemplateServerURL');
-            $api_router->post('/api/template/manage', 'business\templateManagement\TemplateController@post');
-            $api_router->put('/api/template/manage/{id}', 'business\templateManagement\TemplateController@put');
-            $api_router->delete('/api/template/manage/{id}', 'business\templateManagement\TemplateController@delete');
+            // New template management, handling add and modify template information
+            $api_router->get('/api/template/manage', 'api\templateManagement\template\GETALL@execute');
+            $api_router->get('/api/template/manage/url', 'api\templateManagement\template\GETURL@execute');
+            $api_router->get('/api/template/manage/{id}', 'api\templateManagement\template\GET@execute');
+            $api_router->post('/api/template/manage', 'api\templateManagement\template\POST@execute');
+            $api_router->put('/api/template/manage/{id}', 'api\templateManagement\template\PUT@execute');
+            $api_router->delete('/api/template/manage/{id}', 'api\templateManagement\template\DELETE@execute');
 
-            $api_router->get('/api/template/info/{id}', 'business\templateManagement\TemplateInfoController@get');
+            // Get template dimension information
+            $api_router->get('/api/template/info/{id}', 'api\templateManagement\info\GET@execute');
 
-            $api_router->post('/api/template', 'business\templateManagement\TemplateUserController@post');
+            // Get all related user info and template info
+            $api_router->get('/api/template', 'api\templateManagement\user\USERGET@execute');
+            // Update user info and style
+            $api_router->put('/api/template', 'api\templateManagement\user\USERPUT@execute');
 
-            $api_router->get('/api/pricing', 'business\pricing\PricingController@get');
-            $api_router->post('/api/pricing', 'business\pricing\PricingController@post');
-            $api_router->put('/api/pricing/{id}', 'business\pricing\PricingController@put');
+            // General resources
+            $api_router->get('/api/resources', 'api\resources\GET@execute');
+            
+            // User personal resources
+            $api_router->get('/api/personal/{id}', 'api\resources\GETPERSONAL@execute');
 
-            $api_router->get('/api/analytics', 'business\analytics\AnalyticsController@get');
-            $api_router->get('/api/analytics/social', 'business\analytics\AnalyticsController@getUserSocial');
+            // Manage pricing
+            $api_router->get('/api/pricing', 'api\pricing\GET@execute');
+            $api_router->post('/api/pricing', 'api\pricing\POST@execute');
+            $api_router->put('/api/pricing/{id}', 'api\pricing\PUT@execute');
 
+            // Manage analytics
+            $api_router->get('/api/analytics', 'api\analytics\GET@execute');
+            $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
+
+            // Auth
             $api_router->post('/api/auth', 'business\auth\AuthController@postGenerate');
             $api_router->post('/api/auth/check', 'business\auth\AuthController@postValidate');
 
@@ -75,7 +124,7 @@ class APIRouter
     {
         // Loop over all routes
         foreach ($this->routes as $route) {
-            $pattern = preg_replace('/\{[^\}]+\}/', '([0-9]+)', $route['endpoint']);
+            $pattern = preg_replace('/\{[^\}]+\}/', '([0-9]+|[a-zA-Z]+)', $route['endpoint']);
             // Identify which route and which method to use
             if ($this->request->getMethod() === $route['method'] && preg_match("#^$pattern$#", $this->request->getEndpoint(), $matches)) {
                 $handlerParts = explode('@', $route['handler']);
@@ -89,51 +138,5 @@ class APIRouter
         }
 
         $this->response->setStatusCode(404)->json(['error' => 'Not Found']);
-    }
-}
-
-/**
- * Request should have header and body
- */
-class Request
-{
-    public function getEndpoint()
-    {
-        return strtok($_SERVER['REQUEST_URI'], "?");
-    }
-
-    public function getMethod()
-    {
-        return $_SERVER['REQUEST_METHOD'];
-    }
-
-    public function getBody()
-    {
-        return json_decode(file_get_contents("php://input"), true);
-    }
-
-    public function getHeaders()
-    {
-        return getallheaders();
-    }
-}
-
-/**
- * Response should have response status code and data
- */
-class Response
-{
-    public function setStatusCode($code)
-    {
-        http_response_code($code);
-        return $this;
-    }
-
-    public function json($data)
-    {
-        header('Access-Control-Allow-Origin');
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        return $this;
     }
 }
