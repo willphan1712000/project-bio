@@ -1,7 +1,7 @@
 import React, { useImperativeHandle, useRef } from 'react'
 import Text from './Text';
-import clientConfig from '../../clientConfig';
 import useWindowWidth, { mobile } from '../../../client/hooks/useWindowWidth';
+import useLanguageContext from '../../languages/context';
 
 export type CardRef = {
   card: HTMLDivElement | null
@@ -11,6 +11,8 @@ export type CardRef = {
 }
 
 const Card = React.forwardRef<CardRef, React.HTMLAttributes<HTMLDivElement>>((props, ref) => {
+  const [ language ] = useLanguageContext()
+
   const card = useRef<HTMLDivElement>(null)
   const one = useRef<HTMLDivElement>(null)
   const two = useRef<HTMLDivElement>(null)
@@ -32,9 +34,9 @@ const Card = React.forwardRef<CardRef, React.HTMLAttributes<HTMLDivElement>>((pr
           <div className="card-face front" style={frontFaceStyle}></div>
           <div className="card-face back" style={backFaceStyle}></div>
         </div>
-        <Text text={clientConfig.nfc.one} ref={one} className='bottom-[-70%] left-[0%] absolute w-[200px] z-10'/>
-        <Text text={clientConfig.nfc.two} ref={two} className='bottom-[-60%] left-[10%] absolute w-[200px] z-10'/>
-        <Text text={clientConfig.nfc.three} ref={three} className='bottom-[-80%] left-[20%] absolute w-[200px] z-10'/>
+        <Text text={language.nfc.one} ref={one} className='bottom-[-70%] left-[0%] absolute w-[200px] z-10'/>
+        <Text text={language.nfc.two} ref={two} className='bottom-[-60%] left-[10%] absolute w-[200px] z-10'/>
+        <Text text={language.nfc.three} ref={three} className='bottom-[-80%] left-[20%] absolute w-[200px] z-10'/>
       </div>
     )
   }
@@ -45,9 +47,9 @@ const Card = React.forwardRef<CardRef, React.HTMLAttributes<HTMLDivElement>>((pr
         <div className="card-face front" style={frontFaceStyle}></div>
         <div className="card-face back" style={backFaceStyle}></div>
       </div>
-      <Text text={clientConfig.nfc.one} ref={one} className='top-[0] left-[400px] absolute w-[200px] z-10' pointerDirection='left'/>
-      <Text text={clientConfig.nfc.two} ref={two} className='top-0 left-[-250px] absolute w-[200px] z-10' pointerDirection='right'/>
-      <Text text={clientConfig.nfc.three} ref={three} className='top-[50px] left-[400px] absolute w-[200px] z-10' pointerDirection='left'/>
+      <Text text={language.nfc.one} ref={one} className='top-[0] left-[400px] absolute w-[200px] z-10' pointerDirection='left'/>
+      <Text text={language.nfc.two} ref={two} className='top-0 left-[-250px] absolute w-[200px] z-10' pointerDirection='right'/>
+      <Text text={language.nfc.three} ref={three} className='top-[50px] left-[400px] absolute w-[200px] z-10' pointerDirection='left'/>
     </div>
   )
 })

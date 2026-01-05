@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import clientConfig from "../../clientConfig"
 import Card from "./Card"
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from "./Image";
 import useWindowWidth, { mobile } from "../../../client/hooks/useWindowWidth";
+import useLanguageContext from "../../languages/context";
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Template = () => {
+  const [ language ] = useLanguageContext()
+
   const windowWidth = useWindowWidth()
   const cardOne = useRef<HTMLDivElement>(null)
   const cardTwo = useRef<HTMLDivElement>(null)
@@ -43,8 +45,8 @@ const Template = () => {
     return (
       <div className="flex bg-[#f5f5f7] rounded-3xl flex-row max-w-[1500px]">
         <div className="flex flex-col p-10 w-[60%]">
-          <Card item={clientConfig.templates.basic} ref={cardOne} id="#basic_templates" />
-          <Card item={clientConfig.templates.pro} ref={cardTwo} id="#pro_templates" />
+          <Card item={language.templates.basic} ref={cardOne} id="#basic_templates" />
+          <Card item={language.templates.pro} ref={cardTwo} id="#pro_templates" />
         </div>
         <div className="flex w-[40%] sticky top-0 h-[100vh]">
           <Image url={"/controllers/client/img/background.png"} ref={imgOne} />
@@ -60,8 +62,8 @@ const Template = () => {
         <Image url={"/controllers/client/img/ip.png"} ref={imgTwo} />
       </div>
       <div className="flex flex-col p-10 w-full">
-        <Card item={clientConfig.templates.basic} ref={cardOne} isMobile={true} id="#basic_templates"/>
-        <Card item={clientConfig.templates.pro} ref={cardTwo}isMobile={true} id="#pro_templates"/>
+        <Card item={language.templates.basic} ref={cardOne} isMobile={true} id="#basic_templates"/>
+        <Card item={language.templates.pro} ref={cardTwo}isMobile={true} id="#pro_templates"/>
       </div>
     </div>
   )

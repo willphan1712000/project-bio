@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react'
-import clientConfig from '../../clientConfig'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Logo from '../../../client/clientComponents/Logo'
 import AppImage from '../../../client/clientComponents/AppImage'
+import useLanguageContext from '../../languages/context'
 gsap.registerPlugin(ScrollTrigger)
 
 const Heading = () => {
+    const [language] = useLanguageContext()
+    
     const backdropRef = useRef<HTMLDivElement>(null)
     const textRef = useRef<HTMLDivElement>(null)
     const greetingRef = useRef<HTMLHeadingElement>(null)
@@ -87,8 +89,8 @@ const Heading = () => {
                 </div>
             </div>
             <div className='px-10' ref={textRef}>
-                <h1 className="text-center text-[40px] text-black">{clientConfig.heading.title}</h1>
-                <h2 className="text-center text-white bg-[--primary] px-[15px] py-[5px] rounded-[40px] text-[40px]">{clientConfig.heading.desSpan}</h2>
+                <h1 className="text-center text-[40px] text-black">{language.heading.title}</h1>
+                <h2 className="text-center text-white bg-[--primary] px-[15px] py-[5px] rounded-[40px] text-[40px]">{language.heading.desSpan}</h2>
             </div>
         </div>
     </div>

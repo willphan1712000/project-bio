@@ -10,6 +10,7 @@ const Info = () => {
   })
 
   const allinclicksUrl = companyInfo?.url.split(" ")[0]
+  const faq = clientConfig.faqs
 
   if(isPending) return <BeatLoader />
 
@@ -20,6 +21,7 @@ const Info = () => {
         <p>Email: <a href={`mailto:${companyInfo?.email}`}>{companyInfo?.email}</a></p>
         <p>Address: <a target="_blank" href={`https://google.com/maps?q=${companyInfo?.address}`}>{companyInfo?.address}</a></p>
         <p>Website: <a target="_blank" href={`${allinclicksUrl}`}>{allinclicksUrl}</a></p>
+        <p className='text-[20px] mt-2'><a target="_blank" href={`${faq}`}>Frequently Asked Questions</a></p>
     </div>
   )
 }

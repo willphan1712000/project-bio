@@ -1,12 +1,14 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
-import clientConfig from '../../clientConfig';
 import Card, { CardRef } from './Card';
+import useLanguageContext from '../../languages/context';
 
 gsap.registerPlugin(ScrollTrigger)
 
 function AppScrollTrigger() {
+  const [language] = useLanguageContext()
+
   const cardRef = useRef<CardRef>(null)
   const headerRef = useRef<HTMLElement>(null)
 
@@ -65,7 +67,7 @@ function AppScrollTrigger() {
     <div className="App" style={styles.container}>
       <header className="App-header" style={styles.appHeader} ref={headerRef}>
         <div className=''>
-            <h1 className="text-[25px]" style={styles.title}>{clientConfig.nfc.title}</h1>
+            <h1 className="text-[25px]" style={styles.title}>{language.nfc.title}</h1>
         </div>
         <div style={styles.spacer}>
           <Card ref={cardRef}/>
