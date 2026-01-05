@@ -12,7 +12,8 @@
     "tsc": "rm -rf ./controllers/client/src/dist/ && tsc --watch",
     "diff": "./vendor/bin/doctrine-migrations diff",
     "migrate": "./vendor/bin/doctrine-migrations migrate",
-    "test": "php vendor/bin/phpunit --color --display-deprecations --display-warnings --display-notices"
+    "test": "php vendor/bin/phpunit --color --display-deprecations --display-warnings --display-notices",
+    "prepare": "husky"
   },
   "type": "module",
   "keywords": [],
@@ -34,9 +35,12 @@
     "fs": "^0.0.1-security",
     "html-webpack-inline-source-plugin": "^0.0.10",
     "html-webpack-plugin": "^5.6.0",
+    "husky": "^9.1.7",
     "i": "^0.3.7",
+    "lint-staged": "^16.2.7",
     "mini-css-extract-plugin": "^2.9.0",
     "path": "^0.12.7",
+    "prettier": "^3.7.4",
     "process": "^0.11.10",
     "sass": "^1.89.2",
     "sass-loader": "^13.3.3",

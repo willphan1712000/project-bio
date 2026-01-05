@@ -1,7 +1,7 @@
-import SignUpUI from "./SignUpUI";
+import SignUpUI from './SignUpUI';
 
 export default class Register {
-    private $register : JQuery<HTMLButtonElement>;
+    private $register: JQuery<HTMLButtonElement>;
     private isEnabled: boolean;
 
     constructor(register: string, signUpUI: SignUpUI) {
@@ -11,12 +11,12 @@ export default class Register {
         this.$register.click((e: JQuery.Event) => {
             e.preventDefault();
             signUpUI.signup();
-        })
+        });
     }
 
     public enabled(is: boolean): void {
         this.isEnabled = is;
-        if(this.isEnabled) {
+        if (this.isEnabled) {
             this.isEnabledHandling();
         } else {
             this.isDisabledHandling();
@@ -26,14 +26,14 @@ export default class Register {
     private isEnabledHandling(): void {
         this.$register.prop('disabled', false);
         this.$register.css({
-            "backgroundColor": "#cec3e7"
+            backgroundColor: '#cec3e7',
         });
     }
 
     private isDisabledHandling(): void {
         this.$register.prop('disabled', true);
         this.$register.css({
-            "backgroundColor": "#c6c6c6"
+            backgroundColor: '#c6c6c6',
         });
     }
 }

@@ -1,13 +1,18 @@
-import { ComponentProps } from "react"
+import { ComponentProps } from 'react';
 
-interface Props extends ComponentProps<"img"> {
-    title? :string
+interface Props extends ComponentProps<'img'> {
+    title?: string;
 }
 
-const AppImage = ({...otherProps}: Props) => {
-  return (
-    <img {...otherProps} loading='lazy' draggable="false" alt="will-img-component"/>
-  )
-}
+const AppImage = ({ ...otherProps }: Props) => {
+    return (
+        <img
+            {...otherProps}
+            loading="lazy"
+            draggable="false"
+            alt="will-img-component"
+        />
+    );
+};
 
-export default AppImage
+export default AppImage;

@@ -1,59 +1,59 @@
 name: Deploy nodejs backend to Hosting.com
 
 on:
-  push:
-    branches: [main]
+    push:
+        branches: [main]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
 
-      - name: Install js dependencies
-        run: npm install
+            - name: Install js dependencies
+              run: npm install
 
-      - name: Install PHP dependencies
-        run: composer install
+            - name: Install PHP dependencies
+              run: composer install
 
-      - name: Run Typescript Compiler ...
-        run: npm run build-ts
+            - name: Run Typescript Compiler ...
+              run: npm run build-ts
 
-      - name: Building Project ...
-        run: npm run build
-        env:
-          SYSTEM_SECRET_KEY: ${{ secrets.SYSTEM_SECRET_KEY }}
-          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+            - name: Building Project ...
+              run: npm run build
+              env:
+                  SYSTEM_SECRET_KEY: ${{ secrets.SYSTEM_SECRET_KEY }}
+                  STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
 
-      - name: Fix permissions for .tanstack/tmp
-        run: chmod -R a+r .tanstack/tmp || true
+            - name: Fix permissions for .tanstack/tmp
+              run: chmod -R a+r .tanstack/tmp || true
 
-      - name: Pushing to hosting.com ...
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOSTING_DOMAIN }}
-          username: ${{ secrets.HOSTING_USERNAME }}
-          port: ${{ secrets.HOSTING_PORT }}
-          key: ${{ secrets.HOSTING_SSH_KEY }}
-          source: "./*"
-          target: "/home/bio/test.allinclicksbio.com"
+            - name: Pushing to hosting.com ...
+              uses: appleboy/scp-action@v0.1.7
+              with:
+                  host: ${{ secrets.HOSTING_DOMAIN }}
+                  username: ${{ secrets.HOSTING_USERNAME }}
+                  port: ${{ secrets.HOSTING_PORT }}
+                  key: ${{ secrets.HOSTING_SSH_KEY }}
+                  source: './*'
+                  target: '/home/bio/test.allinclicksbio.com'
 
-      - name: Running database migration ...
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOSTING_DOMAIN }}
-          username: ${{ secrets.HOSTING_USERNAME }}
-          port: ${{ secrets.HOSTING_PORT }}
-          key: ${{ secrets.HOSTING_SSH_KEY }}
-          script: |
-            cd /home/bio/test.allinclicksbio.com
-            npm run diff
-            npm run migrate
-        continue-on-error: true
+            - name: Running database migration ...
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.HOSTING_DOMAIN }}
+                  username: ${{ secrets.HOSTING_USERNAME }}
+                  port: ${{ secrets.HOSTING_PORT }}
+                  key: ${{ secrets.HOSTING_SSH_KEY }}
+                  script: |
+                      cd /home/bio/test.allinclicksbio.com
+                      npm run diff
+                      npm run migrate
+              continue-on-error: true

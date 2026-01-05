@@ -1,39 +1,39 @@
-import { ApiResponse } from "apisauce";
-import apiClient from "../../../client/api/apiClient";
+import { ApiResponse } from 'apisauce';
+import apiClient from '../../../client/api/apiClient';
 
 export type ServerProducts = {
-    products: any[]
-}
+    products: any[];
+};
 
 export type ProductType = {
-    thumbnails: string,
-    url: string
-}
+    thumbnails: string;
+    url: string;
+};
 
 export type ClientProducts = {
-    products?: ProductType[]
-}
+    products?: ProductType[];
+};
 
 function get(): Promise<ApiResponse<ServerProducts>> {
-    return apiClient.get<ServerProducts>('/api/woo/products')
+    return apiClient.get<ServerProducts>('/api/woo/products');
 }
 
 function getAdapter(serverProducts: any[]): ClientProducts {
-    const products = serverProducts.map(product => ({
+    const products = serverProducts.map((product) => ({
         thumbnails: product.images[0].src,
-        url: product.permalink
-    }))
+        url: product.permalink,
+    }));
 
-    return { products }
+    return { products };
 }
 
 async function getEBusinessCards() {
-    const res = await get()
-    if(!res.ok) return
-    const { products } = res.data!
+    const res = await get();
+    if (!res.ok) return;
+    const { products } = res.data!;
     return getAdapter(products).products; // Returning ClientProducts directly
 }
 
 export default {
-    getEBusinessCards
-}
+    getEBusinessCards,
+};

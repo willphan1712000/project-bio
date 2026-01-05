@@ -1,13 +1,13 @@
-import Language, { types } from './interface'
-import en from './types/en'
-import vn from './types/vn'
+import Language, { types } from './interface';
+import en from './types/en';
+import vn from './types/vn';
 
 type L = {
-    [K in (typeof types)[number]]: Language
-}
+    [K in (typeof types)[number]]: Language;
+};
 const languages: L = {
     en,
-    vn
-}
+    vn,
+};
 
-export default languages
+export default languages;

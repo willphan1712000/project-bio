@@ -1,18 +1,18 @@
-import { useState } from "react";
-import languages from ".";
-import Language, { types } from "./interface";
+import { useState } from 'react';
+import languages from '.';
+import Language, { types } from './interface';
 
-type T = (keyof typeof languages)
-let languageType = localStorage.getItem('language') as T
+type T = keyof typeof languages;
+let languageType = localStorage.getItem('language') as T;
 
-if(!types.includes(languageType)) {
-    languageType = 'en'
+if (!types.includes(languageType)) {
+    languageType = 'en';
 }
 
-const storedLanguage = languages[languageType]
+const storedLanguage = languages[languageType];
 
 const appUseLanguage = () => {
-    return useState<Language>(storedLanguage)
-}
+    return useState<Language>(storedLanguage);
+};
 
-export default appUseLanguage
+export default appUseLanguage;

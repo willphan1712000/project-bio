@@ -1,18 +1,18 @@
-import { jwtDecode, JwtPayload } from "jwt-decode"
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
-const key = "CRM-ctoken"
+const key = 'CRM-ctoken';
 
 function setToken(token: string) {
-    localStorage.setItem(key, token)
+    localStorage.setItem(key, token);
 }
 
 function getToken(): string | null {
-    return localStorage.getItem(key)
+    return localStorage.getItem(key);
 }
 
 function getUser(): JwtPayload | null {
-    const token = getToken()
-    return token ? jwtDecode(token) : null
+    const token = getToken();
+    return token ? jwtDecode(token) : null;
 }
 
 function removeToken(): void {
@@ -24,5 +24,5 @@ export default {
     setToken,
     getToken,
     removeToken,
-    getUser
-}
+    getUser,
+};

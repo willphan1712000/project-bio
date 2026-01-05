@@ -4,6 +4,7 @@
 - This project also provides templates and design tools for users to freely customize their template
 
 # Why do we develop this project?
+
 - Replace physical business card with digital version to reduce print waste to the environment
 - Make networking to the next level
 - Give users more convenient way to update their information
@@ -22,20 +23,21 @@
 # Backend Development
 
 ## API Management
+
 - First, every database has tables and every table has rows (record) and columns (features or attributes)
 - REST API routes should follow the following api schema
 
-| Route | API prefix | table | id1 | id2 | ... |
-|---|---|---|---|---|---|
-| User | /api | /users | /id |
-| Style | /api | /styles | /userid | /templateid |
+| Route | API prefix | table   | id1     | id2         | ... |
+| ----- | ---------- | ------- | ------- | ----------- | --- |
+| User  | /api       | /users  | /id     |
+| Style | /api       | /styles | /userid | /templateid |
 
 - If dealing with microservices
 
-| Route | API prefix | service | table | id1 | id2 | ... |
-|---|---|---|---|---|---|---|
-| User | /api | /system1 | /users | /id |
-| Style | /api | /system2 | /styles | /userid | /templateid |
+| Route | API prefix | service  | table   | id1     | id2         | ... |
+| ----- | ---------- | -------- | ------- | ------- | ----------- | --- |
+| User  | /api       | /system1 | /users  | /id     |
+| Style | /api       | /system2 | /styles | /userid | /templateid |
 
 - For private api, the flow is Auth > Authz > Processing details
 - For public api, the flow is ApiSecret > Processing details

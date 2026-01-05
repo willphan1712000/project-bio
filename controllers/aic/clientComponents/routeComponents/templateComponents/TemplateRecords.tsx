@@ -12,79 +12,124 @@ import useAppQuery from '../../../../client/hooks/useAppQuery';
 import handleAsync from '../../../../client/utilities/handleAsync';
 
 const TemplateRecords = () => {
-    const { isPending, data: templates, error } = useAppQuery('templates', apiTemplate.getTemplateRecords)
-    const { data: url } = useAppQuery('template_server_url', apiTemplate.getTemplateServerURL)
+    const {
+        isPending,
+        data: templates,
+        error,
+    } = useAppQuery('templates', apiTemplate.getTemplateRecords);
+    const { data: url } = useAppQuery(
+        'template_server_url',
+        apiTemplate.getTemplateServerURL
+    );
 
-    const { mutateAsync: deleteTemplate } = useAppMutation('templates', apiTemplate.deleteTemplate)
-    const {mutateAsync: updateTemplate } = useAppMutation('templates', apiTemplate.updateTemplate)
+    const { mutateAsync: deleteTemplate } = useAppMutation(
+        'templates',
+        apiTemplate.deleteTemplate
+    );
+    const { mutateAsync: updateTemplate } = useAppMutation(
+        'templates',
+        apiTemplate.updateTemplate
+    );
 
-    useAppEffect(error)
+    useAppEffect(error);
 
     const handleDeleteTemplate = async (id: number) => {
-        const {error, data: res} = await handleAsync(deleteTemplate(id))
+        const { error, data: res } = await handleAsync(deleteTemplate(id));
 
-        if(error) {
-            toast(
-                <AppToaster message={error} />
-            )
+        if (error) {
+            toast(<AppToaster message={error} />);
         } else {
-            toast(
-                <AppToaster status={true} message='Delete successfully' />
-            )
+            toast(<AppToaster status={true} message="Delete successfully" />);
         }
-    }
+    };
 
     const handleUpdateTemplate = async (id: number) => {
-        const res = await updateTemplate(id)
-        if(!res) {
-            toast(
-                <AppToaster message='Update unsuccessfully' />
-            )
+        const res = await updateTemplate(id);
+        if (!res) {
+            toast(<AppToaster message="Update unsuccessfully" />);
         } else {
-            toast(
-                <AppToaster status={true} message='Update successfully' />
-            )
+            toast(<AppToaster status={true} message="Update successfully" />);
         }
-    }
+    };
 
-    if(isPending) return <DotLoader />
-    
+    if (isPending) return <DotLoader />;
+
     return (
-      <Flex py="9" height="fit-content" direction="column">
-        <Table.Root variant='surface'>
-            <Table.Header>
-                <Table.Row>
-                    <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Type</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Template</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Thumbnail</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Created at</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Active</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Terminate</Table.ColumnHeaderCell>
-                </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-                {templates?.map(template => (
-                    <Table.Row key={template.id}>
-                        <Table.RowHeaderCell>{template.id}</Table.RowHeaderCell>
-                        <Table.Cell>{template.type}</Table.Cell>
-                        <Table.Cell><a target="_blank" href={url + template.template_url}>Link</a></Table.Cell>
-                        <Table.Cell><a target="_blank" href={url + template.thumbnail_url}>Link</a></Table.Cell>
-                        <Table.Cell>{dateFormat(template.createdAt)}</Table.Cell>
-                        <Table.Cell>{<Switch onClick={() => handleUpdateTemplate(template.id)} size="3" defaultChecked={template.isActive} />}</Table.Cell>
-                        <Table.Cell><AppAlertDialog 
-                            buttonTitle='Terminate'
-                            title={config.message.template.terminateTitle}
-                            des={config.message.template.terminateMsg}
-                            fn={() => handleDeleteTemplate(template.id)}
-                        /></Table.Cell>
+        <Flex py="9" height="fit-content" direction="column">
+            <Table.Root variant="surface">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Type</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>
+                            Template
+                        </Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>
+                            Thumbnail
+                        </Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>
+                            Created at
+                        </Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>Active</Table.ColumnHeaderCell>
+                        <Table.ColumnHeaderCell>
+                            Terminate
+                        </Table.ColumnHeaderCell>
                     </Table.Row>
-                ))}
-            </Table.Body>
-        </Table.Root>
-      </Flex>
-  )
-}
+                </Table.Header>
 
-export default TemplateRecords
+                <Table.Body>
+                    {templates?.map((template) => (
+                        <Table.Row key={template.id}>
+                            <Table.RowHeaderCell>
+                                {template.id}
+                            </Table.RowHeaderCell>
+                            <Table.Cell>{template.type}</Table.Cell>
+                            <Table.Cell>
+                                <a
+                                    target="_blank"
+                                    href={url + template.template_url}
+                                >
+                                    Link
+                                </a>
+                            </Table.Cell>
+                            <Table.Cell>
+                                <a
+                                    target="_blank"
+                                    href={url + template.thumbnail_url}
+                                >
+                                    Link
+                                </a>
+                            </Table.Cell>
+                            <Table.Cell>
+                                {dateFormat(template.createdAt)}
+                            </Table.Cell>
+                            <Table.Cell>
+                                {
+                                    <Switch
+                                        onClick={() =>
+                                            handleUpdateTemplate(template.id)
+                                        }
+                                        size="3"
+                                        defaultChecked={template.isActive}
+                                    />
+                                }
+                            </Table.Cell>
+                            <Table.Cell>
+                                <AppAlertDialog
+                                    buttonTitle="Terminate"
+                                    title={
+                                        config.message.template.terminateTitle
+                                    }
+                                    des={config.message.template.terminateMsg}
+                                    fn={() => handleDeleteTemplate(template.id)}
+                                />
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
+                </Table.Body>
+            </Table.Root>
+        </Flex>
+    );
+};
+
+export default TemplateRecords;

@@ -1,34 +1,34 @@
 export class ColorPickerMethod {
     protected clickBehavior(container: string) {
         const $container = $(container);
-        const $colorPicker = $(container + " .colorPickerBox");
-        $container.click(e => {
+        const $colorPicker = $(container + ' .colorPickerBox');
+        $container.click((e) => {
             e.stopPropagation();
             if ($colorPicker.css('display') === 'none') {
                 $colorPicker.css('display', 'flex');
             } else {
                 $colorPicker.css('display', 'none');
             }
-        })
-        $("body").click(e => {
+        });
+        $('body').click((e) => {
             e.stopPropagation();
-            $colorPicker.css('display', 'none')
-        })
-        $colorPicker.click(e => {
+            $colorPicker.css('display', 'none');
+        });
+        $colorPicker.click((e) => {
             e.stopPropagation();
             $colorPicker.css('display', 'flex');
-        })
+        });
     }
-    
-    protected hslToHex(h: number, s: number, l: number) : string {
+
+    protected hslToHex(h: number, s: number, l: number): string {
         // Convert HSL to RGB
         s /= 100;
         l /= 100;
-      
+
         let c = (1 - Math.abs(2 * l - 1)) * s;
         let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
         let m = l - c / 2;
-      
+
         let r, g, b;
         if (0 <= h && h < 60) {
             r = c;
@@ -55,28 +55,33 @@ export class ColorPickerMethod {
             g = 0;
             b = x;
         }
-      
+
         r = Math.round((r + m) * 255);
         g = Math.round((g + m) * 255);
         b = Math.round((b + m) * 255);
-      
+
         // Convert RGB to Hex
-        return '#' + [r, g, b].map(x => {
-            const hex = x.toString(16);
-            return hex.length === 1 ? '0' + hex : hex;
-        }).join('');
+        return (
+            '#' +
+            [r, g, b]
+                .map((x) => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                })
+                .join('')
+        );
     }
 }
 
-export function hslToHex(h: number, s: number, l: number) : string {
+export function hslToHex(h: number, s: number, l: number): string {
     // Convert HSL to RGB
     s /= 100;
     l /= 100;
-  
+
     let c = (1 - Math.abs(2 * l - 1)) * s;
     let x = c * (1 - Math.abs(((h / 60) % 2) - 1));
     let m = l - c / 2;
-  
+
     let r, g, b;
     if (0 <= h && h < 60) {
         r = c;
@@ -103,14 +108,19 @@ export function hslToHex(h: number, s: number, l: number) : string {
         g = 0;
         b = x;
     }
-  
+
     r = Math.round((r + m) * 255);
     g = Math.round((g + m) * 255);
     b = Math.round((b + m) * 255);
-  
+
     // Convert RGB to Hex
-    return '#' + [r, g, b].map(x => {
-        const hex = x.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-    }).join('');
+    return (
+        '#' +
+        [r, g, b]
+            .map((x) => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            })
+            .join('')
+    );
 }

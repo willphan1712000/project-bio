@@ -9,15 +9,15 @@ export default class TransformController {
         this.controller = controller;
     }
 
-    public addController() : Promise<void> {
+    public addController(): Promise<void> {
         return new Promise((res) => {
-            const styleElement = document.createElement('style')
-            styleElement.textContent = this.css()
-            document.head.appendChild(styleElement)
-    
-            $("." + this.frame).after(this.controllerTemplate())
-            res()
-        })
+            const styleElement = document.createElement('style');
+            styleElement.textContent = this.css();
+            document.head.appendChild(styleElement);
+
+            $('.' + this.frame).after(this.controllerTemplate());
+            res();
+        });
     }
 
     private css(): string {
@@ -121,10 +121,10 @@ export default class TransformController {
             justify-content: center;
             align-items: center;
         }
-    `
+    `;
     }
 
-    private controllerTemplate(): string { 
+    private controllerTemplate(): string {
         return `
             <div class="${this.controller}--container">
                 <div class="${this.controller}">
@@ -138,6 +138,6 @@ export default class TransformController {
                     <div class="dot delete shadow" style="visibility: hidden;"><i class="fa-solid fa-trash"></i></div>
                 </div>
             </div>
-            `
+            `;
     }
 }

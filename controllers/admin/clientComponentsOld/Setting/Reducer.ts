@@ -1,7 +1,10 @@
-import { SettingAction, SettingState } from "../AdminContext";
+import { SettingAction, SettingState } from '../AdminContext';
 
-export default function reducer(state: SettingState, action: SettingAction): SettingState {
-    switch(action.type) {
+export default function reducer(
+    state: SettingState,
+    action: SettingAction
+): SettingState {
+    switch (action.type) {
         case 'background':
             return {
                 background: true,
@@ -9,9 +12,8 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 fontSize: false,
                 fontColor: false,
                 input: false,
-                inputName: ''
-
-            }
+                inputName: '',
+            };
         case 'font':
             return {
                 background: false,
@@ -19,8 +21,8 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 fontSize: false,
                 fontColor: false,
                 input: false,
-                inputName: ''
-            }
+                inputName: '',
+            };
         case 'fontSize':
             return {
                 background: false,
@@ -28,8 +30,8 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 fontColor: false,
                 fontSize: true,
                 input: false,
-                inputName: ''
-            }
+                inputName: '',
+            };
         case 'fontColor':
             return {
                 background: false,
@@ -37,8 +39,8 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 fontSize: false,
                 fontColor: true,
                 input: false,
-                inputName: ''
-            }
+                inputName: '',
+            };
         case 'input':
             return {
                 ...state,
@@ -46,13 +48,13 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 font: false,
                 fontSize: false,
                 fontColor: false,
-                input: true
-            }
+                input: true,
+            };
         case 'inputName':
             return {
                 ...state,
-                inputName: action.value as string
-            }
+                inputName: action.value as string,
+            };
         case 'all':
             return {
                 background: false,
@@ -60,40 +62,48 @@ export default function reducer(state: SettingState, action: SettingAction): Set
                 fontSize: false,
                 fontColor: false,
                 input: false,
-                inputName: ''
-            }
+                inputName: '',
+            };
         default:
-            throw new Error("Action type is undefined")
+            throw new Error('Action type is undefined');
     }
 }
 
 type Result = {
-    status: boolean,
-    element: string
-  }
+    status: boolean;
+    element: string;
+};
 
-export function elementClicked(data : {
-    [key: string]: string
-  }, element: HTMLElement): Result {
-    const props = Object.keys(data) // get list of all properties of the data object
+export function elementClicked(
+    data: {
+        [key: string]: string;
+    },
+    element: HTMLElement
+): Result {
+    const props = Object.keys(data); // get list of all properties of the data object
     let result: Result = {
         status: false,
-        element: ''
-    }
+        element: '',
+    };
 
-    for(let i = 0; i < props.length; i++) {
-        if(['name', 'position', 'organization', 'description'].includes(props[i])) continue
-        
-        document.querySelectorAll(`[data-name=${props[i]}]`).forEach(item => {
-            if(item.contains(element)) {
+    for (let i = 0; i < props.length; i++) {
+        if (
+            ['name', 'position', 'organization', 'description'].includes(
+                props[i]
+            )
+        )
+            continue;
+
+        document.querySelectorAll(`[data-name=${props[i]}]`).forEach((item) => {
+            if (item.contains(element)) {
                 result = {
                     status: true,
                     element: props[i],
-                }
-                return
+                };
+                return;
             }
-        })
+        });
     }
 
-    return result
-  }
+    return result;
+}

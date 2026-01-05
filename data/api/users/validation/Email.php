@@ -1,30 +1,26 @@
 <?php
 
-namespace api\user\validation;
+namespace api\users\validation;
 
-require_once __DIR__ . "/../../../../vendor/autoload.php";
-
-use api\APISecret;
+use api\ApiProcessing\ApiPublic;
+use api\Request;
+use api\Response;
 use business\user\signup\CheckEmail;
 use business\user\signup\Input;
+use config\SystemConfig;
 
-class Email extends APISecret
+class Email extends ApiPublic
 {
-    public function handleRequest($body)
+    public function doHandle(Request $request, Response $response)
     {
-        try {
-            if ((new CheckEmail(null))->doHandle(new Input(null, $body->email, null))) {
-                return [
-                    'success' => true
-                ];
-            }
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
+        $body = $request->getBody();
+        $email = $body['email'];
+
+        if($email === null) {
+            $response->setStatusCode(400)->json(SystemConfig::apiJSONformat(error: 'email is missing'));
+            return false;
         }
+
+        $response->json(SystemConfig::apiJSONformat(status: (new CheckEmail(null))->doHandle(new Input(null, $email, null))));
     }
 }
-
-echo json_encode((new Email())->execute());

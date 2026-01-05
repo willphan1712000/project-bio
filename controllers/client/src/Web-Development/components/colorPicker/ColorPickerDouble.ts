@@ -1,61 +1,74 @@
-import { ColorPicker, ColorPickerOptions } from "./ColorPicker";
-import { ColorPickerMethod } from "./ColorPickerMethod";
+import { ColorPicker, ColorPickerOptions } from './ColorPicker';
+import { ColorPickerMethod } from './ColorPickerMethod';
 
-type Gradient = {color1: string, color2: string, deg: string};
+type Gradient = { color1: string; color2: string; deg: string };
 
-export default class ColorPickerDouble extends ColorPickerMethod implements ColorPicker {
+export default class ColorPickerDouble
+    extends ColorPickerMethod
+    implements ColorPicker
+{
     private color: string;
     private gradient: Gradient;
     private container: string;
     private options: ColorPickerOptions;
 
-    constructor(container: string, cb: (e: any) => void, options: ColorPickerOptions) {
+    constructor(
+        container: string,
+        cb: (e: any) => void,
+        options: ColorPickerOptions
+    ) {
         super();
         this.options = options;
         this.container = container;
         this.color = options.default;
         this.gradient = {
-            color1: "0",
-            color2: "0",
-            deg: "0"
-        }
-        
+            color1: '0',
+            color2: '0',
+            deg: '0',
+        };
+
         this.render(); // render the color picker
 
         this.clickBehavior(this.container); // set click behavior for color picker
 
-        const color1 = document.querySelector(this.container + " #color1") as HTMLInputElement;
-        color1.addEventListener("input", e => {
+        const color1 = document.querySelector(
+            this.container + ' #color1'
+        ) as HTMLInputElement;
+        color1.addEventListener('input', (e) => {
             const input = e.target as HTMLInputElement;
             this.gradient.color1 = input.value;
             this.setColor(this.gradient);
             cb(this.getColor());
-        })
+        });
 
-        const color2 = document.querySelector(this.container + " #color2") as HTMLInputElement;
-        const deg = document.querySelector(this.container + " #deg") as HTMLInputElement;
-        color2.addEventListener("input", e => {
+        const color2 = document.querySelector(
+            this.container + ' #color2'
+        ) as HTMLInputElement;
+        const deg = document.querySelector(
+            this.container + ' #deg'
+        ) as HTMLInputElement;
+        color2.addEventListener('input', (e) => {
             const input = e.target as HTMLInputElement;
             this.gradient.color2 = input.value;
             this.setColor(this.gradient);
             cb(this.getColor());
-        })
-        deg.addEventListener("input", e => {
+        });
+        deg.addEventListener('input', (e) => {
             const input = e.target as HTMLInputElement;
             this.gradient.deg = input.value;
             this.setColor(this.gradient);
             cb(this.getColor());
-        })
+        });
 
-        $(this.container + " .colorPickerBox__reset").click(e => {
+        $(this.container + ' .colorPickerBox__reset').click((e) => {
             e.stopPropagation();
-            this.color = this.options.default
+            this.color = this.options.default;
             cb(this.getColor());
-        })
+        });
     }
 
     public getColor(): string {
-        return this.color
+        return this.color;
     }
 
     private setColor(color: Gradient): void {
@@ -63,7 +76,7 @@ export default class ColorPickerDouble extends ColorPickerMethod implements Colo
     }
 
     private render() {
-        const style = document.createElement("style");
+        const style = document.createElement('style');
         style.textContent = this.css();
 
         document.head.append(style);
@@ -86,7 +99,7 @@ export default class ColorPickerDouble extends ColorPickerMethod implements Colo
         `;
     }
 
-    private css() : string {
+    private css(): string {
         return `
             ${this.container} {
                 position: relative;
@@ -107,7 +120,7 @@ export default class ColorPickerDouble extends ColorPickerMethod implements Colo
                 z-index: 1;
             }
             ${this.container} .colorPickerBox__reset {
-                display: ${this.options?.default == null ? "none" : "flex"};
+                display: ${this.options?.default == null ? 'none' : 'flex'};
                 justify-content: center;
                 align-items: center;
                 height: fit-content;

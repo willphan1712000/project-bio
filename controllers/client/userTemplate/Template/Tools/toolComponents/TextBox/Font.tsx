@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Font = () => {
-  return (
-    <div>Font</div>
-  )
-}
+    return <div>Font</div>;
+};
 
-export default Font
+export default Font;

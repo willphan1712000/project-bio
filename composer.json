@@ -20,10 +20,10 @@
     },
     "autoload": {
         "psr-4": {
-            "config\\" : "data/backend/",
-            "business\\" : "data/backend/business/",
-            "persistence\\" : "data/backend/persistence/",
-            "component\\" : "controllers/components/",
+            "config\\": "data/backend/",
+            "business\\": "data/backend/business/",
+            "persistence\\": "data/backend/persistence/",
+            "component\\": "controllers/components/",
             "api\\": "data/api/",
             "controllers\\": "controllers/"
         }

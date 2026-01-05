@@ -1,6 +1,6 @@
 export type ColorPickerOptions = {
-    default: string,
-}
+    default: string;
+};
 
 export interface ColorPicker {
     getColor(): string;

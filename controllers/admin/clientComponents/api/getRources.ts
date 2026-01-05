@@ -1,34 +1,34 @@
-import apiClient, { Response } from "../../../client/api/apiClient"
+import apiClient, { Response } from '../../../client/api/apiClient';
 
 type ResourceDataType = {
     deleteWarning: {
-        msg1: string,
-        msg2: string,
-        msg3: string,
-        msg4: string
-    },
+        msg1: string;
+        msg2: string;
+        msg3: string;
+        msg4: string;
+    };
     regexMap: {
-        [key: string]: string
-    },
+        [key: string]: string;
+    };
     labelMap: {
-        [key: string]: string
-    },
-    defaultImg: string,
+        [key: string]: string;
+    };
+    defaultImg: string;
     iconMap: {
-        [key: string]: string
-    }
-}
+        [key: string]: string;
+    };
+};
 
 /**
  * API handles getting user resources from the server
  */
 export default async function getResource() {
-    const res = await apiClient.get('/api/resources')
+    const res = await apiClient.get('/api/resources');
 
-    if(!res.ok) throw new Error(res.problem)
+    if (!res.ok) throw new Error(res.problem);
 
-    const data = res.data as Response<ResourceDataType>
-    if(!data.success) throw new Error(data.error)
+    const data = res.data as Response<ResourceDataType>;
+    if (!data.success) throw new Error(data.error);
 
-    return data.data
+    return data.data;
 }

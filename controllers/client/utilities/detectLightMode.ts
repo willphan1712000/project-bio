@@ -1,18 +1,18 @@
-type Mode = | 'light' | 'dark' | 'notSupported'
+type Mode = 'light' | 'dark' | 'notSupported';
 
-export default function(): Mode {
+export default function (): Mode {
     // Check to see if Media-Queries are supported
     if (window.matchMedia) {
-    // Check if the dark-mode Media-Query matches
-        if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+        // Check if the dark-mode Media-Query matches
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             // Dark
-            return 'dark'
+            return 'dark';
         } else {
             // Light
-            return 'light'
+            return 'light';
         }
     } else {
         // Default (when Media-Queries are not supported)
-        return 'notSupported'
+        return 'notSupported';
     }
 }

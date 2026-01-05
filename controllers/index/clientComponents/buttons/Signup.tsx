@@ -1,14 +1,17 @@
-import { Button } from '@willphan1712000/w'
-import { ComponentProps } from 'react'
+import { Button } from '@willphan1712000/frontend';
 
-interface Props extends ComponentProps<typeof Button> {
-    title?: string
+interface Props {
+    content: string;
 }
 
-const Signup = ({...otherProps}: Props) => {
-  return (
-    <Button {...otherProps} onClick={() => window.location.href = '/@signup'} type="solid" />
-  )
-}
+const Signup = ({ ...otherProps }: Props) => {
+    return (
+        <Button
+            {...otherProps}
+            onClick={() => (window.location.href = '/@signup')}
+            buttonType="solid"
+        />
+    );
+};
 
-export default Signup
+export default Signup;

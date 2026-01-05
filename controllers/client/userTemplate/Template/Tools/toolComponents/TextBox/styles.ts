@@ -1,4 +1,10 @@
-export const styles: {[K in | 'container' | 'tool' | 'optionContainer' | 'option']: React.CSSProperties} = Object.freeze({
+export const styles: {
+    [K in
+        | 'container'
+        | 'tool'
+        | 'optionContainer'
+        | 'option']: React.CSSProperties;
+} = Object.freeze({
     container: {
         width: '100%',
         display: 'flex',
@@ -8,10 +14,10 @@ export const styles: {[K in | 'container' | 'tool' | 'optionContainer' | 'option
         gap: '5px',
     },
     tool: {
-        height: '35px', // reserve space for tools of textbox 
+        height: '35px', // reserve space for tools of textbox
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     optionContainer: {
         display: 'flex',
@@ -31,5 +37,5 @@ export const styles: {[K in | 'container' | 'tool' | 'optionContainer' | 'option
         borderRadius: '30px',
         fontSize: '15px',
         cursor: 'pointer',
-    }
-})
+    },
+});

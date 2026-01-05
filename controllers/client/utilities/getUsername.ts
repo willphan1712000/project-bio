@@ -3,8 +3,8 @@
  * @returns string username
  */
 export default function getUsername() {
-    const path = window.location.pathname
-    return path.split("/")[1]
+    const path = window.location.pathname;
+    return path.split('/')[1];
 }
 
 /**
@@ -14,10 +14,10 @@ export default function getUsername() {
  */
 export function getParams(query: string) {
     // get full query string from url
-    const queryString = window.location.search
+    const queryString = window.location.search;
 
     // parse query string
-    const params = new URLSearchParams(queryString)
+    const params = new URLSearchParams(queryString);
 
-    return params.get(query)
+    return params.get(query);
 }

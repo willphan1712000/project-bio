@@ -1,13 +1,13 @@
-import { $$ } from "../client/src/Web-Development/W"
-import App from "./clientComponents/App";
+import { $$ } from '../client/src/Web-Development/W';
+import App from './clientComponents/App';
 
 $(document).ready(function () {
-    userTemplate()
-})
+    userTemplate();
+});
 
 function userTemplate() {
-    const container = document.getElementById("container") as HTMLElement;
-    if(!container) return
+    const container = document.getElementById('container') as HTMLElement;
+    if (!container) return;
 
-    $$("#container", <App />).reactMounting()
+    $$('#container', <App />).reactMounting();
 }

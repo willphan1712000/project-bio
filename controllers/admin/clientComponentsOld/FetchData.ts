@@ -1,71 +1,75 @@
-import apiClient from "../../client/api/apiClient";
-import Response from "../../client/src/Web-Development/components/Response";
-import { $$$ } from "../../client/src/Web-Development/WW";
+import apiClient from '../../client/api/apiClient';
+import Response from '../../client/src/Web-Development/components/Response';
+import { $$$ } from '../../client/src/Web-Development/WW';
 
 interface Data {
-    [key: string]: string
+    [key: string]: string;
 }
 
 export async function fetchData(username: string = ''): Promise<Data> {
-    const data = await $$$("/data/api/info/GET.php", {
-        username
-    }).api().post() as Response
+    const data = (await $$$('/data/api/info/GET.php', {
+        username,
+    })
+        .api()
+        .post()) as Response;
 
-    if(!data.success) {
-        throw new Error(data.error)
+    if (!data.success) {
+        throw new Error(data.error);
     }
 
-    const dataList = data.data
+    const dataList = data.data;
 
-    if(!dataList) {
-        throw new Error('Data is undefined')
+    if (!dataList) {
+        throw new Error('Data is undefined');
     }
 
-    return dataList
+    return dataList;
 }
 
 export async function getResource(username: string = ''): Promise<Resource> {
-    const res = await apiClient.get('/api/resources')
+    const res = await apiClient.get('/api/resources');
 
     if (!res.ok) {
-        throw new Error(res.problem)
+        throw new Error(res.problem);
     }
 
-    const resource = res.data as Response
+    const resource = res.data as Response;
 
-    if(!resource.success) {
-        throw new Error(resource.error)
+    if (!resource.success) {
+        throw new Error(resource.error);
     }
 
-    const resourceList = resource.data
+    const resourceList = resource.data;
 
-    if(!resourceList) {
-        throw new Error('Resource is undefined')
+    if (!resourceList) {
+        throw new Error('Resource is undefined');
     }
 
-    return resourceList
+    return resourceList;
 }
 
 export async function getCSS(username: string): Promise<Data> {
-    const css = await $$$("/data/api/style/GET.php", {
-        username
-    }).api().post() as Response;
+    const css = (await $$$('/data/api/style/GET.php', {
+        username,
+    })
+        .api()
+        .post()) as Response;
 
-    if(!css.success) {
-        throw new Error(css.error)
+    if (!css.success) {
+        throw new Error(css.error);
     }
 
-    const cssList = css.data
+    const cssList = css.data;
 
-    if(!cssList) {
-        throw new Error("Css is undefined")
+    if (!cssList) {
+        throw new Error('Css is undefined');
     }
 
-    return cssList
+    return cssList;
 }
 
 export function pushData(data: any): Promise<Response> {
-    return $$$("/data/api/info/PUT.php", data).api().post<Response>()
+    return $$$('/data/api/info/PUT.php', data).api().post<Response>();
 }
 
 export function pushCSS(data: any): Promise<Response> {
@@ -75,24 +79,24 @@ export function pushCSS(data: any): Promise<Response> {
             font: data.font,
             fontSize: data.fontSize,
             fontColor: data.fontColor,
-            background: data.background
-        }
-    }
-    return $$$("/data/api/style/PUT.php", formatedData).api().post<Response>()
+            background: data.background,
+        },
+    };
+    return $$$('/data/api/style/PUT.php', formatedData).api().post<Response>();
 }
 
 export type Resource = {
     regexMap: {
-        [key: string]: string
-    },
+        [key: string]: string;
+    };
     labelMap: {
-        [key: string]: string
-    },
-    defaultImg: string,
+        [key: string]: string;
+    };
+    defaultImg: string;
     deleteWarning: {
-        [key: string]: string
-    },
+        [key: string]: string;
+    };
     iconMap: {
-        [key: string]: string
-    }
-}
+        [key: string]: string;
+    };
+};

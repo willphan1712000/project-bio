@@ -1,72 +1,72 @@
-import apiClient, { Response } from "../../../client/api/apiClient";
-import { Template } from "../../../client/types/Template";
+import apiClient, { Response } from '../../../client/api/apiClient';
+import { Template } from '../../../client/types/Template';
 
 interface Files {
-    thumbnail: File,
-    template: File,
-    annotation: File
+    thumbnail: File;
+    template: File;
+    annotation: File;
 }
 
 async function uploadTemplate(files: Files): Promise<Response<Response<any>>> {
-    const formData = new FormData()
-    formData.append('thumbnail', files.thumbnail)
-    formData.append('template', files.template)
-    formData.append('annotation', files.annotation)
+    const formData = new FormData();
+    formData.append('thumbnail', files.thumbnail);
+    formData.append('template', files.template);
+    formData.append('annotation', files.annotation);
 
     const res = await apiClient.post('/api/template/manage', formData, {
         headers: {
-            'Content-Type': 'multipart/form-data'
-        } 
-    })
-    return res.data as Response<Response<any>>
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return res.data as Response<Response<any>>;
 }
 
 async function getTemplateRecords(): Promise<Template[]> {
-    const res = await apiClient.get('/api/template/manage')
+    const res = await apiClient.get('/api/template/manage');
 
-    if(!res.ok) throw new Error(res.problem)
+    if (!res.ok) throw new Error(res.problem);
 
-    const data = res.data as Response<Response<Template[]>>
-    if(!data.success) throw new Error(data.error)
+    const data = res.data as Response<Response<Template[]>>;
+    if (!data.success) throw new Error(data.error);
 
-    const data_sec = data.data
-    if(!data_sec.success) throw new Error(data_sec.error)
+    const data_sec = data.data;
+    if (!data_sec.success) throw new Error(data_sec.error);
 
-    return data_sec.data
+    return data_sec.data;
 }
 
 async function getTemplateServerURL(): Promise<string> {
-    const res = await apiClient.get('/api/template/manage/url')
+    const res = await apiClient.get('/api/template/manage/url');
 
-    if(!res.ok) throw new Error(res.problem)
+    if (!res.ok) throw new Error(res.problem);
 
-    const data = res.data as Response<string>
-    if(!data.success) throw new Error(data.error)
+    const data = res.data as Response<string>;
+    if (!data.success) throw new Error(data.error);
 
-    return data.data
+    return data.data;
 }
 
 async function updateTemplate(id: number): Promise<boolean> {
-    const res = await apiClient.put('/api/template/manage/' + id)
-    if(!res.ok) throw new Error(res.problem)
+    const res = await apiClient.put('/api/template/manage/' + id);
+    if (!res.ok) throw new Error(res.problem);
 
-    const data = res.data as Response<Response<any>>
-    if(!data.success) throw new Error(data.error)
+    const data = res.data as Response<Response<any>>;
+    if (!data.success) throw new Error(data.error);
 
-    const data_sec = data.data
-    if(!data_sec.success) throw new Error(data_sec.error)
-    return data_sec.success
+    const data_sec = data.data;
+    if (!data_sec.success) throw new Error(data_sec.error);
+    return data_sec.success;
 }
 
 async function deleteTemplate(id: number): Promise<boolean> {
-    const res = await apiClient.delete('/api/template/manage/' + id)
-    if(!res.ok) throw new Error(res.problem)
-    const data = res.data as Response<Response<any>>
-    if(!data.success) throw new Error(data.error)
+    const res = await apiClient.delete('/api/template/manage/' + id);
+    if (!res.ok) throw new Error(res.problem);
+    const data = res.data as Response<Response<any>>;
+    if (!data.success) throw new Error(data.error);
 
-    const data_sec = data.data
-    if(!data_sec.success) throw new Error(data_sec.error)
-    return data_sec.success
+    const data_sec = data.data;
+    if (!data_sec.success) throw new Error(data_sec.error);
+    return data_sec.success;
 }
 
 export default {
@@ -74,5 +74,5 @@ export default {
     getTemplateRecords,
     getTemplateServerURL,
     updateTemplate,
-    deleteTemplate
-}
+    deleteTemplate,
+};

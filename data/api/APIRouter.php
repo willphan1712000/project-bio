@@ -30,6 +30,11 @@ class APIRouter
             $api_router->delete("/api/users/{id}", "api\users\DELETETEMP@execute");
             $api_router->delete("/api/users/delete/{id}", "api\users\DELETE@execute");
 
+            // User register validation
+            $api_router->post("/api/users/validate/username", "api\users\\validation\Username@execute");
+            $api_router->post("/api/users/validate/email", "api\users\\validation\Email@execute");
+            $api_router->post("/api/users/validate/password", "api\users\\validation\Password@execute");
+
             // User information such as name, org, Facebook, Instagram, ...
             $api_router->get("/api/info/admin/{id}", "api\info\GET@execute");
             $api_router->put("/api/info/admin", "api\info\PUT@execute");

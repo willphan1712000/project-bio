@@ -1,30 +1,26 @@
 <?php
 
-namespace api\user\validation;
+namespace api\users\validation;
 
-require_once __DIR__ . "/../../../../vendor/autoload.php";
-
-use api\APISecret;
+use api\ApiProcessing\ApiPublic;
+use api\Request;
+use api\Response;
 use business\user\signup\Input;
-use business\user\signup\Password;
+use business\user\signup\Password as IsValidPassword;
+use config\SystemConfig;
 
-class IsPassValid extends APISecret
+class Password extends ApiPublic
 {
-    public function handleRequest($body)
+    public function doHandle(Request $request, Response $response)
     {
-        try {
-            if ((new Password(null))->doHandle(new Input(null, null, $body->password))) {
-                return [
-                    'success' => true
-                ];
-            }
-        } catch (\Exception $e) {
-            return [
-                'success' => false,
-                'error' => $e->getMessage()
-            ];
+        $body = $request->getBody();
+        $password = $body['password'];
+
+        if($password === null) {
+            $response->setStatusCode(400)->json(SystemConfig::apiJSONformat(error: 'password is missing'));
+            return false;
         }
+
+        $response->json(SystemConfig::apiJSONformat(status: (new IsValidPassword(null))->doHandle(new Input(null, null, $password))));
     }
 }
-
-echo json_encode((new IsPassValid())->execute());

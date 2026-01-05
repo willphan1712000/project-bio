@@ -1,60 +1,65 @@
-import { useReducer } from "react";
-import handleAdminContext, { Action, AdminImageContext, State, username } from "../AdminContext";
-import AvatarButton from "./AvatarButton";
-import AvatarFrame from "./AvatarFrame";
+import { useReducer } from 'react';
+import handleAdminContext, {
+    Action,
+    AdminImageContext,
+    State,
+    username,
+} from '../AdminContext';
+import AvatarButton from './AvatarButton';
+import AvatarFrame from './AvatarFrame';
 
 function reducer(state: State, action: Action): any {
-    switch(action.type) {
+    switch (action.type) {
         case 'upload':
             return {
                 ...state,
-                isUpload: !state.isUpload
-            }
+                isUpload: !state.isUpload,
+            };
         case 'main':
             return {
                 ...state,
-                mainSrc: action.value
-            }
+                mainSrc: action.value,
+            };
         case 'preview':
             return {
                 ...state,
-                previewSrc: action.value
-            }
+                previewSrc: action.value,
+            };
         case 'delete':
             return {
                 ...state,
-                isDelete: !state.isDelete
-            }
+                isDelete: !state.isDelete,
+            };
         default:
-            throw new Error("Unknown action type")
+            throw new Error('Unknown action type');
     }
 }
 
 interface Props {
-    popup?: HTMLElement,
-    avatarMounter?: HTMLElement
+    popup?: HTMLElement;
+    avatarMounter?: HTMLElement;
 }
 
-const Avatar = ({popup, avatarMounter}: Props) => {
-    const data = handleAdminContext()
+const Avatar = ({ popup, avatarMounter }: Props) => {
+    const data = handleAdminContext();
 
     const [state, dispatch] = useReducer(reducer, {
         isUpload: false,
-        mainSrc: `${data.image === null ? '/controllers/client/img/unknown.png': `/user/${data.username}/${data.image}`}`,
+        mainSrc: `${data.image === null ? '/controllers/client/img/unknown.png' : `/user/${data.username}/${data.image}`}`,
         previewSrc: undefined,
         isDelete: data.image !== null,
         popup,
-        avatarMounter
-    })
+        avatarMounter,
+    });
 
-  return (
-    <>
-        <AdminImageContext.Provider value={[state, dispatch]}>
-            <AvatarFrame />
-            <AvatarButton />
-        </AdminImageContext.Provider>
-    </>
-  )
-}
+    return (
+        <>
+            <AdminImageContext.Provider value={[state, dispatch]}>
+                <AvatarFrame />
+                <AvatarButton />
+            </AdminImageContext.Provider>
+        </>
+    );
+};
 
-export default Avatar
+export default Avatar;

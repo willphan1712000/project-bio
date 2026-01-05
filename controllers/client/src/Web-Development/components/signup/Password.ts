@@ -1,15 +1,15 @@
-import SignUpUI from "./SignUpUI";
+import SignUpUI from './SignUpUI';
 
 export default class Password {
     private $password: JQuery<HTMLInputElement>;
     constructor(password: string, signUpUI: SignUpUI) {
         this.$password = $(password);
-        this.$password.on("input", e => {
+        this.$password.on('input', (e) => {
             signUpUI.update();
-        })
+        });
     }
 
-    public getPassword() : string {
+    public getPassword(): string {
         return this.$password.val()!;
     }
 

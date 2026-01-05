@@ -1,8 +1,7 @@
-
 type Response = {
-    success: boolean,
-    data?: any,
-    error?: string
-}
+    success: boolean;
+    data?: any;
+    error?: string;
+};
 
-export default Response
+export default Response;
