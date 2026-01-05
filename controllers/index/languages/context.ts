@@ -6,6 +6,9 @@ type ContextDataType = [
     React.Dispatch<React.SetStateAction<Language>>
 ] | undefined
 
+/**
+ * Language context provider
+ */
 export const LanguageContext = createContext<ContextDataType>(undefined)
 
 /**

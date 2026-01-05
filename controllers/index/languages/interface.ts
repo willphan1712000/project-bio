@@ -1,8 +1,10 @@
+export const types = ['en', 'vn'] as const
+
 /**
  * Language interface for main page
  */
 export default interface Language {
-    type: | 'en' | 'vn' | 'other'
+    type: | 'en' | 'vn' | 'others'
     navBar: {
         templates: string,
         terms: string,
@@ -47,5 +49,15 @@ export default interface Language {
             heading: string,
             des: string
         }
+    },
+    footer: {
+        contactUs: string,
+        faq: string,
+        privacy: string,
+        terms: string,
+        pricing: string,
+        templates: string,
+        signin: string,
+        signup: string
     }
 }

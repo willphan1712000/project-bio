@@ -1,6 +1,7 @@
 import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister"
 import { QueryClient } from "@tanstack/react-query"
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client"
+import { LanguageContext } from "../languages/context"
 import Footer from "./Footer/Footer"
 import Banner from "./Heading/Banner"
 import NavBar from "./NavBar/NavBar"
@@ -8,10 +9,7 @@ import AppScrollTrigger from "./ScrollTrigger/AppScrollTrigger"
 import Separator from "./Separator"
 import Template from "./Template/Template"
 import ETemplate from "./eCards/ETemplate"
-import * as languages from '../languages'
-import { useState } from "react"
-import Languages from "../languages/interface"
-import { LanguageContext } from "../languages/context"
+import appUseLanguage from "../languages/appUseLanguage"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +25,7 @@ const persister = createAsyncStoragePersister({
 })
 
 const App = () => {
-  const [language, setLanguage] = useState<Languages>(languages.en)
+  const [language, setLanguage] = appUseLanguage()
 
   return (
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>

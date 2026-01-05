@@ -6,8 +6,8 @@ const en: Language = {
         templates: "Templates",
         privacy: "Privacy",
         terms: "Terms",
-        signin: "Signin",
-        signup: "Signup"
+        signin: "Sign in",
+        signup: "Sign up"
     },
     heading: {
         title: "Level Up Your eBusiness Cards",
@@ -46,6 +46,16 @@ const en: Language = {
         one: "Cards use short-range wireless technology to communicate with compatible devices when brought close together.",
         two: "These cards can store and transmit small amounts of data, such as contact info, website links, or payment credentials.",
         three: "NFC cards require no battery and are often used for digital business cards, access control, or contactless payments."
+    },
+    footer: {
+        contactUs: "Contact Us",
+        faq: "Frequently Asked Questions",
+        privacy: "Privacy Policy",
+        terms: "Terms of Use",
+        pricing: "Pricing Policy",
+        templates: "Templates",
+        signin: "Sign in",
+        signup: "Sign up"
     }
 }
 

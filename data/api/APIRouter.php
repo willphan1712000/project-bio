@@ -47,7 +47,7 @@ class APIRouter
             $api_router->post("/api/purchase", "api\purchase\POST@execute");
 
             // Get products from allinclicks.com
-            $api_router->get("/api/woo/product", 'api\wp\GETALL@execute');
+            $api_router->get("/api/woo/products", 'api\wp\GETALL@execute');
             $api_router->post('/api/woo/product/{id}', 'api\wp\GET@execute');
 
             // Get company information such as company name, company address, phone, email, ...
@@ -83,6 +83,10 @@ class APIRouter
             // Manage analytics
             $api_router->get('/api/analytics', 'api\analytics\GET@execute');
             $api_router->get('/api/analytics/social', 'api\analytics\UserSocial@execute');
+
+            // Auth
+            $api_router->post('/api/auth', 'business\auth\AuthController@postGenerate');
+            $api_router->post('/api/auth/check', 'business\auth\AuthController@postValidate');
 
             $api_router->resolve();
 

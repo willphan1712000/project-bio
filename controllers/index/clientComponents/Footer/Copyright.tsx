@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
 import apiCompanyInfo, { CompanyInfo } from '../api/companyInfo'
 import { BeatLoader } from "react-spinners"
+import useLanguageContext from "../../languages/context"
 
 const Copyright = () => {
-  const { isPending, data: companyInfo} = useQuery<CompanyInfo | undefined>({
+  const [language] = useLanguageContext()
+
+  const { isPending } = useQuery<CompanyInfo | undefined>({
     queryKey: ['companyInfo'],
     queryFn: async () => await apiCompanyInfo.get()
   })
@@ -13,11 +16,11 @@ const Copyright = () => {
         <p>{copyright}</p>
         {isPending ? <BeatLoader /> : (
             <div className="flex flex-row gap-3">
-                <a href={`/@privacy`} target="">Privacy Policy</a>
+                <a href={`/@privacy`} target="">{language.footer.privacy}</a>
                 <span> | </span>
-                <a href={`/@terms`} target="">Terms of Use</a>
+                <a href={`/@terms`} target="">{language.footer.terms}</a>
                 <span> | </span>
-                <a href={`/@pricing`} target="">Pricing Policy</a>
+                <a href={`/@pricing`} target="">{language.footer.pricing}</a>
             </div>
         )}
     </div>

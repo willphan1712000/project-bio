@@ -16,9 +16,12 @@ const apiClient = create({
  * Add jwt token to the request headers automatically
  */
 apiClient.addAsyncRequestTransform(async (request) => {
+    if(!request.headers) request.headers = {}
+
+    request.headers['secret'] = process.env.SYSTEM_SECRET_KEY || ''
+    
     const token = authStorage.getToken()
     if(!token) return
-    if(!request.headers) request.headers = {}
     request.headers[authStorage.key] = token
 })
 

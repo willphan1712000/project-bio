@@ -5,13 +5,13 @@ const vn: Language = {
     navBar: {
         templates: "Templates",
         privacy: "Quyền riêng tư",
-        terms: 'Điều kiện',
+        terms: 'Điều khoản',
         signin: 'Đăng nhập',
-        signup: 'Đăng kí'
+        signup: 'Đăng ký'
     },
     nfc: {
         title: "Sử dụng NFC - Công nghệ Giao tiếp Tầm ngắn",
-        one: "Thẻ sử dụng công nghệ không dây tầm ngắn để giao tiếp với các thiết bị tương thích khi được đưa lại gần nhau.",
+        one: "Thẻ sử dụng công nghệ NFC để giao tiếp với các thiết bị tương thích khi được đưa lại gần nhau.",
         two: "Các thẻ này có thể lưu trữ và truyền tải một lượng dữ liệu nhỏ, chẳng hạn như thông tin liên hệ, liên kết trang web hoặc thông tin thanh toán.",
         three: "Thẻ NFC không cần pin và thường được sử dụng cho danh thiếp kỹ thuật số, kiểm soát ra vào hoặc thanh toán không tiếp xúc."
     },
@@ -47,6 +47,16 @@ const vn: Language = {
             des: "",
         }
     },
+    footer: {
+        contactUs: "Liên hệ chúng tôi ngay",
+        faq: "Câu hỏi phổ biến",
+        privacy: "Quyền riêng tư",
+        terms: "Điều khoản",
+        pricing: "Chính sách thu phí",
+        templates: "Templates",
+        signin: "Đăng nhập",
+        signup: "Đăng ký"
+    }
 }
 
 export default vn
