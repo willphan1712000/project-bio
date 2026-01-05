@@ -1,4 +1,4 @@
-name: Deploy nodejs backend to Hosting.com
+name: Deploy Link Bio to Hosting.com
 
 on:
     push:
